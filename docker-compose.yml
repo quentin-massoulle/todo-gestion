@@ -1,12 +1,10 @@
-version: '3.8'
-
 services:
   # Service PHP-FPM avec Laravel
   app:
     build: .
     container_name: app
     volumes:
-      - .:/var/www/html
+      - .:/var/www
     expose:
       - "9000"  
 

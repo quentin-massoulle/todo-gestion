@@ -1,12 +1,9 @@
 FROM php:8.3-fpm
 
-# Copier les fichiers composer.lock et composer.json dans le conteneur
-COPY composer.lock composer.json /var/www/
-
 # Définir le répertoire de travail
 WORKDIR /var/www
 
-# Installer les dépendances nécessaires
+# Installer les dépendances système
 RUN apt-get update && apt-get install -y \
     build-essential \
     libpng-dev \
@@ -21,10 +18,8 @@ RUN apt-get update && apt-get install -y \
     curl \
     libonig-dev \
     libzip-dev \
-    libgd-dev
-
-# Nettoyer les fichiers inutiles après l'installation
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+    libgd-dev && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Installer les extensions PHP nécessaires
 RUN docker-php-ext-install pdo_mysql mbstring zip exif pcntl
@@ -35,23 +30,24 @@ RUN docker-php-ext-install gd
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Ajouter un utilisateur dédié pour l'application Laravel
-RUN groupadd -g 1000 www
-RUN useradd -u 1000 -ms /bin/bash -g www www
+RUN groupadd -g 1000 www && useradd -u 1000 -ms /bin/bash -g www www
 
-# Copier tous les fichiers de l'application dans le conteneur
-COPY . /var/www
+
+# Copier tous les fichiers de l'application dans le conteneur après l'installation des dépendances
+COPY . /var/www/
 
 # Attribuer les permissions à l'utilisateur www
-RUN chown -R www:www /var/www
+RUN chown -R www:www /var/www/
 
-# Passer à l'utilisateur www pour éviter les permissions root
+# Copier uniquement les fichiers nécessaires pour utiliser le cache Docker
+COPY composer.json composer.lock /var/www/
+
+# Exécuter composer install avec les bonnes permissions
+RUN composer install --no-dev --prefer-dist --no-interaction --no-progress && \
+    chown -R www:www /var/www/vendor
+
+# Passer à l'utilisateur www
 USER www
-
-# Exécuter composer install pour installer les dépendances PHP
-RUN composer install
-
-# Installer barryvdh/laravel-dompdf
-RUN composer require barryvdh/laravel-dompdf
 
 # Exposer le port 9000 pour PHP-FPM
 EXPOSE 9000
