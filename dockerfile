@@ -43,8 +43,7 @@ RUN chown -R www:www /var/www/
 COPY composer.json composer.lock /var/www/
 
 # Exécuter composer install avec les bonnes permissions
-RUN composer install --no-dev --prefer-dist --no-interaction --no-progress && \
-    chown -R www:www /var/www/vendor
+RUN composer install 
 
 # Passer à l'utilisateur www
 USER www
