@@ -10,14 +10,12 @@ Route::get('/', function () {
 Route::get('login', function (){
     return view('login');
 });
+Route::post('login',  [ login::class, 'login']);
 
 
 Route::get('signUp', function (){
     return view('signUp');
 });
-
-
-
 Route::post('signUp',  [ login::class, 'signUp']);
 
 Route::prefix('user')->name('user.')->group(function () {

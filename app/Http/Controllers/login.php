@@ -52,4 +52,38 @@ class login extends Controller
         }
         return back();
     }
+
+    public function login(Request $request)
+    {
+        $validator = Validator::make($request->all(), 
+        [
+            'email' => 'required|exists:users,email',  // Vérifie que l'email existe dans la table 'users'
+            'mdp' => 'required',  // Vérifie que le mot de passe est requis
+        ], 
+        [
+            'email.required' => __('validator.email.required'),
+            'email.exists' => __('validator.email.exists'),  // Message personnalisé si l'email n'existe pas dans la base
+            'mdp.required' => __('validator.mdp.required'),  // Message personnalisé si le mot de passe est requis
+        ]
+        );
+        
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+    
+        // Tentative de connexion avec les informations fournies
+        $credentials = [
+            'email' => $request->email,
+            'password' => $request->mdp,
+        ];
+    
+        // Vérifie si les informations sont valides et si l'utilisateur existe
+        if (Auth::attempt($credentials)) {
+            // Si la connexion réussit, redirige l'utilisateur vers la page souhaitée (par exemple, le tableau de bord)
+            return redirect()->route('user.dashboard');
+        }
+    
+        // Si la tentative échoue, renvoie un message d'erreur
+        return back()->withErrors(['email' => __('validator.login.failed')])->withInput();
+    }
 }
