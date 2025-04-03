@@ -10,15 +10,15 @@
         <form>
             <div class=inputDiv>
                 <h4>{{__('login.email')}}</h4>
-                <input type="text" placeholder="{{__('login.emailPaceholder')}}"required>
+                <input type="text" placeholder="{{__('login.emailPlaceholder')}}"required>
             </div>
             
             <div class=inputDiv>
                 <h4>{{__('login.mdp')}}</h4>
-                <input type="password" placeholder="{{__('login.mdpPaceholder')}}"required>
+                <input type="password" placeholder="{{__('login.mdpPlaceholder')}}"required>
             </div>
             <button type="submit">{{__('layout.connexion')}}</button>
         </form>
-        <a href="#" class="register-link">Créer un compte</a>
+        <a href="signUp" class="register-link">{{__('login.signUp')}}</a>
     </div>
 </body>

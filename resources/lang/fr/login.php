@@ -1,9 +1,9 @@
 <?php
 return [
-    'email' => ' email',
-    'emailPaceholder' => 'Saisir votre email',
+    'email' => ' Email',
+    'emailPlaceholder' => 'Saisir votre email',
     'mdp' => 'Mot de passe',
-    'mdpPaceholder' => 'saisir votre mot de passe ',
-    'sinUp'=> 's\'inscrire',
+    'mdpPlaceholder' => 'Saisir votre mot de passe ',
+    'signUp'=> 'S\'inscrire',
     
 ];
