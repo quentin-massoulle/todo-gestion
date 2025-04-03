@@ -2,5 +2,5 @@
 return [
     'Accueil' => 'Home',
     'ÀPropos' => 'About',
-    'connexion' => 'Log In'
+    'connexion' => 'Sign in'
 ];

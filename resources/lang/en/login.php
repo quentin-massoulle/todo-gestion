@@ -5,4 +5,9 @@ return [
     'mdp' => 'Password',
     'mdpPlaceholder' => 'Enter your password',
     'signUp' => 'Sign up',
+    'mdpConfirme'=> 'Confirm your password',
+    'name'=> 'name',
+    'namePlaceholder'=> 'Confirm your nom'
+
+
 ];

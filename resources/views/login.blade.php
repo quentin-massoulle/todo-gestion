@@ -6,7 +6,7 @@
 </head>
 <body>
     <div class="login-container">
-        <h2>Se connecter</h2>
+        <h2>{{__('layout.connexion')}}</h2>
         <form>
             <div class=inputDiv>
                 <h4>{{__('login.email')}}</h4>
