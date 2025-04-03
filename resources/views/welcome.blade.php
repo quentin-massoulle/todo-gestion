@@ -1,4 +1,7 @@
 @extends('layout')
+@section('title')
+    <title> todo gestion-acceuille</title>
+@endsection
 
 @section('content')
     <h2>Bienvenue sur la page d'accueil</h2>
