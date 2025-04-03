@@ -7,7 +7,7 @@ return [
     'signUp' => 'Sign up',
     'mdpConfirme'=> 'Confirm your password',
     'name'=> 'name',
-    'namePlaceholder'=> 'Confirm your nom'
+    'namePlaceholder'=> 'Enter your nom'
 
 
 ];
