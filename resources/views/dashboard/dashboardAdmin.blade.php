@@ -1,5 +1,5 @@
 @extends('layout')
 
 @section('content')
-<h1>welcome user</h1>
+<h1>welcome admin</h1>
 @endsection

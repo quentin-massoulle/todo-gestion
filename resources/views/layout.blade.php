@@ -22,12 +22,17 @@
                 </div >
             @else
                 <div class="bnt-log">
-                    <a href="./logIn">{{ __('layout.connexion') }}</a>
+                    <a href="./login">{{ __('layout.connexion') }}</a>
                 </div>
             @endif
 
         </nav>
     </header>
+    @if(session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
     <div class="content">
         @yield('content')
     </div>

@@ -20,7 +20,7 @@ class AuthController extends Controller
                 'mdp' => 'required|min:6|confirmed',
             ], 
             [
-            'name.required' => __('validator.name.required'), // Message personnalisé
+            'name.required' => __('validator.name.required'),
             'email.required' => __('validator.email.required'),
             'email.email' => __('validator.email.email'),
             'email.unique'=>__('validator.email.unique'),
@@ -37,64 +37,60 @@ class AuthController extends Controller
         $user = new User([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->mdp),  // Utilise Hash::make pour sécuriser le mot de passe
+            'password' => Hash::make($request->mdp),
         ]);
         
-        // Sauvegarde de l'utilisateur dans la base de données
         $user->save();
         
-        // Connexion de l'utilisateur après l'inscription
-        Auth::login($user);  // Cette ligne permet de connecter l'utilisateur immédiatement
+        Auth::login($user); 
         
-        // Vérifier si l'utilisateur est connecté
         if (Auth::check()) {
             return redirect()->route('user.dashboard');
         }
         return back();
     }
 
-    public function login(Request $request)
+    public function login(Request $request, $role = 'user')
     {
+
         $validator = Validator::make($request->all(), 
         [
-            'email' => 'required|exists:users,email',  // Vérifie que l'email existe dans la table 'users'
-            'mdp' => 'required',  // Vérifie que le mot de passe est requis
+            'email' => 'required|exists:users,email', 
+            'mdp' => 'required', 
         ], 
         [
             'email.required' => __('validator.email.required'),
-            'email.exists' => __('validator.email.exists'),  // Message personnalisé si l'email n'existe pas dans la base
-            'mdp.required' => __('validator.mdp.required'),  // Message personnalisé si le mot de passe est requis
-        ]
-        );
+            'email.exists' => __('validator.email.exists'), 
+            'mdp.required' => __('validator.mdp.required'),  
+        ]);
         
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
-    
-        // Tentative de connexion avec les informations fournies
+
         $credentials = [
             'email' => $request->email,
             'password' => $request->mdp,
         ];
-    
-        // Vérifie si les informations sont valides et si l'utilisateur existe
         if (Auth::attempt($credentials)) {
-            // Si la connexion réussit, redirige l'utilisateur vers la page souhaitée (par exemple, le tableau de bord)
+            if ($role === 'admin') {
+                return redirect()->route('admin.dashboard');
+            }
+
             return redirect()->route('user.dashboard');
         }
-    
-        // Si la tentative échoue, renvoie un message d'erreur
         return back()->withErrors(['email' => __('validator.login.failed')])->withInput();
     }
 
+
     public function logout(Request $request)
     {
-        Auth::logout(); // Déconnecte l'utilisateur
+        Auth::logout();
 
-        $request->session()->invalidate(); // Invalide la session
+        $request->session()->invalidate();
 
-        $request->session()->regenerateToken(); // Regénère le token CSRF
+        $request->session()->regenerateToken();
 
-        return redirect('./'); // Redirige où tu veux (ex: page d'accueil)
+        return redirect('./');
     }
 }

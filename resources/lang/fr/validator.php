@@ -9,4 +9,5 @@ return [
     'mdp.required' => 'Le mot de passe est obligatoire.',
     'mdp.min' => 'Le mot de passe doit contenir au moins 6 caractères.',
     'mdp.confirmed' => 'Les mots de passe ne correspondent pas.',
+    'access_denied' => 'Connexion rejeter.',
 ];

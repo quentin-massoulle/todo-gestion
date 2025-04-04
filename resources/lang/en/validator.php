@@ -9,4 +9,5 @@ return [
     'mdp.required' => 'The password is required.',
     'mdp.min' => 'The password must be at least 6 characters long.',
     'mdp.confirmed' => 'The passwords do not match.',
+    'access_denied' => 'Reject login.',
 ];
