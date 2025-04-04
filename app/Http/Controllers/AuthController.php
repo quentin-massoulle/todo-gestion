@@ -8,9 +8,9 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-class login extends Controller
+class AuthController extends Controller
 {
-    public function signUp(Request $request)
+    public function register(Request $request)
     {
         // Validation des données avec des messages personnalisés
         $validator = Validator::make($request->all(), 
