@@ -1,6 +1,6 @@
 @extends('layout')
 @section('title')
-    <title> todo gestion-acceuille</title>
+    <title> todo gestion-acceuil</title>
 @endsection
 
 @section('content')

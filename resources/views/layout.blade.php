@@ -16,9 +16,16 @@
                 <a href="/">{{__('layout.Accueil')}}</a>
                 <a href="#">{{__('layout.ÀPropos')}}</a>
             </div>
-            <div class="login-button">
-                <a href="./login">{{__('layout.connexion')}}</a>
-            </div>
+            @if (Auth::check())
+                <div class='bnt-log'>
+                    <a href="/logOut">{{ __('layout.deconnexion') }}</a>   
+                </div >
+            @else
+                <div class="bnt-log">
+                    <a href="./logIn">{{ __('layout.connexion') }}</a>
+                </div>
+            @endif
+
         </nav>
     </header>
     <div class="content">

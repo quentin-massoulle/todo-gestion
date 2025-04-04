@@ -2,5 +2,6 @@
 return [
     'Accueil' => 'Accueil',
     'ÀPropos' => 'À Propos',
-    'connexion' => 'Se Connecter '
+    'connexion' => 'Se Connecter',
+    'deconnexion' => 'Se Déconnecter',
 ];

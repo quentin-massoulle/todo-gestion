@@ -2,5 +2,7 @@
 return [
     'Accueil' => 'Home',
     'ÀPropos' => 'About',
-    'connexion' => 'Sign in'
+    'connexion' => 'Sign in',
+    'deconnexion' => 'Log Out',
+
 ];

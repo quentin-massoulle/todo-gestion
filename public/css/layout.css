@@ -35,10 +35,10 @@ nav {
     background-color: #555;
     border-radius: 5px;
 }
-.login-button {
+.bnt-log {
     display: flex;
 }
-.login-button a {
+.bnt-log a {
     background-color: #555;
     color: white;
     text-decoration: none;
@@ -46,7 +46,7 @@ nav {
     border-radius: 5px;
     transition: background 0.3s;
 }
-.login-button a:hover {
+.bnt-log a:hover {
     background-color: #666;
 }
 .content {

@@ -86,4 +86,15 @@ class AuthController extends Controller
         // Si la tentative échoue, renvoie un message d'erreur
         return back()->withErrors(['email' => __('validator.login.failed')])->withInput();
     }
+
+    public function logout(Request $request)
+    {
+        Auth::logout(); // Déconnecte l'utilisateur
+
+        $request->session()->invalidate(); // Invalide la session
+
+        $request->session()->regenerateToken(); // Regénère le token CSRF
+
+        return redirect('./'); // Redirige où tu veux (ex: page d'accueil)
+    }
 }
