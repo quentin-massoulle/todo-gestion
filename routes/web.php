@@ -3,8 +3,17 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Middleware\IsAdmin;
+use App\Http\Middleware\CheckRoute;
+
+
 
 Route::get('/', function () {
+    Auth::logout();
+
+    session()->invalidate();
+
+    session()->regenerateToken();
+  
     return view('welcome');
 })->name('/');
 
@@ -40,4 +49,5 @@ Route::middleware(['auth', IsAdmin::class])->prefix('admin')->name('admin.')->gr
         Route::get('/dashboard', fn() => view('dashboard.dashboardAdmin'))
             ->name('dashboard');
 });
+
 
