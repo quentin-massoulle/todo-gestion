@@ -1,0 +1,53 @@
+section 
+{
+    gap: 20px;
+}
+.hero {
+    background-color: #4B5563; 
+    color: white;
+    text-align: center;
+    padding: 4rem 2rem;
+}
+
+.btn-main {
+    background-color: #10B981; /* Vert pour l'action */
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.btn-main:hover {
+    background-color: #16A34A; /* Vert foncé */
+}
+
+.section-title {
+    color: #4B5563; /* Gris foncé pour les titres */
+    margin-bottom: 1.5rem;
+}
+
+.section-text {
+    color: #6B7280; /* Gris moyen pour le texte */
+    margin-bottom: 1.5rem;
+}
+
+.card {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s;
+}
+
+.card:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.footer {
+    background-color: #1D4ED8; /* Bleu clair */
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    margin-top: auto;
+}
