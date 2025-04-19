@@ -1,5 +1,5 @@
-@extends('layout')
+@extends('layout.layoutUser')
 
 @section('content')
-<h1>welcome user</h1>
+
 @endsection

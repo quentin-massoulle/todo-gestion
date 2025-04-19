@@ -8,22 +8,34 @@ use App\Http\Middleware\CheckRoute;
 
 
 Route::get('/', function () {
-    Auth::logout();
-
-    session()->invalidate();
-
-    session()->regenerateToken();
-  
+    if (Auth::check()) {
+        if (Auth::user()->is_admin === 'true') {
+            return redirect()->route('admin.dashboard');
+        }
+        return redirect()->route('user.dashboard');
+    }
     return view('welcome');
 })->name('/');
 
 Route::get('login', function (){
+    if (Auth::check()) {
+        if (Auth::user()->is_admin === 'true') {
+            return redirect()->route('admin.dashboard');
+        }
+        return redirect()->route('user.dashboard');
+    }
     return view('login');
 })->name('login');
 
 Route::post('login',  [ AuthController::class, 'login']);
 
 Route::get('loginAdmin', function (){
+    if (Auth::check()) {
+        if (Auth::user()->is_admin === 'true') {
+            return redirect()->route('admin.dashboard');
+        }
+        return redirect()->route('user.dashboard');
+    }
     return view('loginAdmin');
 })->name('loginAdmin');
 
