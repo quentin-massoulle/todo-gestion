@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('rappels', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('tache_id')->constrained('taches')->onDelete('cascade');
+            $table->foreignId('tache_id');
             $table->enum('frequence', ['une_fois', 'quotidien', 'hebdomadaire']);
             $table->dateTime('date_rappel'); // Quand le rappel doit être envoyé
             $table->timestamps();

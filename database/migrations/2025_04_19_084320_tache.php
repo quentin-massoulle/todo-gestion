@@ -14,7 +14,7 @@ return new class extends Migration
      {
          Schema::create('taches', function (Blueprint $table) {
              $table->id();
-             $table->foreignId('user_id')->constrained()->onDelete('cascade');
+             $table->foreignId('user_id');
              $table->string('titre');
              $table->text('description')->nullable();
              $table->boolean('est_termine')->default(false);
