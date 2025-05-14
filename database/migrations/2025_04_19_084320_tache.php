@@ -19,7 +19,7 @@ return new class extends Migration
              $table->text('description')->nullable();
              $table->boolean('est_termine')->default(false);
              $table->boolean('rappel_active')->default(false);
-             $table->date('date_fin');
+             $table->date('date_fin')->nullable();
              $table->timestamps();
          });
      }

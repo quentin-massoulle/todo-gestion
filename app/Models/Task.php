@@ -19,7 +19,7 @@ class Task extends Model
     }
 
     public function Rappels(){
-        return this->hasMany(Rappel::class);
+        return $this->hasMany(Rappel::class);
     }
 
 
