@@ -56,6 +56,7 @@ Route::get('logOut' ,[ AuthController::class, 'logout'] )->name('logOut');
 Route::middleware('auth')->prefix('user')->name('user.')->group(function () {
     Route::get('/dashboard', fn() =>view('dashboard.dashboardUser'))
         ->name('dashboard');
+    Route::get('/tasks',[taskController::class,'viewsTask'])->name('tasks');
     Route::get('/task/0',fn()=> view('task.newTask'))->name('newTask');
     Route::post('/task/0',[taskController::class , 'store']);
 });

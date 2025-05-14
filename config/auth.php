@@ -60,9 +60,9 @@ return [
     */
 
     'providers' => [
-        'users' => [
-            'driver' => 'database',
-            'table' => 'users', // Utilise la même table pour les utilisateurs et administrateurs
+    'users' => [
+        'driver' => 'eloquent', 
+        'model' => App\Models\User::class, 
     ],
 ],
 
