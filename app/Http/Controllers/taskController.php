@@ -20,7 +20,7 @@ class taskController extends Controller
             ], 
             [
                 'titre.required' => __('validator.titre.required'),
-                'description.required' => __('validator.titre.required'),
+                'description.required' => __('validator.description.required'),
                 'date_fin.date' => __('validator.date.date')
             ]
         );
