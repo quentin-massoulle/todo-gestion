@@ -22,7 +22,7 @@
         </div>
     @endif
 
-    <form action="" method="POST" class="space-y-6">
+    <form method="POST" class="space-y-6">
         @csrf
 
         <!-- Titre -->
@@ -42,15 +42,15 @@
         <!-- Date de fin sur la même ligne -->
         <div class="flex gap-4">
             <div class="w-1/2">
-                <label for="description" class="block text-sm font-medium text-gray-700">Date de fin</label>
-                <input type="date" class="mt-1 block w-full border border-gray-300 rounded-md p-3 focus:ring-blue-500 focus:border-blue-500 transition duration-200">
+                <label for="date"  class="block text-sm font-medium text-gray-700">Date de fin</label>
+                <input type="date" name='date_fin' class="mt-1 block w-full border border-gray-300 rounded-md p-3 focus:ring-blue-500 focus:border-blue-500 transition duration-200">
             </div>
 
             <!-- Rappel actif sur la même ligne -->
             <div class="w-1/2 flex items-center">
                 <input type="checkbox" name="rappel_active" id="rappel_active"
                     class="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded transition duration-200">
-                <label for="rappel_active" class="ml-2 text-sm text-gray-700">Activer le rappel</label>
+                <label for="rappel_active" name='rappel_active' class="ml-2 text-sm text-gray-700">Activer le rappel</label>
             </div>
         </div>
 

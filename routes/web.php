@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\taskController;
 use App\Http\Middleware\IsAdmin;
 use App\Http\Middleware\CheckRoute;
 
@@ -56,6 +57,7 @@ Route::middleware('auth')->prefix('user')->name('user.')->group(function () {
     Route::get('/dashboard', fn() =>view('dashboard.dashboardUser'))
         ->name('dashboard');
     Route::get('/task/0',fn()=> view('task.newTask'))->name('newTask');
+    Route::post('/task/0',[taskController::class , 'store']);
 });
 
 Route::middleware(['auth', IsAdmin::class])->prefix('admin')->name('admin.')->group(function () {              
