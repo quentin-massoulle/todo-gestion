@@ -48,6 +48,31 @@ class taskController extends Controller
 
     public function showTask($id)
     {
-       dd($id);
+        $validator = Validator::make(['id'=>$id],
+            [
+                'id' => 'required|exists:taches,id', // Règles de validation
+            ], 
+            [
+    
+                'id.required' => __('validator.task.id.required'),
+                'id.exists' => __('validator.task.id.exists'),
+
+            ]
+        );
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+        $task=Task::where('id', $id)->first();
+        $user = Auth::user();
+        $validator = Validator::make(['user_id' => $task->user_id], [
+            'user_id' => 'in:' . $user->id
+        ], [
+            'user_id.in' => __('validator.task.id.UserExiste'),
+        ]);
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
+        return view('task.taskShow',['task' => $task]);
     }
 }
