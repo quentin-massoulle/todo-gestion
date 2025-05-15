@@ -36,15 +36,18 @@ class taskController extends Controller
         $task->date_fin = $request->date_fin; 
 
         $task->save();
-        
-
         return redirect()->route('user.dashboard')->with('success', 'Tâche créée avec succès.');
     }
 
-    public function viewsTask()
+    public function viewsTasks()
     {
         $user = Auth::user();
         $tasks = $user->tasks()->get();
         return view('task.taskDashboard', ['tasks' => $tasks]);
+    }
+
+    public function showTask($id)
+    {
+       dd($id);
     }
 }

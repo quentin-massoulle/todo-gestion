@@ -56,8 +56,11 @@ Route::get('logOut' ,[ AuthController::class, 'logout'] )->name('logOut');
 Route::middleware('auth')->prefix('user')->name('user.')->group(function () {
     Route::get('/dashboard', fn() =>view('dashboard.dashboardUser'))
         ->name('dashboard');
-    Route::get('/tasks',[taskController::class,'viewsTask'])->name('tasks');
+    Route::get('/tasks',[taskController::class,'viewsTasks'])->name('tasks');
     Route::get('/task/0',fn()=> view('task.newTask'))->name('newTask');
+    Route::get('/task/{id}',[taskController::class,'showTask'])
+        ->where('id','[1-9][0-9]*')
+        ->name('task.show');
     Route::post('/task/0',[taskController::class , 'store']);
 });
 

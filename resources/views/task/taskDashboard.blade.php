@@ -29,7 +29,7 @@
                       <td class="px-6 py-4 text-gray-700 ">{{ $task->description }}</td>
                       <td class="px-6 py-4 text-gray-600">{{ \Carbon\Carbon::parse($task->date_fin)->format('d/m/Y') }}</td>
                       <td class="px-6 py-4 text-center">
-                        <a href=""  class="text-blue-600 hover:text-blue-800" title="Modifier">
+                        <a href="{{ route('user.task.show',['id' => $task->id]) }}"  class="text-blue-600 hover:text-blue-800" title="Modifier">
                           <i class="fas fa-pen"></i>
                         </a>
                     </td>
