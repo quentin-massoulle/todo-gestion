@@ -15,12 +15,16 @@ class CheckRoute
     
     public function handle(Request $request, Closure $next)
     {
-        $path = trim($request->path(), '/'); // ex: "task/1"
+        $path = trim($request->path(), '/');
+    
+        if ($path === '') {
+            return $next($request);
+        }
+    
         $routes = Route::getRoutes();
         $routeExists = false;
     
         foreach ($routes as $route) {
-            // On vérifie si la route correspond à la requête
             if ($this->matchUriToRoute($path, $route->uri())) {
                 $routeExists = true;
                 break;
@@ -31,18 +35,19 @@ class CheckRoute
             $segments = $request->segments();
             $prefix = $segments[0] ?? null;
     
-            if ($prefix) {
-                $dashboardUri = $prefix . '/dashboard';
+            if (!$prefix) {
+                return $next($request);
+            }
     
-                // Ne pas rediriger en boucle
-                if ($path === $dashboardUri) {
-                    return redirect('/');
-                }
+            $dashboardUri = $prefix . '/dashboard';
     
-                foreach ($routes as $route) {
-                    if ($route->uri() === $dashboardUri) {
-                        return redirect('/' . $dashboardUri);
-                    }
+            if ($path === $dashboardUri) {
+                return $next($request);
+            }
+    
+            foreach ($routes as $route) {
+                if ($route->uri() === $dashboardUri) {
+                    return redirect('/' . $dashboardUri);
                 }
             }
     
@@ -52,9 +57,10 @@ class CheckRoute
         return $next($request);
     }
     
+    
+    
     private function matchUriToRoute(string $path, string $routeUri): bool
     {
-        // Transforme route comme "task/{id}" en regex "task/[^/]+"
         $pattern = preg_replace('/\{[^}]+\}/', '[^/]+', $routeUri);
         return preg_match("#^{$pattern}$#", $path);
     }
