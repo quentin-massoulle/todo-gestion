@@ -11,14 +11,15 @@ class taskController extends Controller
 {
     public function store(Request $request)
     {
-        
         $validator = Validator::make($request->all(),
             [
+                'TaskId' => 'nullable|exists:taches,id',
                 'titre' => 'required|string|max:255',
                 'description' => 'required|string|max:255',
                 'date_fin'=> 'nullable|date'
             ], 
             [
+                'TaskId.exists' => __('validator.task.id.exists'),
                 'titre.required' => __('validator.titre.required'),
                 'description.required' => __('validator.description.required'),
                 'date_fin.date' => __('validator.date.date')
@@ -27,16 +28,23 @@ class taskController extends Controller
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
-        $user = Auth::user();
-
-        $task = new Task();
-        $task->user_id = $user->id;
+        if ($request->TaskId){
+            $task=Task::where('id', $request->TaskId)->first();
+        }
+        else {
+            $user = Auth::user();
+            $task = new Task();
+            $task->user_id = $user->id;
+        }
         $task->titre = $request->titre;
         $task->description = $request->description;
         $task->date_fin = $request->date_fin; 
 
         $task->save();
-        return redirect()->route('user.dashboard')->with('success', 'Tâche créée avec succès.');
+        if ($request->TaskId){
+            return redirect()->route('user.tasks')->with('success', 'Tâche modifier avec succès.');
+        }
+        return redirect()->route('user.tasks')->with('success', 'Tâche créée avec succès.');
     }
 
     public function viewsTasks()
@@ -56,7 +64,6 @@ class taskController extends Controller
     
                 'id.required' => __('validator.task.id.required'),
                 'id.exists' => __('validator.task.id.exists'),
-
             ]
         );
         if ($validator->fails()) {

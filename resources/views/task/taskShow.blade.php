@@ -9,6 +9,25 @@
 @endsection
 
 @section('content')
+@if (session('success'))
+    <div 
+        x-data="{ show: true }" 
+        x-init="setTimeout(() => show = false, 5000)" 
+        x-show="show" 
+        class="fixed top-4 left-4 bg-green-100 border border-green-400 text-green-700 text-sm px-4 py-2 rounded shadow-md z-50 transition duration-500 ease-in-out"
+    >
+        <div class="flex items-center justify-between space-x-2">
+            <div>
+                <strong class="font-semibold">Succès :</strong>
+                <span>{{ session('success') }}</span>
+            </div>
+            <button @click="show = false" class="text-green-700 hover:text-green-900">
+                &times;
+            </button>
+        </div>
+    </div>
+@endif
+
 <div class="max-w-2xl mx-auto p-8 bg-white rounded-lg shadow-xl mt-10">
     <h2 class="text-3xl font-semibold mb-6 text-center text-gray-800">Créer une nouvelle tâche</h2>
 
@@ -25,31 +44,43 @@
     <form method="POST" class="space-y-6">
         @csrf
 
-        <!-- Titre -->
+        @if(isset($task))
+            <input type="hidden" name="TaskId" value="{{ $task->id }}">
+        @endif
+    
         <div>
             <label for="titre" class="block text-sm font-medium text-gray-700">Titre</label>
-            <input type="text" name="titre" id="titre" required
-                class="mt-1 block w-full border border-gray-300 rounded-md p-3 focus:ring-blue-500 focus:border-blue-500 transition duration-200"*
-                value={{$task->titre }}>
+            <input 
+                type="text" 
+                name="titre" 
+                id="titre" 
+                required
+                class="mt-1 block w-full border border-gray-300 rounded-md p-3 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+                value="{{ isset($task) ? $task->titre : '' }}"
+            >
         </div>
 
-        <!-- Description -->
         <div>
             <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
-            <textarea name="description" id="description" rows="4" style="resize: none" 
+            <textarea 
+                name="description" 
+                id="description" 
+                rows="4" 
+                style="resize: none" 
                 class="mt-1 block w-full border border-gray-300 rounded-md p-3 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
-                >{{$task->description}}</textarea>
+            >{{ isset($task) ? $task->description : '' }}</textarea>
         </div>
-
-        <!-- Date de fin sur la même ligne -->
+        
         <div class="flex gap-4">
             <div class="w-1/2">
-                <label for="date"  class="block text-sm font-medium text-gray-700">Date de fin</label>
-                <input type="date" name='date_fin' class="mt-1 block w-full border border-gray-300 rounded-md p-3 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
-                value={{$task->date_fin}}>
+                <label for="date" class="block text-sm font-medium text-gray-700">Date de fin</label>
+                <input 
+                    type="date" 
+                    name="date_fin" 
+                    class="mt-1 block w-full border border-gray-300 rounded-md p-3 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+                    value="{{ isset($task) ? $task->date_fin : '' }}"
+                >
             </div>
-
-            <!-- Rappel actif sur la même ligne -->
             <div class="w-1/2 flex items-center">
                 <input type="checkbox" name="rappel_active" id="rappel_active"
                     class="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded transition duration-200">
