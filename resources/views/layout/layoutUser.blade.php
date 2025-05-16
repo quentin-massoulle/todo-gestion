@@ -24,7 +24,7 @@
                 <i class="fas fa-bars"></i>
             </div>
             <div class="nav-links" id="nav-links">
-                <a href="tasks">{{ __('layout.taches')}}</a>
+                <a href="{{ route('user.tasks')}}">{{ __('layout.taches')}}</a>
                 <a href="/">{{ __('layout.groupe')}}</a>
                 <a href="/">{{__('layout.profil')}}</a>
                 @if (Auth::check())
