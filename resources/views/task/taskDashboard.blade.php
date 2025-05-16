@@ -9,6 +9,24 @@
 @endsection
 
 @section('content')
+@if (session('success'))
+    <div 
+        x-data="{ show: true }" 
+        x-init="setTimeout(() => show = false, 5000)" 
+        x-show="show" 
+        class="fixed top-4 left-4 bg-green-100 border border-green-400 text-green-700 text-sm px-4 py-2 rounded shadow-md z-50 transition duration-500 ease-in-out"
+    >
+        <div class="flex items-center justify-between space-x-2">
+            <div>
+                <strong class="font-semibold">Succès :</strong>
+                <span>{{ session('success') }}</span>
+            </div>
+            <button @click="show = false" class="text-green-700 hover:text-green-900">
+                &times;
+            </button>
+        </div>
+    </div>
+@endif
 <div class="max-w-6xl mx-auto py-8 px-4">
   <h2 class="text-xl font-bold mb-6 text-center text-gray-800">Liste des Tâches</h2>
 
