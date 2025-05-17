@@ -19,9 +19,5 @@ class Groupe extends Model
     {
         return belongToMany(User::class);
     }
-
-    public function task()
-    {
-        return $this->user->task;
-    }
+    
 }

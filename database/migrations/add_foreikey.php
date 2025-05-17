@@ -23,6 +23,9 @@ return new class extends Migration {
             if (!Schema::hasColumn('taches', 'user_id')) return;
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            if (!Schema::hasColumn('taches', 'groupe_id')) return;
+
+            $table->foreign('groupe_id')->references('id')->on('groupe')->onDelete('cascade');
         });
 
         // Ajout de la FK rappels.tache_id vers taches.id
@@ -46,6 +49,7 @@ return new class extends Migration {
         });
         Schema::table('taches', function (Blueprint $table) {
             $table->dropForeign(['user_id']);
+            $table->dropForeign(['groupe_id']);
         });
 
         Schema::table('rappels', function (Blueprint $table) {

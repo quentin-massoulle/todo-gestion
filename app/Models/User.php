@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+use App\Models\Groupe;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -51,5 +52,10 @@ class User extends Authenticatable
     public function tasks()
     {
         return $this->hasMany(Task::class);
+    }
+
+    public function groupe()
+    {
+        return belongToMany(Groupe::class);
     }
 }

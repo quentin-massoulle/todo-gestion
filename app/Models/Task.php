@@ -7,9 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class Task extends Model
 {
     protected $table = 'taches';
+    protected $fillable = ['titre', 'description', 'etat', 'date_fin', 'rappel_active', 'user_id'];
 
-    protected $fillable = [
-        'user_id', 'titre', 'description', 'est_termine', 'rappel_active'
+    const ETATS = [
+        'nouveau',
+        'planifie',
+        'en_cours',
+        'termine',
     ];
 
 

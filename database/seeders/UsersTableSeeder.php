@@ -11,18 +11,31 @@ class UsersTableSeeder extends Seeder
 {
     public function run()
     {
-        // Crée un utilisateur spécifique
+
         User::create([
             'name' => 'quentin',
             'email' => 'quentin@mail.com',
             'is_admin' => true,
-            'password' => bcrypt('Tintindu800*')
+            'password' => bcrypt('password123')
         ]);
 
-        // Ou plusieurs utilisateurs avec des valeurs personnalisées
         User::create([
             'name' => 'Jane Doe',
             'email' => 'jane@example.com',
+            'is_admin' => false,
+            'password' => bcrypt('password123')
+        ]);
+
+         User::create([
+            'name' => 'jake Doe',
+            'email' => 'jake@example.com',
+            'is_admin' => false,
+            'password' => bcrypt('password123')
+        ]);
+
+         User::create([
+            'name' => 'louison Doe',
+            'email' => 'louison@example.com',
             'is_admin' => false,
             'password' => bcrypt('password123')
         ]);
