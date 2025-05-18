@@ -50,7 +50,7 @@ class taskController extends Controller
     public function viewsTasks()
     {
         $user = Auth::user();
-        $tasks = $user->tasks()->get();
+        $tasks = Task::where('user_id', auth()->id())->get()->groupBy('etat');
         return view('task.taskDashboard', ['tasks' => $tasks]);
     }
 
@@ -79,7 +79,21 @@ class taskController extends Controller
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
-
         return view('task.taskShow',['task' => $task]);
     }
+
+    public function updateEtat(Request $request, $id)
+    {
+        $task = Task::where('user_id', auth()->id())->findOrFail($id);
+
+        $validated = $request->validate([
+            'etat' => 'required|in:nouveau,planifie,en_cours,termine',
+        ]);
+
+        $task->etat = $validated['etat'];
+        $task->save();
+
+        return response()->json(['success' => true]);
+    }
+
 }

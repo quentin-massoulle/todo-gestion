@@ -1,5 +1,7 @@
 @extends('layout.layoutUser')
-
+@section('head')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+@endsection
 @section('title')
   <title>Mes Tâches</title>
 @endsection
@@ -30,41 +32,66 @@
 <div class="max-w-6xl mx-auto py-8 px-4">
   <h2 class="text-xl font-bold mb-6 text-center text-gray-800">Liste des Tâches</h2>
 
-  <div class="overflow-x-auto bg-white rounded-lg shadow">
-      <table class="min-w-full divide-y divide-gray-200">
-          <thead class="bg-gray-100 text-gray-700 text-sm font-semibold ">
-              <tr>
-                  <th scope="col" class="px-6 py-4">{{__('task.titre')}}</th>
-                  <th scope="col" class="px-6 py-4">{{__('task.description')}}</th>
-                  <th scope="col" class="px-6 py-4">{{__('task.date_fin')}}</th>
-                  <th class="px-6 py-4 text-center">{{__('task.action')}}</th>
-              </tr>
-          </thead>
-          <tbody class="divide-y divide-gray-100 text-sm">
-              @forelse ($tasks as $task)
-                  <tr class="hover:bg-gray-50">
-                      <td class="px-6 py-4 text-gray-900 ">{{ $task->titre }}</td>
-                      <td class="px-6 py-4 text-gray-700 ">{{ $task->description }}</td>
-                      <td class="px-6 py-4 text-gray-600">{{ \Carbon\Carbon::parse($task->date_fin)->format('d/m/Y') }}</td>
-                      <td class="px-6 py-4 text-center">
-                        <a href="{{ route('user.task.show',['id' => $task->id]) }}"  class="text-blue-600 hover:text-blue-800" title="Modifier">
-                          <i class="fas fa-pen"></i>
-                        </a>
-                    </td>
-                  </tr>
-              @empty
-                  <tr>
-                      <td colspan="3" class="px-6 py-4 text-center text-gray-500">Aucune tâche trouvée.</td>
-                  </tr>
-              @endforelse
-          </tbody>
-      </table>
-  </div>
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+       @foreach (['nouveau', 'planifie', 'en_cours', 'termine'] as $etat)
+            <div class="bg-gray-100 p-4 rounded shadow">
+                <h3 class="text-lg font-bold mb-4 capitalize text-center text-gray-700">
+                    {{ __("task.etat.$etat") }}
+                </h3>
+
+                <div id="column-{{ $etat }}" data-etat="{{ $etat }}" class="space-y-4 min-h-[100px]">
+                    @forelse ($tasks->get($etat, collect()) as $task)
+                        <div class="bg-white p-3 rounded shadow hover:shadow-md" data-id="{{ $task->id }}">
+                            <h4 class="font-semibold text-gray-900">{{ $task->titre }}</h4>
+                            <p class="text-gray-600 text-sm mb-2">{{ $task->description }}</p>
+                            <p class="text-gray-500 text-xs">Fin: {{ \Carbon\Carbon::parse($task->date_fin)->format('d/m/Y') }}</p>
+                            <div class="text-right mt-2">
+                                <a href="{{ route('user.task.show', ['id' => $task->id]) }}" class="text-blue-600 hover:text-blue-800 text-sm">
+                                    <i class="fas fa-pen"></i> {{ __('task.modifier') }}
+                                </a>
+                            </div>
+                        </div>
+                    @empty
+                        <p class="text-gray-500 text-sm text-center">Aucune tâche</p>
+                    @endforelse
+                </div>
+            </div>
+        @endforeach
+    </div>
 </div>
 
 
 @endsection
 
 @section('script')
-    <script src="{{ asset('js/newTask.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const etats = ['nouveau', 'planifie', 'en_cours', 'termine'];
+
+        etats.forEach(etat => {
+            const container = document.getElementById('column-' + etat);
+            new Sortable(container, {
+                group: 'kanban',
+                animation: 150,
+                onAdd: function (evt) {
+                    const taskId = evt.item.dataset.id;
+                    const newEtat = evt.to.dataset.etat;
+
+                    fetch(`/user/tasks/${taskId}/update-etat`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        },
+                        body: JSON.stringify({ etat: newEtat })
+                    }).then(res => {
+                        if (!res.ok) console.error('Erreur lors de la mise à jour de l\'état');
+                    });
+                }
+            });
+        });
+    });
+</script>
+
 @endsection
