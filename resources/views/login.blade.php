@@ -7,6 +7,9 @@
 <body>
     <div class="login-container">
         <h2>{{__('layout.connexion')}}</h2>
+        @error('connexion')
+            <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
         <form method="post">
             @csrf
             <div class=inputDiv>

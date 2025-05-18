@@ -79,7 +79,7 @@ class AuthController extends Controller
 
             return redirect()->route('user.dashboard');
         }
-        return back()->withErrors(['email' => __('validator.login.failed')])->withInput();
+        return back()->withErrors(['connexion' => __('validator.login.failed')])->withInput();
     }
 
 

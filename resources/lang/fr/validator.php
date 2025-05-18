@@ -33,4 +33,8 @@ return [
             'UserExiste' => "Vous n'êtes pas propriétaire de cette tâche.",
         ]
     ],
+    'login' => 
+        [
+        'failed' => 'Adresse e-mail ou mot de passe incorrect.',
+        ]
 ];

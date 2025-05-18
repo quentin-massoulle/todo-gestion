@@ -2,5 +2,15 @@
 return [
     'titre' => 'Tritre',
     'description' => 'Description',
-    'date' => 'Date',
+    'date_fin' => 'Date de fin',
+    'action' => 'action',
+
+    'activer_le_rappel' => 'Activer le rappel',
+    'frequence_du_rappel' => 'Fréquence du rappel',
+    'une_seule_fois' => 'Une seule fois',
+    'tous_les_jours' => 'Tous les jours',
+    'chaque_semaine' => 'Chaque semaine',
+    'date_du_rappel' => 'Date du rappel',
+    'date_du_premier_rappel' => 'Date du premier rappel',
+    'enregistrer_la_tache' => 'Enregistrer la tâche',
 ];

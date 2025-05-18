@@ -34,10 +34,10 @@
       <table class="min-w-full divide-y divide-gray-200">
           <thead class="bg-gray-100 text-gray-700 text-sm font-semibold ">
               <tr>
-                  <th scope="col" class="px-6 py-4">Titre</th>
-                  <th scope="col" class="px-6 py-4">Description</th>
-                  <th scope="col" class="px-6 py-4">Date de fin</th>
-                  <th class="px-6 py-4 text-center">Actions</th>
+                  <th scope="col" class="px-6 py-4">{{__('task.titre')}}</th>
+                  <th scope="col" class="px-6 py-4">{{__('task.description')}}</th>
+                  <th scope="col" class="px-6 py-4">{{__('task.date_fin')}}</th>
+                  <th class="px-6 py-4 text-center">{{__('task.action')}}</th>
               </tr>
           </thead>
           <tbody class="divide-y divide-gray-100 text-sm">
