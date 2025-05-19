@@ -19,5 +19,6 @@ return [
         'nouveau'   => 'new',
         'planifie'  => 'planned',
         'en_cours'  => 'in progress',    
-    ]
+    ], 
+    'new' => 'New task',
 ];

@@ -14,6 +14,7 @@ return [
     'date_du_premier_rappel' => 'Date du premier rappel',
     'enregistrer_la_tache' => 'Enregistrer la tâche',
 
+    'new' => 'Nouvelle tache ',
 
     'etat' => 
     [

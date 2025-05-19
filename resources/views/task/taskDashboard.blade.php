@@ -11,26 +11,16 @@
 @endsection
 
 @section('content')
-@if (session('success'))
-    <div 
-        x-data="{ show: true }" 
-        x-init="setTimeout(() => show = false, 5000)" 
-        x-show="show" 
-        class="fixed top-4 left-4 bg-green-100 border border-green-400 text-green-700 text-sm px-4 py-2 rounded shadow-md z-50 transition duration-500 ease-in-out"
-    >
-        <div class="flex items-center justify-between space-x-2">
-            <div>
-                <strong class="font-semibold">Succès :</strong>
-                <span>{{ session('success') }}</span>
-            </div>
-            <button @click="show = false" class="text-green-700 hover:text-green-900">
-                &times;
-            </button>
-        </div>
-    </div>
-@endif
+
 <div class="max-w-6xl mx-auto py-8 px-4">
   <h2 class="text-xl font-bold mb-6 text-center text-gray-800">Liste des Tâches</h2>
+
+  <div class="flex justify-end mb-4">
+        <a href="{{ route('user.newTask') }}"
+            class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded shadow transition duration-200">
+            {{__('task.new')}}
+        </a>
+    </div>
 
     <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
        @foreach (['nouveau', 'planifie', 'en_cours', 'termine'] as $etat)
@@ -40,7 +30,7 @@
                 </h3>
 
                 <div id="column-{{ $etat }}" data-etat="{{ $etat }}" class="space-y-4 min-h-[100px]">
-                    @forelse ($tasks->get($etat, collect()) as $task)
+                    @foreach($tasks->get($etat, collect()) as $task)
                         <div class="bg-white p-3 rounded shadow hover:shadow-md" data-id="{{ $task->id }}">
                             <h4 class="font-semibold text-gray-900">{{ $task->titre }}</h4>
                             <p class="text-gray-600 text-sm mb-2">{{ $task->description }}</p>
@@ -51,9 +41,7 @@
                                 </a>
                             </div>
                         </div>
-                    @empty
-                        <p class="text-gray-500 text-sm text-center">Aucune tâche</p>
-                    @endforelse
+                    @endforeach
                 </div>
             </div>
         @endforeach
