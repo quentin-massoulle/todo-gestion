@@ -15,9 +15,10 @@ class Groupe extends Model
         'name'
     ];
 
-    public function user()
+    public function users()
     {
-        return belongToMany(User::class);
+        return $this->belongsToMany(User::class);
     }
+
     
 }

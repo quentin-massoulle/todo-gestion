@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\taskController;
 use App\Http\Middleware\IsAdmin;
 use App\Http\Middleware\CheckRoute;
+use App\Http\Controllers\GroupeController;
 
 
 
@@ -66,6 +67,7 @@ Route::middleware('auth')->prefix('user')->name('user.')->group(function () {
         ->where('id','[1-9][0-9]*')
         ->name('task.show');
         Route::post('/task/{id}',[taskController::class , 'store']);
+    Route::get('/groupes',[GroupeController::class,'show'])->name('groupes');
 });
 
 Route::middleware(['auth', IsAdmin::class])->prefix('admin')->name('admin.')->group(function () {              

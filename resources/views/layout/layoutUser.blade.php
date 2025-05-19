@@ -9,7 +9,7 @@
     @yield('js')
     <link rel="stylesheet" href="{{ asset('css/layout.css') }}">
     @yield('style')
-
+    
 </head>
 <body>
     <header>
@@ -26,7 +26,7 @@
             </div>
             <div class="nav-links" id="nav-links">
                 <a href="{{ route('user.tasks')}}">{{ __('layout.taches')}}</a>
-                <a href="/">{{ __('layout.groupe')}}</a>
+                <a href="{{ route('user.groupes')}}">{{ __('layout.groupe')}}</a>
                 <a href="/">{{__('layout.profil')}}</a>
                 @if (Auth::check())
                 <div class='bnt-log'>
