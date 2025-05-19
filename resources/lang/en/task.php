@@ -13,4 +13,11 @@ return [
     'date_du_rappel' => 'Reminder date',
     'date_du_premier_rappel' => 'First reminder date',
     'enregistrer_la_tache' => 'Save task',
+
+    'etat' => 
+    [
+        'nouveau'   => 'new',
+        'planifie'  => 'planned',
+        'en_cours'  => 'in progress',    
+    ]
 ];
