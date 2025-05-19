@@ -4,9 +4,11 @@ namespace App\Models;
 use App\Models\User;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Groupe extends Model
 {
+    use HasFactory;
     protected $table = 'groupe';
     public $timestamps = false;
 

@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Task extends Model
 {
+
+    use HasFactory;
     protected $table = 'taches';
     protected $fillable = ['titre', 'description', 'etat', 'date_fin', 'rappel_active', 'user_id'];
 

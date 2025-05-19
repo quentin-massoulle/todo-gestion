@@ -7,36 +7,21 @@ use Illuminate\Database\Seeder;
 
 use App\Models\Groupe;
 use App\Models\GroupeUser;
+use App\Models\User;
+
 
 class GroupeTableSeeder extends Seeder
 {
 
     public function run(): void
     {
-        Groupe::create([
-            'name' => 'groupe numero 1',
-        ]);
-         Groupe::create([
-            'name' => 'groupe numero 2',
-        ]);
+         // Créer entre 3 et 10 groupes
+        $groupes = Groupe::factory()->count(rand(3, 10))->create();
 
-
-        GroupeUser::create([
-            'groupe_id' => 1,
-            'user_id' => 2,
-        ]);
-        GroupeUser::create([
-            'groupe_id' => 1,
-            'user_id' => 3,
-        ]);
-
-        GroupeUser::create([
-            'groupe_id' => 2,
-            'user_id' => 3,
-        ]);
-        GroupeUser::create([
-            'groupe_id' => 2,
-            'user_id' => 4,
-        ]);
+        // Pour chaque groupe, associer entre 1 et 5 utilisateurs aléatoires
+        foreach ($groupes as $groupe) {
+            $userIds = User::inRandomOrder()->take(rand(2, 5))->pluck('id');
+            $groupe->users()->attach($userIds);
+        }
     }
 }
