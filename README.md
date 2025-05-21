@@ -50,13 +50,12 @@ Le tout dans un environnement conteneurisé avec **Docker**, propulsé par **Ngi
 
 ---
 
-## 🌐 Accès à l'application
+##  🌐 Accès à l'application
+
 🔗 Interface web : http://localhost:8989/
 
 🗃️ Interface phpMyAdmin : http://localhost:8080/
 👉 Identifiants de connexion :
-
-Utilisateur : root
-
-Mot de passe : root
+    Utilisateur  : root
+    Mot de passe : root
 
