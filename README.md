@@ -25,7 +25,7 @@ Le tout dans un environnement conteneurisé avec **Docker**, propulsé par **Ngi
 ## 🧰 Stack technique
 
 - ⚙️ **Laravel**
-- 🐳 **Docker / Docker Compose**
+- 🐳 **Docker**
 - 🖥️ **Nginx** (serveur web)
 - 🐬 **MySQL** (base de données)
 - 🗃️ **phpMyAdmin** (interface de gestion de la BDD)
@@ -40,9 +40,21 @@ Le tout dans un environnement conteneurisé avec **Docker**, propulsé par **Ngi
 
 ### Commande a éxécuter 
 
-composer install 
+-cd todo-gestion
+-docker compose -up --d
+-docker exec -it app
+-composer install 
+-cp .env.example .env 
+-php artisan key:generate
+-php artisan migrate 
 
-cp .env.example .env 
+## 🌐 Accès à l'application
+🔗 Interface web : http://localhost:8989/
 
-php artisan key:generate
-php artisan migrate 
+🗃️ Interface phpMyAdmin : http://localhost:8080/
+👉 Identifiants de connexion :
+
+Utilisateur : root
+
+Mot de passe : root
+
