@@ -48,6 +48,8 @@ Le tout dans un environnement conteneurisé avec **Docker**, propulsé par **Ngi
 -php artisan key:generate
 -php artisan migrate 
 
+---
+
 ## 🌐 Accès à l'application
 🔗 Interface web : http://localhost:8989/
 
