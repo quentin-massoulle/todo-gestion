@@ -1,5 +1,4 @@
-# 📋 Laravel ToDo App
-
+# 📋 Todo-Gestion 
 Une application de gestion de tâches complète développée avec **Laravel**, permettant aux utilisateurs de :
 
 - ✅ S'inscrire et se connecter
