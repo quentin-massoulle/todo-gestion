@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('groupe', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('nom');
+            $table->foreignId('proprietaire_id')->nullable();
         });
     }
 

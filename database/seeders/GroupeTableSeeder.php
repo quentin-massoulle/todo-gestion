@@ -22,6 +22,10 @@ class GroupeTableSeeder extends Seeder
         foreach ($groupes as $groupe) {
             $userIds = User::inRandomOrder()->take(rand(2, 5))->pluck('id');
             $groupe->users()->attach($userIds);
+
+            $proprietaireId = $userIds->random();
+            $groupe->proprietaire_id = $proprietaireId;
+            $groupe->save();
         }
     }
 }

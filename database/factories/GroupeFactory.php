@@ -22,7 +22,7 @@ class GroupeFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => ucfirst($this->faker->word),
+            'nom' => ucfirst($this->faker->word),
         ];
     }
 }
