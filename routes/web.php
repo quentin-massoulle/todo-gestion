@@ -67,8 +67,14 @@ Route::middleware('auth')->prefix('user')->name('user.')->group(function () {
         ->where('id','[1-9][0-9]*')
         ->name('task.show');
         Route::post('/task/{id}',[taskController::class , 'store']);
-    Route::get('/groupes',[GroupeController::class,'show'])->name('groupes');
+    Route::get('/groupes',[GroupeController::class,'index'])->name('groupes');
 });
+
+Route::middleware('auth')->prefix('groupe')->name('groupe.')->group(function () {
+    Route::get('/{id}',[GroupeController::class,'show']);
+});
+
+
 
 Route::middleware(['auth', IsAdmin::class])->prefix('admin')->name('admin.')->group(function () {              
         Route::get('/dashboard', fn() => view('dashboard.dashboardAdmin'))

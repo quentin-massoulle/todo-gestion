@@ -24,12 +24,18 @@
     <div class="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
         @foreach($groupes as $groupe)
             <div class="card bg-white shadow-md p-6 rounded-lg">
-                <h3 class="text-2xl font-bold mb-2">{{ $groupe->groupe }}</h3>
+                <h3 class="text-2xl font-bold mb-2">{{ $groupe->nom }}</h3>
                 <p class="text-gray-600 mb-4">Utilisateurs du groupe :</p>
                 <ul class="text-left list-disc list-inside">
                     @foreach($groupe->users as $user)
                         <li>{{ $user->nom }} {{$user->prenom}}</li>
                     @endforeach
+
+                <button>
+                    <i>
+                        <a href="/groupe/{{$groupe->id}}"> acceder au groupe </a>
+                    </i>
+                </button>
                 </ul>
             </div>
         @endforeach
