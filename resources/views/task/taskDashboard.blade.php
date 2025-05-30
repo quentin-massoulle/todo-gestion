@@ -29,7 +29,7 @@
                     {{ __("task.etat.$etat") }}
                 </h3>
 
-                <div id="column-{{ $etat }}" data-etat="{{ $etat }}" class="space-y-4 min-h-[100px]">
+                <div id="column-{{ $etat }}" data-etat="{{ $etat }}" class="space-y-4 min-h-[100px] max-h-[250px] overflow-y-auto">
                     @foreach($tasks->get($etat, collect()) as $task)
                         <div class="bg-white p-3 rounded shadow hover:shadow-md" data-id="{{ $task->id }}">
                             <h4 class="font-semibold text-gray-900">{{ $task->titre }}</h4>

@@ -1,0 +1,26 @@
+.etiquette{
+    background-color: rgb(153, 153, 153);
+    margin: 2%;
+    border-radius: 8px;
+    padding: 40px 10px 60px 10px; 
+    position:relative;
+    text-align: center
+
+}
+
+.btn{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 10px;
+}
+
+li{
+    list-style-type: none; 
+    align-items: center;
+}
+
+ul{
+    list-style-type: none; 
+    text-align: center
+}
