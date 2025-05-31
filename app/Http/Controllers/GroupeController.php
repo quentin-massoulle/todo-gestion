@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Groupe;
+use Illuminate\Support\Facades\Validator;
 
 
 use Illuminate\Http\Request;
@@ -20,7 +21,22 @@ class GroupeController extends Controller
 
     public function show($id)
     {
+        $validator = Validator::make(['id'=>$id],
+            [
+                'id' => 'required|exists:groupe,id', // Règles de validation
+            ], 
+
+            
+        );
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
         $groupe = Groupe::find($id);
-        return view('groupe.GroupeShow',['groupe' => $groupe]);
+        $user = Auth::user();
+        if ($user->groupe->pluck('id')->contains($groupe->id)){
+            dd('ok');
+            return view('groupe.GroupeShow',['groupe' => $groupe]);
+        } 
+        
     }
 }
