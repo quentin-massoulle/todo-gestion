@@ -26,7 +26,7 @@ class GroupeController extends Controller
                 'id' => 'required|exists:groupe,id', // Règles de validation
             ], 
 
-            
+
         );
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
@@ -34,9 +34,11 @@ class GroupeController extends Controller
         $groupe = Groupe::find($id);
         $user = Auth::user();
         if ($user->groupe->pluck('id')->contains($groupe->id)){
-            dd('ok');
             return view('groupe.GroupeShow',['groupe' => $groupe]);
         } 
+        else{
+            return back()->withErrors('pas ton groupe')->withInput();
+        }
         
     }
 }

@@ -14,16 +14,6 @@
 <div class="max-w-2xl mx-auto p-8 bg-white rounded-lg shadow-xl mt-10">
     <h2 class="text-3xl font-semibold mb-6 text-center text-gray-800">Créer une nouvelle tâche</h2>
 
-    @if ($errors->any())
-        <div class="bg-red-100 text-red-700 p-4 rounded-md mb-4">
-            <ul class="list-disc pl-5">
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
     <form method="POST" class="space-y-6">
         @csrf
 

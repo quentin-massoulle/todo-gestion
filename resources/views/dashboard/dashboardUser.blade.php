@@ -28,6 +28,7 @@
         </div>
     </div>
 @endif
+
 <section class="hero">
     <div class=" mx-auto">
       <h2 class="text-4xl font-semibold mb-4">{{ __('user.dashboard.wellcom')}}  {{ Auth::user()->name }}</h2>
