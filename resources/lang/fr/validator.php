@@ -36,5 +36,19 @@ return [
     'login' => 
         [
         'failed' => 'Adresse e-mail ou mot de passe incorrect.',
-        ]
+        ],
+    'groupe' => [
+    'id' => [
+        'exists'  => "Le groupe doit exister.",
+        'required' => "Le groupe est requis pour ce formulaire.",
+    ],
+    ],
+    'message' => [
+        'required' => "Le message est requis.",
+        'string'   => "Le message doit être une chaîne de caractères.",
+    ],
+
+
+    'success' => 'Opération réussie.',
+    
 ];

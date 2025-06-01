@@ -31,6 +31,30 @@
             </div>
         </div>
     @endif
+    @if ($errors->any())
+        <div 
+            x-data="{ show: true }" 
+            x-init="setTimeout(() => show = false, 7000)" 
+            x-show="show"
+            x-transition
+            class="fixed top-4 left-4 bg-red-100 border border-red-400 text-red-700 text-sm px-4 py-2 rounded shadow-md z-50 w-80"
+        >
+            <div class="flex items-start justify-between space-x-2">
+                <div>
+                    <strong class="font-semibold">Erreur{{ $errors->count() > 1 ? 's' : '' }} :</strong>
+                    <ul class="mt-1 list-disc list-inside space-y-1">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                <button @click="show = false" class="text-red-700 hover:text-red-900 text-xl leading-none">
+                    &times;
+                </button>
+            </div>
+        </div>
+    @endif
+
     <header>
         <nav>
             <div class=logo>

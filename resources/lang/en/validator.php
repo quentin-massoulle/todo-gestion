@@ -37,5 +37,18 @@ return
     'login' => 
         [
         'failed' => 'Incorrect email address or password.',
-        ]
+        ],
+    'groupe' => [
+    'id' => [
+        'exists'  => "The group must exist.",
+        'required' => "The group is required for this form.",
+    ],
+    ],
+    'message' => [
+        'required' => "The message is required.",
+        'string'   => "The message must be a string of characters.",
+    ],
+
+    'success' => 'Operation successful.'
+
 ];
