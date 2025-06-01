@@ -15,7 +15,7 @@
 @section('content')
 <section class="hero">
     <div class="mx-auto">
-        <h2 class="text-4xl font-semibold mb-4">gestion du groupe</h2>
+        <h2 class="text-4xl font-semibold mb-4">{{__('groupe.manage_group')}}</h2>
         <div class="containeur">
             <div class="containeurIner containeurTask">
 
@@ -26,8 +26,8 @@
                     <form action="/message/addMessageGroupe" method="POST">
                       @csrf
                       <input type="hidden" name='groupe' value="{{$groupe->id}}">
-                      <textarea placeholder="Entrer votre message" name='message' type="text"></textarea>
-                      <button type="submit">Envoyer</button>
+                      <textarea placeholder="{{__('groupe.enter_message')}}" name='message' type="text"></textarea>
+                      <button type="submit">{{__('groupe.send')}}</button>
                     </form>
                   </div>
                   <div class="message-channel">
