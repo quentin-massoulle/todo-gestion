@@ -37,27 +37,26 @@
 
 <section id="tasks" class="py-16 text-center bg-[#4F96FF] bg-opacity-40">
   <h2 class="text-3xl font-semibold mb-4">
-      acceder a vos tache 
-  </h2>    
+      {{__('dashBoard.acceder_taches')}}  </h2>    
   <p>truc</p>
   <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
     <div class="card bg-[#61D0A7]">
       <h3 class="text-xl font-semibold mb-4">
           <i class="fas fa-list mr-2"></i>
       </h3>
-      <p >Créez des listes de tâches pour chaque aspect de votre vie. Priorisez, ajoutez des descriptions et des échéances pour ne rien oublier.</p>
+      <p >{{__('dashBoard.creer_listes')}}</p>
     </div>
     <div class="card bg-[#61D0A7]">
       <h3 class="text-xl font-semibold mb-4">
           <i class="fas fa-chart-line mr-2"></i>
       </h3>        
-      <p>Suivez l'avancement de vos tâches, marquez-les comme terminées et célébrez chaque petite victoire !</p>
+      <p>{{__('dashBoard.suivre_avancement')}}</p>
     </div>
     <div class="card bg-[#61D0A7]">
       <h3 class="text-xl font-semibold mb-4">
           <i class="fas fa-bell mr-2"></i>
       </h3>        
-      <p >Recevez des notifications pour ne jamais oublier une tâche importante et restez productif tout au long de la journée.</p>
+      <p >{{__('dashBoard.recevoir_notifications')}}</p>
     </div>
   </div>
     <div class="btn">
