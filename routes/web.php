@@ -6,6 +6,7 @@ use App\Http\Controllers\taskController;
 use App\Http\Middleware\IsAdmin;
 use App\Http\Middleware\CheckRoute;
 use App\Http\Controllers\GroupeController;
+use App\Http\Controllers\MessageController;
 
 
 
@@ -73,6 +74,11 @@ Route::middleware('auth')->prefix('user')->name('user.')->group(function () {
 Route::middleware('auth')->prefix('groupe')->name('groupe.')->group(function () {
     Route::get('/{id}',[GroupeController::class,'show']);
 });
+
+Route::middleware('auth')->prefix('message')->name('message.')->group(function () {
+    Route::post('addMessageGroupe',[MessageController::class,'storeGroupe']);
+});
+
 
 
 

@@ -28,6 +28,11 @@ class Task extends Model
         return $this->hasMany(Rappel::class);
     }
 
+     public function message()
+    {
+        return $this->belongsTo(Message::class);
+    }
+
 
 }
 

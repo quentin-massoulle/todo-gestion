@@ -23,13 +23,15 @@
             <div class="containeurIner containeurDiscution">
                 <div class="chat">
                   <div class="message-box">
-                    <form action="addMessageGroupe" method="POST">
-                      <textarea placeholder="Entrer votre message"></textarea>
+                    <form action="/message/addMessageGroupe" method="POST">
+                      @csrf
+                      <input type="hidden" name='groupe' value="{{$groupe->id}}">
+                      <textarea placeholder="Entrer votre message" name='message' type="text"></textarea>
                       <button type="submit">Envoyer</button>
                     </form>
                   </div>
                   <div class="message-channel">
-                    
+
                   </div>
                 </div>
             </div>

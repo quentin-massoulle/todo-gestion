@@ -18,6 +18,15 @@ return new class extends Migration {
 
             $table->foreign('groupe_id')->references('id')->on('groupe')->onDelete('cascade');
         });
+        Schema::table('message', function (Blueprint $table) {
+            if (!Schema::hasColumn('message', 'user_id')) return;
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            if (!Schema::hasColumn('message', 'groupe_id')) return;
+            $table->foreign('groupe_id')->references('id')->on('groupe')->onDelete('cascade');
+            if (!Schema::hasColumn('message', 'tache_id')) return;
+            $table->foreign('tache_id')->references('id')->on('taches')->onDelete('cascade');
+        });
         // Ajout de la FK taches.user_id vers users.id
         Schema::table('taches', function (Blueprint $table) {
             if (!Schema::hasColumn('taches', 'user_id')) return;
