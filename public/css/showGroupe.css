@@ -6,50 +6,68 @@
     gap: 2%;
 }
 
-.containeurIner {
-    flex: 0 0 48%;
+.containeurTask {
+    background-color: brown;
+    flex:69%;
     height: 100%;
     max-height: 100%;
     overflow: hidden;
 }
 
-.containeurTask {
-    background-color: brown;
-    /* Supprimé: height: 70000000px */
-}
-
 .containeurDiscution {
-    background-color: aqua;
-    /* Supprimé: height: 70000000px */
+    flex:29%;
+    height: 100%;
+    max-height: 100%;
+    overflow: hidden;
+    height: 500px; 
 }
 
 .chat {
-    width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
-
 .message-box {
-    height: 30%;
-    background-color: bisque;
+    height: 10%;
+    display: flex;
 }
 
-textarea {
-    height: 100%;
+.message-box form {
+    display: flex;
+    flex-direction: row;
     width: 100%;
-    background-color: yellow; /* test */
-    resize: none;
-    border: none;
-    padding: 10px;
-    box-sizing: border-box;
-    font-size: 16px;
+    height: 100%;
 }
+
+.message-box button {
+    width: 20%;
+    height: 100%;
+    background-color: #444;
+    color: antiquewhite;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.message-box textarea {
+    padding-left: 1%;
+    padding-top: 1%;
+    width: 80%;
+    height: 100%;
+    resize: none !important;
+    border: none;
+    box-sizing: border-box;
+    border-radius: 10px;
+    font-size: 12px;
+}
+
+
 
 .message-channel {
-    height: 70%;
-    background-color: black;
+    height: 100%;
+
     overflow-y: auto;
     padding: 10px;
     color: white;

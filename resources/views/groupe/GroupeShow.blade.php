@@ -9,7 +9,7 @@
 @endsection
 
 @section('style')
-  <link rel="stylesheet" href="{{ asset('css/showGroupe.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/showGroupe.css')}}">
 @endsection
 
 @section('content')
@@ -23,10 +23,13 @@
             <div class="containeurIner containeurDiscution">
                 <div class="chat">
                   <div class="message-box">
-                    <textarea style="resize: none" name="" id="" ></textarea>
+                    <form action="addMessageGroupe" method="POST">
+                      <textarea placeholder="Entrer votre message"></textarea>
+                      <button type="submit">Envoyer</button>
+                    </form>
                   </div>
                   <div class="message-channel">
-
+                    
                   </div>
                 </div>
             </div>
