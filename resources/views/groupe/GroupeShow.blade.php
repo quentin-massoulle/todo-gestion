@@ -40,7 +40,6 @@
                                 <span class="user-name">
                                     {{ $isOwnMessage ? 'Moi' : ($message->user->prenom ?? 'Utilisateur') }}
                                 </span>
-                                &nbsp;
                                 <span class="message-time">{{ $message->created_at->diffForHumans() }}</span>
                             </div>
                             <div class="message-content">
