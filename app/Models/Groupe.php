@@ -24,7 +24,7 @@ class Groupe extends Model
 
     public function message()
     {
-        return $this->belongsTo(Message::class);
+        return $this->hasMany(Message::class);
     }
     
 }

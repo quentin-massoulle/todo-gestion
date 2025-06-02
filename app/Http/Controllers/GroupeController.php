@@ -31,10 +31,13 @@ class GroupeController extends Controller
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
-        $groupe = Groupe::find($id);
-        $user = Auth::user();
+        $groupe  = Groupe::find($id);
+        $user    = Auth::user();
+        $message = $groupe->message;
+        $message = $message->sortByDesc('created_at');
+
         if ($user->groupe->pluck('id')->contains($groupe->id)){
-            return view('groupe.GroupeShow',['groupe' => $groupe]);
+            return view('groupe.GroupeShow',['groupe' => $groupe , 'messages' => $message]);
         } 
         else{
             return back()->withErrors('pas ton groupe')->withInput();

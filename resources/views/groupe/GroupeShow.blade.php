@@ -13,13 +13,11 @@
 @endsection
 
 @section('content')
-<section class="hero">
-    <div class="mx-auto">
         <h2 class="text-4xl font-semibold mb-4">{{__('groupe.manage_group')}}</h2>
         <div class="containeur">
             <div class="containeurIner containeurTask">
 
-          </div>
+            </div>
             <div class="containeurIner containeurDiscution">
                 <div class="chat">
                   <div class="message-box">
@@ -31,13 +29,26 @@
                   </form>
                   </div>
                   <div class="message-channel">
-
-                  </div>
+                    @if ($messages && $messages->count())
+                        @foreach ($messages as $message)
+                            <div class="message">
+                                <div class="message-meta">
+                                    <span class="user-name">{{ $message->user->prenom ?? 'Utilisateur' }}</span>
+                                    <span class="message-time">{{ $message->created_at->diffForHumans() }}</span>
+                                </div>
+                                <div class="message-content">
+                                    {{ $message->contenu }}
+                                </div>
+                            </div>
+                        @endforeach
+                    @else
+                        <div class="no-messages">Aucun message pour l’instant.</div>
+                    @endif
+                </div>
+                
                 </div>
             </div>
         </div>
-    </div>
-</section>
 
 @endsection
 
