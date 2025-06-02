@@ -23,12 +23,12 @@
             <div class="containeurIner containeurDiscution">
                 <div class="chat">
                   <div class="message-box">
-                    <form action="/message/addMessageGroupe" method="POST">
+                    <form id="message-form">
                       @csrf
-                      <input type="hidden" name='groupe' value="{{$groupe->id}}">
-                      <textarea placeholder="{{__('groupe.enter_message')}}" name='message' type="text"></textarea>
-                      <button type="submit">{{__('groupe.send')}}</button>
-                    </form>
+                      <input type="hidden" name="groupe" value="{{ $groupe->id }}">
+                      <textarea name="message" placeholder="{{ __('groupe.enter_message') }}"></textarea>
+                      <button type="submit">{{ __('groupe.send') }}</button>
+                  </form>
                   </div>
                   <div class="message-channel">
 
@@ -39,5 +39,11 @@
     </div>
 </section>
 
-
 @endsection
+
+
+@section('script')
+    <script src="{{ asset('js/messageSend.js') }}"defer>
+    </script>
+@endsection
+

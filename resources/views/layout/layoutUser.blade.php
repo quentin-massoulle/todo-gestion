@@ -9,7 +9,7 @@
     @yield('js')
     <link rel="stylesheet" href="{{ asset('css/layout.css') }}">
     @yield('style')
-    
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body>
     @if (session('success'))
@@ -106,5 +106,6 @@
     </script>
     @yield('script')
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="{{ asset('js/showAlert.js ') }}"></script>
 </body>
 </html>
