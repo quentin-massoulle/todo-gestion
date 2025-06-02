@@ -30,21 +30,28 @@
                   </div>
                   <div class="message-channel">
                     @if ($messages && $messages->count())
-                        @foreach ($messages as $message)
-                            <div class="message">
-                                <div class="message-meta">
-                                    <span class="user-name">{{ $message->user->prenom ?? 'Utilisateur' }}</span>
-                                    <span class="message-time">{{ $message->created_at->diffForHumans() }}</span>
-                                </div>
-                                <div class="message-content">
-                                    {{ $message->contenu }}
-                                </div>
+                      @foreach ($messages as $message)
+                        @php
+                            $isOwnMessage = auth()->id() === $message->user_id;
+                        @endphp
+                    
+                        <div class="message {{ $isOwnMessage ? 'own-message' : 'other-message' }}">
+                            <div class="message-meta">
+                                <span class="user-name">
+                                    {{ $isOwnMessage ? 'Moi' : ($message->user->prenom ?? 'Utilisateur') }}
+                                </span>
+                                &nbsp;
+                                <span class="message-time">{{ $message->created_at->diffForHumans() }}</span>
                             </div>
-                        @endforeach
+                            <div class="message-content">
+                                {{ $message->contenu }}
+                            </div>
+                        </div>
+                      @endforeach
                     @else
                         <div class="no-messages">Aucun message pour l’instant.</div>
                     @endif
-                </div>
+                  </div>
                 
                 </div>
             </div>
