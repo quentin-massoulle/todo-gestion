@@ -16,7 +16,7 @@
         <h2 class="text-4xl font-semibold mb-4">{{__('groupe.manage_group')}}</h2>
         <div class="containeur">
             <div class="containeurIner containeurTask">
-
+                
             </div>
             <div class="containeurIner containeurDiscution">
                 <div class="chat">
@@ -60,7 +60,7 @@
 
 
 @section('script')
-    <script src="{{ asset('js/messageSend.js') }}"defer>
+    <script src="{{ asset('js/messageSend.js') }}" defer>
     </script>
 @endsection
 

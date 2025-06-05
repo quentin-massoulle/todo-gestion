@@ -77,6 +77,7 @@ Route::middleware('auth')->prefix('groupe')->name('groupe.')->group(function () 
 
 Route::middleware('auth')->prefix('message')->name('message.')->group(function () {
     Route::post('addMessageGroupe',[MessageController::class,'storeGroupe']);
+    Route::get('getMessageGroupe',[MessageController::class,'getGroupe']);
 });
 
 

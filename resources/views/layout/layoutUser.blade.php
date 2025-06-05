@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{{ asset('css/layout.css') }}">
     @yield('style')
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="user-id" content="{{ auth()->id() }}">
 </head>
 <body>
     @if (session('success'))
