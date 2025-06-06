@@ -1,52 +1,58 @@
 document.addEventListener('DOMContentLoaded', () => {
+    let urlPost = window.urlPost || null;
+    let urlGet  = window.urlGet || null;
     const form = document.querySelector('#message-form');
 
     let lastFormData = new FormData(form);
-
-    if (form) {
+    if (form && urlPost ) {
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
 
             const data = new FormData(form);
-            lastFormData = data; // stocker pour auto-refresh
-
-            const csrfToken = document.querySelector('meta[name="csrf-token"]');
-            if (!csrfToken) {
-                console.error('Token CSRF non trouvé');
-                return;
-            }
-
-            try {
-                let response = await fetch('/message/addMessageGroupe', {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': csrfToken.content,
-                        'Accept': 'application/json',
-                    },
-                    body: data,
-                });
-
-                const result = await response.json();
-
-                if (response.ok && result.success) {
-                    showAlert('success', result.message);
-                    form.reset();
-                } else {
-                    showAlert('error', result.errors || result.message || 'Une erreur est survenue');
-                }
-
-                getMessages(data);
-            } catch (error) {
-                showAlert('error', 'Erreur réseau ou serveur');
-                console.error(error);
-            }
+            sendMessage(data)
             });
         }
-    setInterval(() => {
-        if (lastFormData) {
-            getMessages(lastFormData);
+
+
+        async function sendMessage(data){
+        const csrfToken = document.querySelector('meta[name="csrf-token"]');
+        if (!csrfToken) {
+            console.error('Token CSRF non trouvé');
+            return;
         }
-    }, 10000);
+        try {
+            let response = await fetch(urlPost, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken.content,
+                    'Accept': 'application/json',
+                },
+                body: data,
+            });
+
+            const result = await response.json();
+
+            if (response.ok && result.success) {
+                showAlert('success', result.message);
+                form.reset();
+            } else {
+                showAlert('error', result.errors || result.message || 'Une erreur est survenue');
+            }
+
+            getMessages(data);
+        } catch (error) {
+            showAlert('error', 'Erreur réseau ou serveur');
+            console.error(error);
+        }
+    }
+    if (urlGet)
+    {
+        setInterval(() => {
+            if (lastFormData) {
+                getMessages(lastFormData);
+            }
+        }, 10000);
+    }
 
     async function getMessages(data) {
         const csrfToken = document.querySelector('meta[name="csrf-token"]');
@@ -60,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const params = new URLSearchParams(data).toString();
     
         try {
-            const response = await fetch(`/message/getMessageGroupe?${params}`, {
+            const response = await fetch(`${urlGet}?${params}`, {
                 method: 'GET',
                 headers: {
                     'X-CSRF-TOKEN': csrfToken.content,

@@ -60,7 +60,11 @@
 
 
 @section('script')
-    <script src="{{ asset('js/messageSend.js') }}" defer>
-    </script>
+  <script>
+    window.urlPost = '/message/addMessageGroupe';
+    window.urlGet  = '/message/getMessageGroupe';
+  </script>
+
+  <script src="{{ asset('js/message.js') }}" defer></script>
 @endsection
 
