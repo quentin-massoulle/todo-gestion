@@ -1,3 +1,12 @@
+.listeTache{
+    text-align: left;
+    width: 100%;
+}
+
+.graphes{
+    width: 100%;
+}
+
 .containeur {
     display: flex;
     flex-direction: row;
@@ -6,6 +15,8 @@
 }
 
 .containeurTask {
+    display: flex ;
+    flex-direction: row;
     flex:69%;
     height: 100%;
     max-height: 100%;

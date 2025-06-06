@@ -3,7 +3,6 @@ FROM php:8.3-fpm
 # Copier les fichiers composer.lock et composer.json dans le conteneur
 COPY composer.lock composer.json /var/www/
 
-# Définir le répertoire de travail
 WORKDIR /var/www
 
 # Installer les dépendances nécessaires
@@ -22,6 +21,10 @@ RUN apt-get update && apt-get install -y \
     libonig-dev \
     libzip-dev \
     libgd-dev
+
+# Installer Node.js 18 et npm
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
+    && apt-get install -y nodejs
 
 # Nettoyer les fichiers inutiles après l'installation
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -47,14 +50,10 @@ RUN chown -R www:www /var/www
 # Passer à l'utilisateur www pour éviter les permissions root
 USER www
 
-# Exécuter composer install pour installer les dépendances PHP
+# Installer les dépendances PHP
 RUN composer install
-
-# Installer barryvdh/laravel-dompdf
-RUN composer require barryvdh/laravel-dompdf
 
 # Exposer le port 9000 pour PHP-FPM
 EXPOSE 9000
 
-# Lancer le serveur PHP-FPM
 CMD ["php-fpm"]

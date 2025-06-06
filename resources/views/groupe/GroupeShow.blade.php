@@ -1,5 +1,5 @@
 @extends('layout.layoutUser')
-
+@vite('resources/js/app.js')
 @section('title')
   <title>Dashboard Groupe</title>
 @endsection
@@ -12,11 +12,27 @@
   <link rel="stylesheet" href="{{ asset('css/showGroupe.css')}}">
 @endsection
 
+@section('scripts')
+  @vite('resources/js/chartGroupe.js')
+@endsection
+
+
 @section('content')
         <h2 class="text-4xl font-semibold mb-4">{{__('groupe.manage_group')}}</h2>
         <div class="containeur">
             <div class="containeurIner containeurTask">
-                
+                <div class='listeTache'> 
+                  <h1 class ='text-3xl font-semibold mb-4 '>
+                      Tache du groupe
+                  </h1>
+                  <p>nb tâches en nouveau   : {{ $groupe->tache->where('etat', 'nouveau')->count() }}</p>
+                  <p>nb tâches en planifier : {{ $groupe->tache->where('etat', 'planifie')->count() }}</p>
+                  <p>nb tâches en cours     : {{ $groupe->tache->where('etat', 'en_cours')->count() }}</p>
+                  <p>nb tâches en terminer  : {{ $groupe->tache->where('etat', 'termine')->count() }}</p>
+                </div>
+                <div class='graphes' >
+                  <canvas id="tachesChart" width="100%" height="100%"></canvas>
+                </div>
             </div>
             <div class="containeurIner containeurDiscution">
                 <div class="chat">
@@ -59,8 +75,15 @@
 @endsection
 
 
-@section('script')
+@section('script')    
   <script>
+     window.tachesData = {
+        nouveau: {{ $groupe->tache->where('etat', 'nouveau')->count() }},
+        planifie: {{ $groupe->tache->where('etat', 'planifie')->count() }},
+        en_cours: {{ $groupe->tache->where('etat', 'en_cours')->count() }},
+        termine: {{ $groupe->tache->where('etat', 'termine')->count() }}
+    };
+
     window.urlPost = '/message/addMessageGroupe';
     window.urlGet  = '/message/getMessageGroupe';
   </script>
