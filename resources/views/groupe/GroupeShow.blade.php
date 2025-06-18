@@ -25,13 +25,23 @@
                   <h1 class ='text-3xl font-semibold mb-4 '>
                       Tache du groupe
                   </h1>
-                  <p>nb tâches en nouveau   : {{ $groupe->tache->where('etat', 'nouveau')->count() }}</p>
-                  <p>nb tâches en planifier : {{ $groupe->tache->where('etat', 'planifie')->count() }}</p>
-                  <p>nb tâches en cours     : {{ $groupe->tache->where('etat', 'en_cours')->count() }}</p>
-                  <p>nb tâches en terminer  : {{ $groupe->tache->where('etat', 'termine')->count() }}</p>
+                  <form action="/groupe/{{$groupe->id}}" method="GET">
+                    @if (isset($periode))
+                      <p>periode du <input type='date' value ="{{$date_depart}}" name = "date_depart"> au <input type="date" name = "date_fin" value="{{$date_fin}}"></p>
+                    @else 
+                      <p>aucune periode selectionner
+                    </p>
+                    <input type='date' name = "date_depart"> au <input type="date" name = "date_fin" >
+                    @endif
+                    <button type="submit"> rechercher </button>
+                  </form>
+                  <p>nb tâches en nouveau   : {{ $tache->where('etat', 'nouveau')->count() }}</p>
+                  <p>nb tâches en planifier : {{ $tache->where('etat', 'planifie')->count() }}</p>
+                  <p>nb tâches en cours     : {{ $tache->where('etat', 'en_cours')->count() }}</p>
+                  <p>nb tâches en terminer  : {{ $tache->where('etat', 'termine')->count() }}</p>
                 </div>
                 <div class='graphes' >
-                  <canvas id="tachesChart" width="100%" height="100%"></canvas>
+                  <canvas id="tachesChart" width="50%" height="50%"></canvas>
                 </div>
             </div>
             <div class="containeurIner containeurDiscution">
@@ -78,10 +88,10 @@
 @section('script')    
   <script>
      window.tachesData = {
-        nouveau: {{ $groupe->tache->where('etat', 'nouveau')->count() }},
-        planifie: {{ $groupe->tache->where('etat', 'planifie')->count() }},
-        en_cours: {{ $groupe->tache->where('etat', 'en_cours')->count() }},
-        termine: {{ $groupe->tache->where('etat', 'termine')->count() }}
+        nouveau: {{ $tache->where('etat', 'nouveau')->count() }},
+        planifie: {{ $tache->where('etat', 'planifie')->count() }},
+        en_cours: {{ $tache->where('etat', 'en_cours')->count() }},
+        termine: {{ $tache->where('etat', 'termine')->count() }}
     };
 
     window.urlPost = '/message/addMessageGroupe';

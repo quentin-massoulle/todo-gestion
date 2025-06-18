@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const ctx = el.getContext('2d');
 
     const tachesChart = new Chart(ctx, {
-        type: 'bar',
+        type: 'pie',
         data: {
             labels: ['Nouveau', 'Planifié', 'En cours', 'Terminé'],
             datasets: [{
@@ -33,13 +33,5 @@ document.addEventListener('DOMContentLoaded', function () {
                 borderWidth: 1
             }]
         },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    precision: 0
-                }
-            }
-        }
     });
 });
