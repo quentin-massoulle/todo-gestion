@@ -4,7 +4,7 @@
 }
 
 .graphes{
-    width: 100%;
+    width: 50vh;
 }
 
 .containeur {
@@ -16,7 +16,9 @@
 
 .containeurTask {
     display: flex ;
-    flex-direction: row;
+    flex-direction:column ;
+    Text-align: center;
+    align-items: center;
     flex:69%;
     height: 100%;
     max-height: 100%;
@@ -56,7 +58,7 @@
     border-radius: 10px;
     border: none;
     cursor: pointer;
-    font-size: 12px;
+    font-size: 20px;
 }
 
 .message-box textarea {
@@ -124,4 +126,38 @@
 .message-content {
     font-size: 1rem;
     color: #222;
+}
+
+input{
+    background-color: rgb(221, 221, 221);
+    font-size: 30px;
+    border-radius: 10px;
+    border: 2px solid rgb(0, 0, 0);
+}
+
+.Btn-form{
+    height: 40px;
+    width: 120px;
+    background-color: #444;
+    color: antiquewhite;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.tache-decriptif{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+
+.containeurIner{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+
 }

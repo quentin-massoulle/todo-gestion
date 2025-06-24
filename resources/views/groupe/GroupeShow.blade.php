@@ -18,33 +18,40 @@
 
 
 @section('content')
-        <h2 class="text-4xl font-semibold mb-4">{{__('groupe.manage_group')}}</h2>
+      <form action="/groupe/{{$groupe->id}}" method="GET">
+        @if (isset($periode))
+          <H1 class ='text-3xl font-semibold mb-4 '>periode du <input type='date' value ="{{$date_depart}}" name = "date_depart"> au <input type="date" name = "date_fin" value="{{$date_fin}}"></H1>
+        @endif
+        <button type="submit" class="Btn-form"> rechercher </button>
+      </form>
         <div class="containeur">
-            <div class="containeurIner containeurTask">
-                <div class='listeTache'> 
-                  <h1 class ='text-3xl font-semibold mb-4 '>
-                      Tache du groupe
+            <div class=" containeurTask">
+              <h1 class ='text-3xl font-semibold mb-4 '>
+                Tache du groupe
+              </h1>
+              <a href="/hahahahahahhaha"><button class="Btn-form" style="width: 250px">
+                cree une nouvelle tache
+              </button></a>
+              <br>
+              <div class=tache-decriptif>
+                <div class="containeurIner">
+                  <h1 class="text-xl ">
+                    acceder au différante tache
                   </h1>
-                  <form action="/groupe/{{$groupe->id}}" method="GET">
-                    @if (isset($periode))
-                      <p>periode du <input type='date' value ="{{$date_depart}}" name = "date_depart"> au <input type="date" name = "date_fin" value="{{$date_fin}}"></p>
-                    @else 
-                      <p>aucune periode selectionner
+                    <p>
+                      <a href="">acceder au tache {{__('task.etat.nouveau')}} ({{ $tache->where('etat', 'nouveau')->count()}})<br></a>
+                      <a href="">acceder au tache {{__('task.etat.planifie')}} ({{ $tache->where('etat', 'planifie')->count() }})<br></a>
+                      <a href="">acceder au tache {{__('task.etat.en_cours')}} ({{ $tache->where('etat', 'en_cours')->count() }})<br></a>
+                      <a href="">acceder au tache {{__('task.etat.termine')}} ({{ $tache->where('etat', 'termine')->count() }})<br></a>
                     </p>
-                    <input type='date' name = "date_depart"> au <input type="date" name = "date_fin" >
-                    @endif
-                    <button type="submit"> rechercher </button>
-                  </form>
-                  <p>nb tâches en nouveau   : {{ $tache->where('etat', 'nouveau')->count() }}</p>
-                  <p>nb tâches en planifier : {{ $tache->where('etat', 'planifie')->count() }}</p>
-                  <p>nb tâches en cours     : {{ $tache->where('etat', 'en_cours')->count() }}</p>
-                  <p>nb tâches en terminer  : {{ $tache->where('etat', 'termine')->count() }}</p>
                 </div>
                 <div class='graphes' >
                   <canvas id="tachesChart" width="50%" height="50%"></canvas>
                 </div>
+              </div>
+              
             </div>
-            <div class="containeurIner containeurDiscution">
+            <div class=" containeurDiscution">
                 <div class="chat">
                   <div class="message-box">
                     <form id="message-form">
