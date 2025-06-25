@@ -29,22 +29,16 @@
               <h1 class ='text-3xl font-semibold mb-4 '>
                 Tache du groupe
               </h1>
-              <a href="{{ route('user.task.show', ['id' => 0]) }}?groupe={{ $groupe->id }}"><button class="Btn-form" style="width: 250px">
-                cree une nouvelle tache
+              <div class="containeurIner">
+                   <a href="{{ route('user.task.show', ['id' => 0]) }}?groupe={{ $groupe->id }}"><button class="Btn-form" style="width: 250px">
+                    cree une nouvelle tache
+              </button></a>
+              <a href="{{ route('user.tasks')}}?groupe={{ $groupe->id }}"><button class="Btn-form" style="width: 250px">
+                      acceder au kanban
               </button></a>
               <br>
+              </div>
               <div class=tache-decriptif>
-                <div class="containeurIner">
-                  <h1 class="text-xl ">
-                    acceder au différante tache
-                  </h1>
-                    <p>
-                      <a href="">acceder au tache {{__('task.etat.nouveau')}} ({{ $tache->where('etat', 'nouveau')->count()}})<br></a>
-                      <a href="">acceder au tache {{__('task.etat.planifie')}} ({{ $tache->where('etat', 'planifie')->count() }})<br></a>
-                      <a href="">acceder au tache {{__('task.etat.en_cours')}} ({{ $tache->where('etat', 'en_cours')->count() }})<br></a>
-                      <a href="">acceder au tache {{__('task.etat.termine')}} ({{ $tache->where('etat', 'termine')->count() }})<br></a>
-                    </p>
-                </div>
                 <div class='graphes' >
                   <canvas id="tachesChart" width="50%" height="50%"></canvas>
                 </div>

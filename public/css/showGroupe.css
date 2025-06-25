@@ -138,8 +138,8 @@ input{
 .Btn-form{
     height: 40px;
     width: 120px;
-    background-color: #444;
-    color: antiquewhite;
+    background-color: #633333;
+    color: rgb(206, 196, 196);
     border-radius: 10px;
     border: none;
     cursor: pointer;
@@ -157,7 +157,7 @@ input{
 
 .containeurIner{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     text-align: left;
-
+    gap: 20px;
 }

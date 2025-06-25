@@ -55,8 +55,14 @@ class taskController extends Controller
 
     public function viewsTasks()
     {
-        $user = Auth::user();
-        $tasks = Task::where('user_id', auth()->id())->get()->groupBy('etat');
+        $groupe = request('groupe');
+        if (isset($groupe)){
+            $tasks = Task::where("groupe_id",$groupe)->get()->groupBy('etat');
+        }
+        else{
+            $user = Auth::user();
+            $tasks = Task::where('user_id', auth()->id())->get()->groupBy('etat');
+        }
         return view('task.taskDashboard', ['tasks' => $tasks]);
     }
 
