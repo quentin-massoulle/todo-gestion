@@ -16,7 +16,9 @@
 
     <form method="POST" class="space-y-6">
         @csrf
-
+        @if(isset($groupe))
+            <input type="hidden" name="Groupe" value=" {{$groupe}}">
+        @endif
         @if(isset($task))
             <input type="hidden" name="TaskId" value="{{ $task->id }}">
         @endif

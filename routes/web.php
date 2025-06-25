@@ -62,17 +62,15 @@ Route::middleware('auth')->prefix('user')->name('user.')->group(function () {
     Route::post('/tasks/{id}/update-etat', [TaskController::class, 'updateEtat'])
     ->where('id','[1-9][0-9]*') 
     ->name('tasks.updateEtat');
-    Route::get('/task/0',fn()=> view('task.taskShow'))->name('newTask');
-    Route::post('/task/0',[taskController::class , 'store']);
     Route::get('/task/{id}',[taskController::class,'showTask'])
-        ->where('id','[1-9][0-9]*')
+        ->where('id','[0-9]*')
         ->name('task.show');
-        Route::post('/task/{id}',[taskController::class , 'store']);
+    Route::post('/task/{id}',[taskController::class , 'store']);
     Route::get('/groupes',[GroupeController::class,'index'])->name('groupes');
 });
 
 Route::middleware('auth')->prefix('groupe')->name('groupe.')->group(function () {
-    Route::get('/{id}',[GroupeController::class,'show']);
+    Route::get('/{id}',[GroupeController::class,'show'])->name('show');
 });
 
 Route::middleware('auth')->prefix('message')->name('message.')->group(function () {

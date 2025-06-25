@@ -16,7 +16,7 @@
   <h2 class="text-xl font-bold mb-6 text-center text-gray-800">Liste des Tâches</h2>
 
   <div class="flex justify-end mb-4">
-        <a href="{{ route('user.newTask') }}"
+        <a href="{{ route('user.task.show', ['id' => 0]) }}"
             class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded shadow transition duration-200">
             {{__('task.new')}}
         </a>

@@ -44,6 +44,12 @@ class taskController extends Controller
         if ($request->TaskId){
             return redirect()->route('user.tasks')->with('success', 'Tâche modifier avec succès.');
         }
+        if($request->Groupe)
+        {
+            $task->groupe_id = $request->groupe ;
+            $task->save();
+            return redirect()->route('groupe.show',['id' => $request->groupe])->with('success', 'Tâche créée avec succès.');
+        }
         return redirect()->route('user.tasks')->with('success', 'Tâche créée avec succès.');
     }
 
@@ -55,31 +61,47 @@ class taskController extends Controller
     }
 
     public function showTask($id)
-    {
-        $validator = Validator::make(['id'=>$id],
+    {   
+        $user = Auth::user();
+        if($id!=0)
+        {
+             $validator = Validator::make(['id'=>$id],
             [
                 'id' => 'required|exists:taches,id', // Règles de validation
             ], 
             [
-    
                 'id.required' => __('validator.task.id.required'),
                 'id.exists' => __('validator.task.id.exists'),
             ]
-        );
-        if ($validator->fails()) {
-            return back()->withErrors($validator)->withInput();
+            );
+            if ($validator->fails()) {
+                return back()->withErrors($validator)->withInput();
+            }
+            $task=Task::where('id', $id)->first();
+            $validator = Validator::make(['user_id' => $task->user_id], [
+                'user_id' => 'in:' . $user->id
+            ], [
+                'user_id.in' => __('validator.task.id.UserExiste'),
+            ]);
+            if ($validator->fails()) {
+                return back()->withErrors($validator)->withInput();
+            }
         }
-        $task=Task::where('id', $id)->first();
-        $user = Auth::user();
-        $validator = Validator::make(['user_id' => $task->user_id], [
-            'user_id' => 'in:' . $user->id
-        ], [
-            'user_id.in' => __('validator.task.id.UserExiste'),
-        ]);
-        if ($validator->fails()) {
-            return back()->withErrors($validator)->withInput();
+        else{
+            $task = null;
         }
-        return view('task.taskShow',['task' => $task]);
+        $groupe = request('groupe');
+        if (isset($groupe))
+        {
+            if(!$user->groupe->contains('id',$groupe))
+            {
+                $groupe==null;
+            }   
+        }
+        else{
+            $groupe=null;
+        }
+        return view('task.taskShow',['task' => $task, 'groupe' => $groupe]);
     }
 
     public function updateEtat(Request $request, $id)

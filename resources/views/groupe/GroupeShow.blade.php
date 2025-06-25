@@ -29,7 +29,7 @@
               <h1 class ='text-3xl font-semibold mb-4 '>
                 Tache du groupe
               </h1>
-              <a href="/hahahahahahhaha"><button class="Btn-form" style="width: 250px">
+              <a href="{{ route('user.task.show', ['id' => 0]) }}?groupe={{ $groupe->id }}"><button class="Btn-form" style="width: 250px">
                 cree une nouvelle tache
               </button></a>
               <br>
