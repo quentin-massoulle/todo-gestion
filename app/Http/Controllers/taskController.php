@@ -63,7 +63,7 @@ class taskController extends Controller
             $user = Auth::user();
             $tasks = Task::where('user_id', auth()->id())->get()->groupBy('etat');
         }
-        return view('task.taskDashboard', ['tasks' => $tasks]);
+        return view('task.taskDashboard', ['tasks' => $tasks , 'groupe'=> $groupe]);
     }
 
     public function showTask($id)
