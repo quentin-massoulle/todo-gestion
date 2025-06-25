@@ -1,5 +1,4 @@
 (function () {
-    console.log('coco');
 
     const checkbox = document.getElementById('rappel_active');
     const frequenceContainer = document.getElementById('frequence-container');
@@ -11,7 +10,7 @@
         console.error("Un ou plusieurs éléments sont manquants !");
         return;
     }
-
+    
     function hideAll() {
         frequenceContainer.classList.add('hidden');
         dateContainerSolo.classList.add('hidden');

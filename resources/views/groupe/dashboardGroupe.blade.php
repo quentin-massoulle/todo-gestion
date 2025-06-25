@@ -10,6 +10,7 @@
 
 @section('style')
   <link rel="stylesheet" href="{{ asset('css/dashboardGroupe.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/pop-up.css') }}">
 @endsection
 
 @section('content')
@@ -17,7 +18,12 @@
     <div class="mx-auto">
         <h2 class="text-4xl font-semibold mb-4">{{__('groupe.welcome_groups') }}  {{ Auth::user()->nom }}</h2>
     </div>
+    <button class="btn-popUp" id='NewGroupe'>
+        cree un nouveau groupe
+    </button>
 </section>
+
+
 
 <div class="container overflow-y-auto">
     @foreach($groupes as $groupe)
@@ -35,4 +41,11 @@
         </div>
     @endforeach
 </div>
+@section('script')
+    <script src="{{ asset('js/pop-up.js') }}"defer>
+    </script>
+@endsection
+
+@extends('pop-up.creationGroupe')
+
 @endsection
