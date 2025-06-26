@@ -1,4 +1,4 @@
-/* Overlay pour griser l’arrière-plan */
+
 .overlay {
   position: fixed;
   top: 0;
@@ -9,13 +9,12 @@
   z-index: 998;
 }
 
-/* Popup */
+
 .pop-up {
   border-radius: 10px;
   z-index: 999;
   background-color: rgb(223, 223, 223);
   width: 50vw;
-  height: 25vh;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -28,7 +27,7 @@
   text-align: center;
 }
 
-/* Bouton Fermer */
+
 button.close {
   position: absolute;
   top: 10px;
@@ -46,7 +45,7 @@ button.close:hover {
   cursor: pointer;
 }
 
-/* Contenu centré */
+
 .popup-content {
     height: 80%;
     display: flex;
@@ -54,7 +53,7 @@ button.close:hover {
     align-items: center;
 }
 
-/* Formulaire */
+
 .pop-up form {
   width: 80%;
   display: flex;
@@ -72,7 +71,7 @@ button.close:hover {
   border: none;
 }
 
-/* Bouton soumettre */
+
 .pop-up form button[type="submit"] {
   background-color: gray;
   color: white;
@@ -81,7 +80,14 @@ button.close:hover {
   align-self: stretch;
 }
 
-/* Cache les éléments */
 .hidden {
   display: none;
+}
+
+
+.input{
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  gap: 5px;
 }

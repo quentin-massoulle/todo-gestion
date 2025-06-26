@@ -12,6 +12,19 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="user-id" content="{{ auth()->id() }}">
     @yield('scripts')
+    
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Select2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    <!-- Select2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <!-- Ton script Vite (doit venir après) -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
 </head>
 <body>
     @if (session('success'))
@@ -96,7 +109,6 @@
     <footer>
         <p>&copy; {{ date('Y') }} Mon Site Web. Tous droits réservés.</p>
     </footer>
-    <script src="{{ asset('js/app.js') }}"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         const mobileMenu = document.getElementById('mobile-menu');
