@@ -1,5 +1,5 @@
 .etiquette{
-    background-color: rgb(153, 153, 153);
+    background-color: rgb(197, 195, 195);
     margin: 2%;
     border-radius: 8px;
     padding: 40px 10px 60px 10px; 
@@ -12,13 +12,14 @@
 
 .btn{
     position: absolute;
+    border-radius: 10px;
     left: 50%;
     transform: translateX(-50%);
     bottom: 10px;
 }
 
 .btn a {
-    background-color: #5783a0;
+    color: antiquewhite;
     text-decoration: none;
     padding: 0.5rem 1rem;
     border-radius: 5px;
@@ -53,7 +54,7 @@ ul{
 
 
   .btn-popUp{
-    background-color: #9A92DD;
+    color: antiquewhite;
     height: 40px;
     width: 10%;
     border-radius: 10px;

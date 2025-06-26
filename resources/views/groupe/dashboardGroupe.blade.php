@@ -18,7 +18,7 @@
     <div class="mx-auto">
         <h2 class="text-4xl font-semibold mb-4">{{__('groupe.welcome_groups') }}  {{ Auth::user()->nom }}</h2>
     </div>
-    <button class="btn-popUp" id='NewGroupe'>
+    <button class="btn-popUp bg-blue-600 hover:bg-blue-700 " id='NewGroupe'>
         cree un nouveau groupe
     </button>
 </section>
@@ -35,7 +35,7 @@
                     <li>{{ $user->prenom }} {{$user->nom}}</li>
                 @endforeach
             </ul>
-            <div class="btn">
+            <div class="btn bg-blue-600 hover:bg-blue-700 ">
                 <a href="/groupe/{{$groupe->id}}">{{ __('groupe.access_group') }}</a>
             </div>
         </div>

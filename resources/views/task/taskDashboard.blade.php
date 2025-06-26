@@ -22,14 +22,14 @@
         </a>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-10">
        @foreach (['nouveau', 'planifie', 'en_cours', 'termine'] as $etat)
             <div class="bg-gray-100 p-4 rounded shadow">
                 <h3 class="text-lg font-bold mb-4 capitalize text-center text-gray-700">
                     {{ __("task.etat.$etat") }}
                 </h3>
 
-                <div id="column-{{ $etat }}" data-etat="{{ $etat }}" class="space-y-4 min-h-[100px] max-h-[250px] overflow-y-auto">
+                <div id="column-{{ $etat }}" data-etat="{{ $etat }}" class="space-y-4 min-h-[250px] max-h-[450px] overflow-y-auto">
                     @foreach($tasks->get($etat, collect()) as $task)
                         <div class="bg-white p-3 rounded shadow hover:shadow-md" data-id="{{ $task->id }}">
                             <h4 class="font-semibold text-gray-900">{{ $task->titre }}</h4>
