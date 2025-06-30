@@ -14,9 +14,12 @@
       
         <div class="input">
           <h1 class="text-xl">Membre du groupe</h1>
-          <select class="select2" name="" style="width: 100%;">
-            <option value="">-- Choisir un produit --</option>
-            <option value=""></option>
+          <select class="select2" name="SelectGroupe" multiple=true style="width: 100%;">
+            <@foreach ($users as $user)
+                <option value="{{$user->id}}">
+                    {{$user->email}}
+                </option>
+            @endforeach
           </select>
         </div>
         

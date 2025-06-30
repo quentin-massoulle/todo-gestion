@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Groupe;
+use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 
 
@@ -13,9 +14,9 @@ class GroupeController extends Controller
     {
         $user = Auth::user();
         $groupes = $user->groupe;
+        $users = User::get()->all();
 
-
-        return view('groupe.dashboardGroupe',['groupes' => $groupes]);
+        return view('groupe.dashboardGroupe',['groupes' => $groupes , 'users'=> $users]);
     }
 
     public function show(Request $request, $id)
