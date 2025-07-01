@@ -70,7 +70,8 @@ Route::middleware('auth')->prefix('user')->name('user.')->group(function () {
 });
 
 Route::middleware('auth')->prefix('groupe')->name('groupe.')->group(function () {
-    Route::get('/{id}',[GroupeController::class,'show'])->name('show');
+    Route::get('/{id}',[GroupeController::class,'show'])->where('id','[1-9][0-9]*')->name('show');
+    Route::post('/store',[GroupeController::class,'store'])->name('store');
 });
 
 Route::middleware('auth')->prefix('message')->name('message.')->group(function () {

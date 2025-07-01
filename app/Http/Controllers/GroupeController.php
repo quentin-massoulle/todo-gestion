@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Groupe;
+use App\Models\GroupeUser;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 
@@ -14,7 +15,7 @@ class GroupeController extends Controller
     {
         $user = Auth::user();
         $groupes = $user->groupe;
-        $users = User::get()->all();
+        $users = User::where('id', '!=', $user->id)->get();
 
         return view('groupe.dashboardGroupe',['groupes' => $groupes , 'users'=> $users]);
     }
@@ -64,5 +65,33 @@ class GroupeController extends Controller
             'date_fin' => $date_fin,
             'periode' => $date_depart && $date_fin,
         ]);
-    }    
+    }
+
+    public function store(Request $request)
+    {
+
+        $user = Auth::user();
+        $inputValue = $request->input('NameGroupe');
+        $selectValues = $request->input('SelectGroupe');
+
+        $groupe = new Groupe;
+        $groupe->nom =  $inputValue;
+        $groupe->proprietaire_id = $user->id;
+        $groupe->save();
+       
+        $groupeUser = new GroupeUser;
+        $groupeUser->groupe_id =  $groupe->id;
+        $groupeUser->user_id = $user->id;
+        $groupeUser->save();
+        
+        foreach($selectValues as $value)
+        {
+            $groupeUser = new GroupeUser;
+            $groupeUser->groupe_id =  $groupe->id;
+            $groupeUser->user_id = $value;
+            $groupeUser->save();
+        }
+
+         return redirect()->route('user.groupes')->with('success', 'groupe créée avec succès.');
+    }
 }

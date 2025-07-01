@@ -50,13 +50,23 @@ ul{
   
     margin-left: auto;
     margin-right: auto;
-  }
+}
 
 
-  .btn-popUp{
+.btn-popUp{
     color: antiquewhite;
     height: 40px;
     width: 10%;
     border-radius: 10px;
     float: right;
-  }
+}
+
+
+.required{
+    background-color: rgb(255, 147, 147) !important;
+}
+
+.required .select2-container--default.required .select2-selection--multiple,
+.select2-container--default.required .select2-selection--single {
+  background-color: rgb(255, 147, 147) !important;
+}
