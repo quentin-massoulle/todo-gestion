@@ -17,7 +17,7 @@ class GroupeController extends Controller
         $groupes = $user->groupe;
         $users = User::where('id', '!=', $user->id)->get();
 
-        return view('groupe.dashboardGroupe',['groupes' => $groupes , 'users'=> $users]);
+        return view('groupe.dashboardGroupe',['groupes' => $groupes , 'users'=> $users ,'groupeActif' => false , 'userGroupe' => null]);
     }
 
     public function show(Request $request, $id)
@@ -36,16 +36,16 @@ class GroupeController extends Controller
         $groupe = Groupe::find($id);
         $user = Auth::user();
     
-        // Vérifie si l'utilisateur appartient bien au groupe
+       
         if (!$user->groupe->pluck('id')->contains($groupe->id)) {
             return back()->withErrors('pas ton groupe')->withInput();
         }
     
-        // Récupération des messages
+    
         $messages = $groupe->message()->orderByDesc('created_at')->get();
     
-        // Filtrage des tâches
-        $tachesQuery = $groupe->tache(); // <== Ceci retourne un QueryBuilder, pas une Collection
+
+        $tachesQuery = $groupe->tache(); 
     
         if ($date_depart) {
             $tachesQuery->where('date_fin', '>=', $date_depart);
@@ -54,10 +54,13 @@ class GroupeController extends Controller
         if ($date_fin) {
             $tachesQuery->where('date_fin', '<=', $date_fin);
         }
-    
+        $users = User::where('id', '!=', $user->id)->get();
         $taches = $tachesQuery->get();
     
         return view('groupe.GroupeShow', [
+            'userGroupe' => $groupe->user,
+            'groupeActif' => true,
+            'users' => $users,
             'groupe' => $groupe,
             'tache' => $taches,
             'messages' => $messages,
@@ -69,15 +72,41 @@ class GroupeController extends Controller
 
     public function store(Request $request)
     {
-
+        $idGroupe = $request->input('idGroupe');
         $user = Auth::user();
         $inputValue = $request->input('NameGroupe');
         $selectValues = $request->input('SelectGroupe');
-
-        $groupe = new Groupe;
-        $groupe->nom =  $inputValue;
-        $groupe->proprietaire_id = $user->id;
-        $groupe->save();
+        if ($idGroupe) {
+            $validator = Validator::make($request->all(), [
+                'idGroupe' => 'required|exists:groupe,id',
+                'NameGroupe' => 'required|string|max:255',
+                'SelectGroupe' => 'required|array',
+                'SelectGroupe.*' => 'exists:users,id',
+            ]);
+        } else {
+            $validator = Validator::make($request->all(), [
+                'NameGroupe' => 'required|string|max:255',
+                'SelectGroupe' => 'required|array',
+                'SelectGroupe.*' => 'exists:users,id',
+            ]);
+        }
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+        if ($idGroupe) {
+            $groupe = Groupe::find($idGroupe);
+            if (!$groupe || !$user->groupe->pluck('id')->contains($groupe->id)) {
+                return back()->withErrors('pas ton groupe')->withInput();
+            }
+            $groupe->nom = $inputValue;
+            $groupe->save();
+            GroupeUser::where('groupe_id', $groupe->id)->delete();
+        } else {
+            $groupe = new Groupe;
+            $groupe->nom =  $inputValue;
+            $groupe->proprietaire_id = $user->id;
+            $groupe->save();
+        }
        
         $groupeUser = new GroupeUser;
         $groupeUser->groupe_id =  $groupe->id;
@@ -92,6 +121,6 @@ class GroupeController extends Controller
             $groupeUser->save();
         }
 
-         return redirect()->route('user.groupes')->with('success', 'groupe créée avec succès.');
+         return redirect()->route('user.groupes')->with('success', 'action reussie');
     }
 }

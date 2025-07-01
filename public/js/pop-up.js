@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const popUpGroupe = document.getElementById('pop-upGroupe');
     const overlay     = document.getElementById('overlay');
     popUpGroupe.classList.add('hidden');
-    const boutonOpen  = document.querySelector('#NewGroupe');
+    const boutonOpen  = document.querySelector('#gestionGroupe');
     const boutonClose = document.querySelector('#close-popUp');
     if (boutonOpen) {
         boutonOpen.addEventListener('click', function() {

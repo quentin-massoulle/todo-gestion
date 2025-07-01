@@ -18,7 +18,7 @@
     <div class="mx-auto">
         <h2 class="text-4xl font-semibold mb-4">{{__('groupe.welcome_groups') }}  {{ Auth::user()->nom }}</h2>
     </div>
-    <button class="btn-popUp bg-blue-600 hover:bg-blue-700 " id='NewGroupe'>
+    <button class="btn-popUp bg-blue-600 hover:bg-blue-700 " id='gestionGroupe'>
         cree un nouveau groupe
     </button>
 </section>
@@ -46,6 +46,6 @@
     </script>
 @endsection
 
-@extends('pop-up.creationGroupe')
+@extends('pop-up.gestionGroupe')
 
 @endsection
