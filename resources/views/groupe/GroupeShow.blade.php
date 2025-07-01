@@ -26,7 +26,9 @@
     @endif
     <button type="submit" class="Btn-form"> rechercher </button>
   </form>
-  <button class="Btn-form" style="width: 250px" id='gestionGroupe'>gérer le groupe</button>
+  @if ($groupe->proprietaire_id === auth()->id())
+    <button class="Btn-form" style="width: 250px" id='gestionGroupe'>gérer le groupe</button>
+  @endif
 </div>
   <div class="containeur">
       <div class=" containeurTask">
