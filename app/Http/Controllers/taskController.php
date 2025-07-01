@@ -112,7 +112,7 @@ class taskController extends Controller
 
     public function updateEtat(Request $request, $id)
     {
-        $task = Task::where('user_id', auth()->id())->findOrFail($id);
+        $task = Task::findOrFail($id);
 
         $validated = $request->validate([
             'etat' => 'required|in:nouveau,planifie,en_cours,termine',
