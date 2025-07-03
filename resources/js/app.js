@@ -1,6 +1,10 @@
 import './bootstrap';
 import Chart from 'chart.js/auto';
 import './chartGroupe';
+import Swal from 'sweetalert2';
+
+
+window.Swal = Swal;
 
 $(document).ready(() => {
   console.log('jQuery:', typeof $.fn.jquery);

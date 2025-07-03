@@ -102,8 +102,8 @@
     window.urlPost = '/message/addMessageGroupe';
     window.urlGet  = '/message/getMessageGroupe';
   </script>
-  <script src="{{ asset('js/pop-up.js') }}" defer></script>
-  <script src="{{ asset('js/message.js') }}" defer></script>
+  <script  src="{{ asset('js/pop-up.js') }}" defer></script>
+  <script  src="{{ asset('js/message.js') }}" defer></script>
 @endsection
 
 

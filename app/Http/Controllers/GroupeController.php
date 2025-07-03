@@ -123,4 +123,28 @@ class GroupeController extends Controller
 
          return redirect()->route('user.groupes')->with('success', 'action reussie');
     }
+
+
+    public function delete($id)
+    {
+
+        $validator = Validator::make(['id' => $id], [
+            'id' => 'required|exists:groupe,id',
+        ]);
+        
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
+        $groupe = Groupe::find($id);
+
+        if (!$groupe) {
+            return back()->withErrors('pas ton groupe')->withInput();
+        }
+        $groupe->delete();
+
+        GroupeUser::where('groupe_id', $groupe->id)->delete();
+
+        return redirect()->route('user.groupes')->with('success', 'Groupe supprimé avec succès');
+    }
 }

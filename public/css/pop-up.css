@@ -70,16 +70,6 @@ button.close:hover {
   padding: 5px 10px;
   border: none;
 }
-
-
-.pop-up form button[type="submit"] {
-  background-color: gray;
-  color: white;
-  height: 30px;
-  margin-top: auto;
-  align-self: stretch;
-}
-
 .hidden {
   display: none;
 }
@@ -90,4 +80,13 @@ button.close:hover {
   flex-direction: column;
   text-align: left;
   gap: 5px;
+}
+
+
+.btnForm {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
 }

@@ -14,7 +14,7 @@
       <div class="input">
         <h1 class="text-xl">Titre du groupe</h1>
         @if ($groupeActif)
-            <input type="hidden" name="idGroupe" value="{{$groupe->id}}">
+            <input type="hidden" name="idGroupe" id="idGroupe" value="{{$groupe->id}}">
             <input type="text" name="NameGroupe" value="{{$groupe->nom}}">
         @else
             <input type="text" placeholder="Nom du groupe" name='NameGroupe'/>
@@ -40,7 +40,12 @@
       </div>
         
 
-      <button type="submit">cree le groupe</button>
+      <div class="btnForm">
+        <button type="submit" class="Btn-form" style="width: 250px">@if ($groupeActif) Modifier le groupe @else Créer le groupe @endif</button>
+        @if ($groupeActif)
+          <button type="button" class="Btn-form" style="width: 250px" id="supprimerGroupe">Supprimer le groupe</button>
+        @endif
+      </div>
     </form>
   </div>
 </div>

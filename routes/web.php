@@ -72,6 +72,7 @@ Route::middleware('auth')->prefix('user')->name('user.')->group(function () {
 Route::middleware('auth')->prefix('groupe')->name('groupe.')->group(function () {
     Route::get('/{id}',[GroupeController::class,'show'])->where('id','[1-9][0-9]*')->name('show');
     Route::post('/store',[GroupeController::class,'store'])->name('store');
+    Route::post('/{id}/delete',[GroupeController::class,'delete'])->name('delete');
 });
 
 Route::middleware('auth')->prefix('message')->name('message.')->group(function () {
