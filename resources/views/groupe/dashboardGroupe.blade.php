@@ -28,6 +28,7 @@
 <div class="container overflow-y-auto">
     @foreach($groupes as $groupe)
         <div class="etiquette">
+            <h1 class="text-3xl font-semibold mb-4">{{ $groupe->nom }}</h1>
             <h3 class="text-2xl font-bold mb-2">{{ $groupe->prenom }}</h3>
             <p class="text-gray-600 mb-4">{{__('groupe.group_users')}}</p>
             <ul>
