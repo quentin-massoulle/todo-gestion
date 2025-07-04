@@ -73,7 +73,7 @@ class taskController extends Controller
         {
              $validator = Validator::make(['id'=>$id],
             [
-                'id' => 'required|exists:taches,id', // Règles de validation
+                'id' => 'required|exists:taches,id',
             ], 
             [
                 'id.required' => __('validator.task.id.required'),
@@ -84,7 +84,20 @@ class taskController extends Controller
                 return back()->withErrors($validator)->withInput();
             }
             $task=Task::where('id', $id)->first();
-            $validator = Validator::make(['user_id' => $task->user_id], [
+            if ($task->groupe)
+            {
+                $validator = Validator::make(['userId' => $user->id , 'groupe_id' => $task->groupe->id], [
+                    'userId' => 'exists:groupe_user,user_id',
+                    'groupe_id' => 'exists:groupe,id'
+                ], [
+                    'groupe_id.exists' => __('validator.groupe.id.exists'),
+                ]);
+                if ($validator->fails()) {
+                    return back()->withErrors($validator)->withInput();
+                }
+            }
+            else {
+                $validator = Validator::make(['user_id' => $task->user_id], [
                 'user_id' => 'in:' . $user->id
             ], [
                 'user_id.in' => __('validator.task.id.UserExiste'),
@@ -92,11 +105,13 @@ class taskController extends Controller
             if ($validator->fails()) {
                 return back()->withErrors($validator)->withInput();
             }
+            }
+            
         }
         else{
             $task = null;
         }
-        $groupe = request('groupe');
+        $groupe = $task->groupe_id ?? null;
         if (isset($groupe))
         {
             if(!$user->groupe->contains('id',$groupe))
@@ -107,7 +122,11 @@ class taskController extends Controller
         else{
             $groupe=null;
         }
-        return view('task.taskShow',['task' => $task, 'groupe' => $groupe]);
+        $messages = $task->message ?? null;
+        if (!isset($messages)){
+            $messages = null;
+        }
+        return view('task.taskShow',['task' => $task, 'groupe' => $groupe, 'messages' => $messages]);
     }
 
     public function updateEtat(Request $request, $id)
