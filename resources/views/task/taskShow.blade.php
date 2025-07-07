@@ -10,8 +10,8 @@
 @endsection
 
 @section('content')
-
-    <div class="max-w-2xl mx-auto p-8 bg-white rounded-lg shadow-xl mt-10">
+<div class="w-full h-[70vh] flex flex-row p-8">
+    <div class="w-1/3 mx-auto p-8 bg-white rounded-lg shadow-xl mt-10">
         <h2 class="text-3xl font-semibold mb-6 text-center text-gray-800">Créer une nouvelle tâche</h2>
 
         <form method="POST" class="space-y-6">
@@ -97,6 +97,10 @@
             </div>
         </form>
     </div>
+    @if(isset($groupe) || isset($task))
+        @include('message.messageBox')
+    @endif
+</div>
 
 @endsection
 
