@@ -20,7 +20,7 @@
                 <input type="hidden" name="Groupe" value="{{ $groupe }}">
             @endif
             @if(isset($task))
-                <input type="hidden" name="TaskId" value="{{ $task->id }}">
+                <input type="hidden" name="task" value="{{ $task->id }}">
             @endif
         
             <div>
@@ -105,5 +105,10 @@
 @endsection
 
 @section('script')
+    <script>
+        window.urlPost = '/message/addMessage';
+        window.urlGet  = '/message/getMessage';
+    </script>
     <script src="{{ asset('js/newTask.js') }}" defer></script>
+    <script  src="{{ asset('js/message.js') }}" defer></script>
 @endsection

@@ -122,7 +122,7 @@ class taskController extends Controller
         else{
             $groupe=null;
         }
-        $messages = $task->message ?? null;
+        $messages = $task->message()->orderByDesc('created_at')->get();
         if (!isset($messages)){
             $messages = null;
         }

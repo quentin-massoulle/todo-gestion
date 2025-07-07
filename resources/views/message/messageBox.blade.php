@@ -4,8 +4,9 @@
             <form id="message-form" method="POST">
                 @csrf
                 @php
-                    $inputName = isset($groupe) ? 'groupe' : (isset($tache) ? 'tache' : 'user');
-                    $inputValue = $groupe->id ?? $tache->id ?? $user->id ?? '';
+                    $inputName = isset($task) ? 'tache' : (isset($groupe) ? 'groupe' : 'user');
+                    $inputValue = isset($task) ? ($task->id ?? '') : (isset($groupe) ? ($groupe->id ?? '') : ($user->id ?? ''));
+
                 @endphp
 
                 <input type="hidden" name="{{ $inputName }}" value="{{ $inputValue }}">

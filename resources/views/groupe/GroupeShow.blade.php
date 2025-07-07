@@ -64,8 +64,8 @@
         termine: {{ $tache->where('etat', 'termine')->count() }}
     };
 
-    window.urlPost = '/message/addMessageGroupe';
-    window.urlGet  = '/message/getMessageGroupe';
+    window.urlPost = '/message/addMessage';
+    window.urlGet  = '/message/getMessage';
   </script>
   <script  src="{{ asset('js/pop-up.js') }}" defer></script>
   <script  src="{{ asset('js/message.js') }}" defer></script>
