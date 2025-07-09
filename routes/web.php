@@ -83,8 +83,13 @@ Route::middleware('auth')->prefix('message')->name('message.')->group(function (
 });
 
 
+Route::middleware('auth')->prefix('tache')->name('tache.')->group(function () {
+    Route::post('/store', [taskController::class, 'store'])->name('store');
+    Route::post('/{id}/update-dates', [taskController::class, 'updateDates'])
+        ->where('id', '[1-9][0-9]*')
+        ->name('updateDates');
 
-
+});
 Route::middleware(['auth', IsAdmin::class])->prefix('admin')->name('admin.')->group(function () {              
         Route::get('/dashboard', fn() => view('dashboard.dashboardAdmin'))
             ->name('dashboard');

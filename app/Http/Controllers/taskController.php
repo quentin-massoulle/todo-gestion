@@ -150,4 +150,20 @@ class taskController extends Controller
         return response()->json(['success' => true]);
     }
 
+    public function updateDates(Request $request, $id)
+    {
+        $task = Task::findOrFail($id);
+
+        $validated = $request->validate([
+            'start' => 'required|date',
+            'end' => 'required|date|after_or_equal:start',
+        ]);
+
+        $task->date_debut = $validated['start'];
+        $task->date_fin = $validated['end'];
+        $task->save();
+
+        return response()->json(['success' => true]);
+    }
+
 }

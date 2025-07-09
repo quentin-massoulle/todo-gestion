@@ -5,26 +5,8 @@ import Swal from 'sweetalert2';
 import Gantt from 'frappe-gantt';
 import '../css/frappe-gantt.css';
 
-document.addEventListener('DOMContentLoaded', () => {
-  if (window.appTasks) {
-    const formattedTasks = window.appTasks.map(task => ({
-      id: task.id.toString(),
-      name: task.titre,
-      start: task.date_debut,
-      end: task.date_fin,
-      dependencies: task.dependencies || '',
-      proprietaire: task.user ? task.user.name : 'Aucun',
-    }));
-
-    new Gantt("#gantt", formattedTasks, {
-      view_mode: 'Day',
-      language: 'fr',
-    });
-  } else {
-    console.error('No tasks found');
-  }
-});
-
+window.Chart = Chart;
+window.Gantt = Gantt;
 window.Swal = Swal;
 
 $(document).ready(() => {
