@@ -36,12 +36,15 @@
           Tache du groupe
         </h1>
         <div class="containeurIner">
-              <a href="{{ route('user.task.show', ['id' => 0]) }}?groupe={{ $groupe->id }}"><button class="Btn-form" style="width: 250px">
-              cree une nouvelle tache
-        </button></a>
-        <a href="{{ route('user.tasks')}}?groupe={{ $groupe->id }}"><button class="Btn-form" style="width: 250px">
-                acceder au kanban
-        </button></a>
+          <a href="{{ route('user.task.show', ['id' => 0]) }}?groupe={{ $groupe->id }}"><button class="Btn-form" style="width: 250px">
+            cree une nouvelle tache
+          </button></a>
+          <a href="{{ route('user.tasks')}}?groupe={{ $groupe->id }}"><button class="Btn-form" style="width: 250px">
+            acceder au kanban
+          </button></a>
+          <a href="{{ route('groupe.gantt', ['id' => $groupe->id]) }}"><button class="Btn-form" style="width: 250px">
+            acceder au Gantt
+          </button></a>
         <br>
         </div>
         <div class=tache-decriptif>

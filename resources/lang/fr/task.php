@@ -13,7 +13,7 @@ return [
     'date_du_rappel' => 'Date du rappel',
     'date_du_premier_rappel' => 'Date du premier rappel',
     'enregistrer_la_tache' => 'Enregistrer la tâche',
-
+    'modifier' => 'Modifier la tâche',
     'new' => 'Nouvelle tache ',
 
     'etat' => 

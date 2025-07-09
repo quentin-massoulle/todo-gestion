@@ -35,16 +35,18 @@ class taskController extends Controller
             $user = Auth::user();
             $task = new Task();
             $task->user_id = $user->id;
+            
         }
         $task->titre = $request->titre;
         $task->description = $request->description;
-        $task->date_fin = $request->date_fin; 
+        $task->date_debut = $request->date_debut ?? now(); // Date de début par défaut à maintenant
+        $task->date_fin = $request->date_fin ?? now()->addMonth(); // Date de fin par défaut dans un mois
 
         $task->save();
         if ($request->TaskId){
             return redirect()->route('user.tasks')->with('success', 'Tâche modifier avec succès.');
         }
-        if($request->Groupe)
+        if($request->groupe)
         {
             $task->groupe_id = $request->groupe ;
             $task->save();
@@ -122,8 +124,13 @@ class taskController extends Controller
         else{
             $groupe=null;
         }
-        $messages = $task->message()->orderByDesc('created_at')->get();
-        if (!isset($messages)){
+        if ($task != null) {
+            $messages = $task->message()->orderByDesc('created_at')->get();
+            if (!isset($messages)){
+            $messages = null;
+            }
+        }
+        else {
             $messages = null;
         }
         return view('task.taskShow',['task' => $task, 'groupe' => $groupe, 'messages' => $messages]);

@@ -20,6 +20,7 @@ return new class extends Migration
              $table->enum('etat', ['nouveau', 'planifie', 'en_cours', 'termine'])->default('nouveau');
              $table->boolean('rappel_active')->default(false);
              $table->date('date_fin')->nullable();
+             $table->date('date_debut')->nullable();
              $table->foreignId('groupe_id')->nullable();
              $table->timestamps();
          });

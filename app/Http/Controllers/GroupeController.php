@@ -147,4 +147,29 @@ class GroupeController extends Controller
 
         return redirect()->route('user.groupes')->with('success', 'Groupe supprimé avec succès');
     }
+
+    public function gantt($id)
+    {
+        $validator = Validator::make(['id' => $id], [
+            'id' => 'required|exists:groupe,id',
+        ]);
+    
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+    
+        $groupe = Groupe::find($id);
+        $user = Auth::user();
+    
+        if (!$user->groupe->pluck('id')->contains($groupe->id)) {
+            return back()->withErrors('pas ton groupe')->withInput();
+        }
+    
+        $taches = $groupe->tache()->get();
+    
+        return view('gantt', [
+            'groupe' => $groupe,
+            'taches' => $taches,
+        ]);
+    }
 }

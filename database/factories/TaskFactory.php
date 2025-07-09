@@ -30,6 +30,9 @@ class TaskFactory extends Factory
             'groupe_id' => fake()->boolean(70) // 70% de chances d’avoir un groupe
                 ? Groupe::inRandomOrder()->first()?->id
                 : null,
+            'etat' => fake()->randomElement(['nouveau', 'planifie', 'en_cours', 'termine']),
+            'date_fin' => fake()->dateTimeBetween('now', '+1 month'), // Date de fin dans le futur
+            'date_debut' => fake()->dateTimeBetween('-1 month', 'now'),// Date de début dans le passé ou le futur proche
         ];
 
     }
