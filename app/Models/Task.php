@@ -38,5 +38,10 @@ class Task extends Model
         return $this->belongsTo(Groupe::class);
     }
 
+    public function dependance()
+    {
+        return $this->belongsToMany(Task::class, 'taches_dependencies', 'tache_id', 'dependency_id');
+    }
+
 }
 

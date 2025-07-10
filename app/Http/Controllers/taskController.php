@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Task;
+use DateTime;
 
 class taskController extends Controller
 {
@@ -159,8 +160,13 @@ class taskController extends Controller
             'end' => 'required|date|after_or_equal:start',
         ]);
 
-        $task->date_debut = $validated['start'];
-        $task->date_fin = $validated['end'];
+        $start = new DateTime($validated['start']);
+        $start->modify('+1 day');
+        $task->date_debut = $start->format('Y-m-d'); 
+
+        $end = new DateTime($validated['end']);
+        $end->modify('+1 day');
+        $task->date_fin = $end->format('Y-m-d'); 
         $task->save();
 
         return response()->json(['success' => true]);

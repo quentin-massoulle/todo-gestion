@@ -166,7 +166,10 @@ class GroupeController extends Controller
         }
     
         $taches = $groupe->tache()->get();
-    
+        foreach ($taches as $task) {
+            $task->dependencies = $task->dependance->pluck('id')->implode(',');
+            $task->dependencies = preg_replace('/\s+/', '', $task->dependencies);
+        }
         return view('gantt', [
             'groupe' => $groupe,
             'taches' => $taches,

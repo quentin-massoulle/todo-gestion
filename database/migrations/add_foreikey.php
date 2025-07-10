@@ -47,6 +47,15 @@ return new class extends Migration {
             $table->foreign('tache_id')->references('id')->on('taches')->onDelete('cascade');
         });
 
+        // Ajout de la FK taches_dependencies.tache_id et taches_dependencies.dependency_id
+        Schema::table('taches_dependencies', function (Blueprint $table) {
+            if (!Schema::hasColumn('taches_dependencies', 'tache_id')) return;
+
+            $table->foreign('tache_id')->references('id')->on('taches')->onDelete('cascade');
+            if (!Schema::hasColumn('taches_dependencies', 'dependency_id')) return;
+
+            $table->foreign('dependency_id')->references('id')->on('taches')->onDelete('cascade');
+        });
     }
 
     /**
@@ -67,5 +76,19 @@ return new class extends Migration {
         Schema::table('rappels', function (Blueprint $table) {
             $table->dropForeign(['tache_id']);
         });
+
+        Schema::table('message', function (Blueprint $table) {
+            $table->dropForeign(['user_id']);
+            $table->dropForeign(['groupe_id']);
+            $table->dropForeign(['tache_id']);
+        }); 
+        Schema::table('groupe', function (Blueprint $table) {
+            $table->dropForeign(['proprietaire_id']);
+        });
+        Schema::table('taches_dependencies', function (Blueprint $table) {
+            $table->dropForeign(['tache_id']);
+            $table->dropForeign(['dependency_id']);
+        });
+        
     }
 };
