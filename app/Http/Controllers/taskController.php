@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Task;
+use App\Models\TacheDependance;
 use DateTime;
 
 class taskController extends Controller
@@ -17,13 +18,21 @@ class taskController extends Controller
                 'TaskId' => 'nullable|exists:taches,id',
                 'titre' => 'required|string|max:255',
                 'description' => 'required|string|max:255',
-                'date_fin'=> 'nullable|date'
+                'date_fin'=> 'nullable|date',
+                'date_debut' => 'nullable|date',
+                'groupe' => 'nullable|exists:groupe,id',
+                'dependance' => 'nullable|array',
+                'dependance.*' => 'exists:taches,id',
             ], 
             [
                 'TaskId.exists' => __('validator.task.id.exists'),
                 'titre.required' => __('validator.titre.required'),
                 'description.required' => __('validator.description.required'),
-                'date_fin.date' => __('validator.date.date')
+                'date_fin.date' => __('validator.date.date'),
+                'date_debut.date' => __('validator.date.date'),
+                'groupe.exists' => __('validator.groupe.id.exists'),
+                'dependance.array' => __('validator.dependance.array'),
+                'dependance.*.exists' => __('validator.dependance.id.exists'),
             ]
         );
         if ($validator->fails()) {
@@ -42,8 +51,16 @@ class taskController extends Controller
         $task->description = $request->description;
         $task->date_debut = $request->date_debut ?? now(); // Date de début par défaut à maintenant
         $task->date_fin = $request->date_fin ?? now()->addMonth(); // Date de fin par défaut dans un mois
+        $task->etat = 'nouveau'; // État par défaut
 
         $task->save();
+        if ($request->dependance) {
+            $dependanceIds = array_unique($request->dependance);
+            $task->dependance()->sync($dependanceIds);
+        } else {
+            $task->dependance()->sync([]);
+        }
+
         if ($request->TaskId){
             return redirect()->route('user.tasks')->with('success', 'Tâche modifier avec succès.');
         }
@@ -121,9 +138,14 @@ class taskController extends Controller
             {
                 $groupe==null;
             }   
+            else {
+                $groupe = $user->groupe->where('id', $groupe)->first();
+                $listeTache = $groupe->tache;
+            }
         }
         else{
             $groupe=null;
+            $listeTache = $user->tache;
         }
         if ($task != null) {
             $messages = $task->message()->orderByDesc('created_at')->get();
@@ -134,7 +156,7 @@ class taskController extends Controller
         else {
             $messages = null;
         }
-        return view('task.taskShow',['task' => $task, 'groupe' => $groupe, 'messages' => $messages]);
+        return view('task.taskShow',['task' => $task, 'groupe' => $groupe, 'messages' => $messages, 'listeTache' => $listeTache]);
     }
 
     public function updateEtat(Request $request, $id)

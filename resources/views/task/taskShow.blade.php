@@ -10,17 +10,17 @@
 @endsection
 
 @section('content')
-<div class="w-full h-[70vh] flex flex-row p-8">
-    <div class="w-1/3 mx-auto p-8 bg-white rounded-lg shadow-xl mt-10">
-        <h2 class="text-3xl font-semibold mb-6 text-center text-gray-800">Créer une nouvelle tâche</h2>
+<div class="w-full h-[70vh] flex flex-row p-2">
+    <div class="w-1/2 mx-auto p-2 bg-white rounded-lg shadow-xl">
+        <h2 class="text-3xl font-semibold mb-6 text-center text-gray-800">@if(isset($task))Modifier une tâche existante @else Créer une nouvelle tâche @endif</h2>
 
-        <form method="POST" class="space-y-6">
+        <form method="POST" class="space-y-2">
             @csrf
             @if(isset($groupe))
-                <input type="hidden" name="Groupe" value="{{ $groupe }}">
+                <input type="hidden" name="groupe" value="{{ $groupe->id }}">
             @endif
             @if(isset($task))
-                <input type="hidden" name="task" value="{{ $task->id }}">
+                <input type="hidden" name="TaskId" value="{{ $task->id }}">
             @endif
         
             <div>
@@ -45,7 +45,30 @@
                     class="mt-1 block w-full border border-gray-300 rounded-md p-3 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
                 >{{ old('description', $task->description ?? '') }}</textarea>
             </div>
-            
+            <div class="flex gap-4">
+                <div class="w-1/2">
+                    <label for="date" class="block text-sm font-medium text-gray-700">{{ __('task.date_debut') }}</label>
+                    <input 
+                        type="date" 
+                        name="date_debut" 
+                        class="mt-1 block w-full border border-gray-300 rounded-md p-3 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+                        value="{{ old('date_debut', $task->date_debut ?? '') }}"
+                    >
+                </div>
+                <div class="w-1/2">
+                    <label for="priorite" class="block text-sm font-medium text-gray-700">{{ __('task.dependance') }}</label>
+                        <select class="select2" name="dependance[]" multiple=true style="width: 100%;" >
+                            @foreach ($listeTache as $dependance)
+                               @if ($dependance->id != $task->id)
+                                    <option value="{{$dependance->id}}" 
+                                        @if(isset($task) && $task->dependance->contains($dependance->id)) selected @endif>
+                                        {{$dependance->titre}}
+                                    </option>
+                                @endif
+                            @endforeach
+                        </select>
+                </div>
+            </div>
             <div class="flex gap-4">
                 <div class="w-1/2">
                     <label for="date" class="block text-sm font-medium text-gray-700">{{ __('task.date_fin') }}</label>
