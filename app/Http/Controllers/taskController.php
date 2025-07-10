@@ -104,6 +104,7 @@ class taskController extends Controller
                 return back()->withErrors($validator)->withInput();
             }
             $task=Task::where('id', $id)->first();
+            
             if ($task->groupe)
             {
                 $validator = Validator::make(['userId' => $user->id , 'groupe_id' => $task->groupe->id], [
@@ -115,6 +116,7 @@ class taskController extends Controller
                 if ($validator->fails()) {
                     return back()->withErrors($validator)->withInput();
                 }
+                $listeTache = $task->groupe->tache;
             }
             else {
                 $validator = Validator::make(['user_id' => $task->user_id], [
@@ -130,6 +132,7 @@ class taskController extends Controller
         }
         else{
             $task = null;
+            $listeTache = $user->tache;
         }
         $groupe = $task->groupe_id ?? null;
         if (isset($groupe))
@@ -145,17 +148,20 @@ class taskController extends Controller
         }
         else{
             $groupe=null;
-            $listeTache = $user->tache;
+
+            $listeTache = $user->tasks;
+
         }
         if ($task != null) {
             $messages = $task->message()->orderByDesc('created_at')->get();
             if (!isset($messages)){
-            $messages = null;
+                $messages = null;
             }
         }
         else {
             $messages = null;
         }
+        
         return view('task.taskShow',['task' => $task, 'groupe' => $groupe, 'messages' => $messages, 'listeTache' => $listeTache]);
     }
 

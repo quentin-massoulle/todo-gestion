@@ -55,8 +55,10 @@
                         value="{{ old('date_debut', $task->date_debut ?? '') }}"
                     >
                 </div>
-                <div class="w-1/2">
-                    <label for="priorite" class="block text-sm font-medium text-gray-700">{{ __('task.dependance') }}</label>
+                @if(isset($listeTache))
+                    <div class="w-1/2">
+                        <label for="priorite" class="block text-sm font-medium text-gray-700">{{ __('task.dependance') }}</label>
+                    
                         <select class="select2" name="dependance[]" multiple=true style="width: 100%;" >
                             @foreach ($listeTache as $dependance)
                                @if ($dependance->id != $task->id)
@@ -67,7 +69,8 @@
                                 @endif
                             @endforeach
                         </select>
-                </div>
+                    </div>
+                @endif
             </div>
             <div class="flex gap-4">
                 <div class="w-1/2">
