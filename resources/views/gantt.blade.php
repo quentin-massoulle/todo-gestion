@@ -5,32 +5,22 @@
 @endsection
 
 @section('content')
-  <div class=>
-    <h1 class="text-3xl font-semibold mb-4">Gantt Chart for Groupe: {{ $groupe->name }}</h1>
-    <div id="gantt"></div>
-  </div>
-
-
-  @foreach ($taches as $task)
-    <div class="task-details">
-      <h2 class="text-2xl font-semibold">{{ $task->titre }}</h2>
-        <p><strong>Description:</strong> {{ $task->id }}</p>
-      <p><strong>Date de début:</strong> {{ $task->date_debut }}</p>
-      <p><strong>Date de fin:</strong> {{ $task->date_fin }}</p>
-      <p><strong>Propriétaire:</strong> {{ $task->user ? $task->user->name : 'Aucun' }}</p>
-      <p><strong>Dépendances:</strong> {{ $task->dependance->pluck('id')->implode(', ') ?: 'Aucune' }}</p>
-    </div>
-  @endforeach
+    <div id="gantt" style="height: 70vh;"></div>
 @endsection
 
 @section('scripts')
   @vite('resources/js/app.js')
   <script>
+    const etatToProgress = {
+      'nouveau': 0,
+      'planifie': 33,
+      'en_cours': 66,
+      'termine': 100
+    };
     window.appTasks = @json($taches);
-
     document.addEventListener('DOMContentLoaded', () => {
-        if (window.appTasks) {  
-            console.log('Tasks loaded:', window.appTasks);
+        console.log('Tasks loaded:', window.appTasks);
+        if (window.appTasks) {
             const formattedTasks = window.appTasks.map(task => ({
                 id: task.id.toString(),
                 name: task.titre,
@@ -38,11 +28,18 @@
                 end: task.date_fin,
                 dependencies: task.dependencies ? task.dependencies.split(',').map(dep => dep.trim()) : [],
                 proprietaire: task.user ? task.user.nom : 'Aucun',
+                progress: etatToProgress[task.etat] ?? 0,
+                etat: task.etat
             }));
-
             const gantt = new Gantt("#gantt", formattedTasks, {
                 view_mode: 'Day',
                 language: 'fr',
+                popup_on : 'hover',
+                infinite_padding: false,
+                lines: 'horizontal',
+                on_click: (task) => {
+                    window.location.href = `/user/task/${task.id}`;
+                },
                 on_date_change: (task, start, end) => {
                     const startDate = new Date(start).toISOString().slice(0, 19).replace('T', ' ');
                     const endDate = new Date(end).toISOString().slice(0, 19).replace('T', ' ');
@@ -69,6 +66,12 @@
                     });
                 },
             });
+            const container = document.querySelector(".gantt-container");
+            if (container) {
+                const height = container.offsetHeight;
+                container.style.height = `${height + 50}px`;
+                container.style.maxHeight = "100%";
+            }
         } else {
             console.error('No tasks found');
         }
