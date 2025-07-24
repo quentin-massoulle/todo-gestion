@@ -34,7 +34,7 @@
             const gantt = new Gantt("#gantt", formattedTasks, {
                 view_mode: 'Day',
                 language: 'fr',
-                popup_on : 'hover',
+                popup_on: 'hover',
                 infinite_padding: false,
                 lines: 'horizontal',
                 on_click: (task) => {
@@ -68,9 +68,9 @@
             });
             const container = document.querySelector(".gantt-container");
             if (container) {
+                container.style.maxHeight = "100%";
                 const height = container.offsetHeight;
                 container.style.height = `${height + 50}px`;
-                container.style.maxHeight = "100%";
             }
         } else {
             console.error('No tasks found');
