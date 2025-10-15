@@ -42,7 +42,7 @@ Le tout dans un environnement conteneurisé avec **Docker**, propulsé par **Ngi
 
 - cd todo-gestion
 - docker compose -up --d
-- docker exec -it app
+- docker exec -it app bash
 - composer install 
 - cp .env.example .env 
 - php artisan key:generate
