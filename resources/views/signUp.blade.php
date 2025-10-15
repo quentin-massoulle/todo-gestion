@@ -11,7 +11,11 @@
             @csrf
             <div class=inputDiv>
                 <h4>{{__('login.name')}}</h4>
-                <input type="text" placeholder="{{__('login.namePlaceholder')}}"required name='name'>
+                <input type="text" placeholder="{{__('login.namePlaceholder')}}"required name='nom'>
+            </div>
+             <div class=inputDiv>
+                <h4>{{__('login.prenom')}}</h4>
+                <input type="text" placeholder="{{__('login.prenomPlaceholder')}}"required name='prenom'>
             </div>
             @error('name')
                 <div class="alert alert-danger">{{ $message }}</div>

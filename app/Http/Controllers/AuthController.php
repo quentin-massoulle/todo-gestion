@@ -15,12 +15,14 @@ class AuthController extends Controller
         // Validation des données avec des messages personnalisés
         $validator = Validator::make($request->all(), 
             [
-                'name' => 'required|string|max:255',
+                'nom' => 'required|string|max:255',
+                'prenom' => 'required|string|max:255',
                 'email' => 'required|email|unique:users,email',
                 'mdp' => 'required|min:6|confirmed',
             ], 
             [
-            'name.required' => __('validator.name.required'),
+            'nom.required' => __('validator.nom.required'),
+            'prenom.required' => __('validator.prenom.required'),
             'email.required' => __('validator.email.required'),
             'email.email' => __('validator.email.email'),
             'email.unique'=>__('validator.email.unique'),
@@ -29,13 +31,13 @@ class AuthController extends Controller
             'mdp.confirmed' => __('validator.mdp.confirmed'),
             ]
         );
-        
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
-        // Vérifier si la validation échoue
+
         $user = new User([
-            'name' => $request->name,
+            'nom' => $request->nom,
+            'prenom' => $request->prenom,
             'email' => $request->email,
             'password' => Hash::make($request->mdp),
         ]);
