@@ -40,13 +40,16 @@ Le tout dans un environnement conteneurisé avec **Docker**, propulsé par **Ngi
 
 ### Commande a éxécuter 
 
--cd todo-gestion
--docker compose -up --d
--docker exec -it app
--composer install 
--cp .env.example .env 
--php artisan key:generate
--php artisan migrate 
+- cd todo-gestion
+- docker compose -up --d
+- docker exec -it app
+- composer install 
+- cp .env.example .env 
+- php artisan key:generate
+- php artisan migrate 
+- npm install
+- npm run build
+
 
 ---
 
