@@ -88,6 +88,7 @@ class taskController extends Controller
 
     public function showTask($id)
     {   
+        
         $user = Auth::user();
         if($id!=0)
         {
@@ -138,17 +139,17 @@ class taskController extends Controller
         if (isset($groupe))
         {
             if(!$user->groupe->contains('id',$groupe))
-            {
-                $groupe==null;
+            {     
+                $groupe = null;
             }   
             else {
+                
                 $groupe = $user->groupe->where('id', $groupe)->first();
                 $listeTache = $groupe->tache;
             }
         }
         else{
-            $groupe=null;
-
+            $groupe = null;
             $listeTache = $user->tasks;
 
         }
