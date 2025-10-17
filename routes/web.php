@@ -67,6 +67,7 @@ Route::middleware('auth')->prefix('user')->name('user.')->group(function () {
         ->name('task.show');
     Route::post('/task/{id}',[taskController::class , 'store']);
     Route::get('/groupes',[GroupeController::class,'index'])->name('groupes');
+    Route::get('/profile',[AuthController::class,'showProfile'])->name('profile');
 });
 
 Route::middleware('auth')->prefix('groupe')->name('groupe.')->group(function () {

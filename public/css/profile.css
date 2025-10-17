@@ -1,0 +1,36 @@
+.carte {
+  width: 100%;
+  max-width: 800px;
+  margin: 2rem auto;
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+}
+
+.carteInner {
+  padding: 2rem;
+}
+
+.section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  width: 100%;
+  gap: 1rem;
+}
+
+.section .info {
+  flex: 1;
+}
+
+.section img {
+  border-radius: 50%;
+}
+
+/* Un peu de style pour le texte */
+h3 {
+  margin: 1.5rem 0 1rem;
+  text-align: center;
+}

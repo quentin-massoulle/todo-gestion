@@ -85,7 +85,7 @@
             <div class="nav-links" id="nav-links">
                 <a href="{{ route('user.tasks')}}">{{ __('layout.taches')}}</a>
                 <a href="{{ route('user.groupes')}}">{{ __('layout.groupe')}}</a>
-                <a href="/">{{__('layout.profil')}}</a>
+                <a href="{{ route('user.profile') }}">{{__('layout.profil')}}</a>
                 @if (Auth::check())
                 <div class='bnt-log'>
                     <a href="/logOut">{{ __('layout.deconnexion') }}</a>
