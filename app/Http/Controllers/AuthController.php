@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
+    /**
+     * inscription des utilisateur 
+     */
     public function register(Request $request)
     {
         // Validation des données avec des messages personnalisés
@@ -51,7 +54,11 @@ class AuthController extends Controller
         }
         return back();
     }
-
+    /**
+     * @param role le role de l'utilisateur 
+     * @param Request les  email et mdp d el'utilistaeur *
+     * @return redirect une page en foction au quel l'utilisateur se connecte 
+     */
     public function login(Request $request, $role = 'user')
     {
 
@@ -85,6 +92,9 @@ class AuthController extends Controller
     }
 
 
+    /**
+     * deconnecte l'utisateur 
+     */
     public function logout(Request $request)
     {
         Auth::logout();
