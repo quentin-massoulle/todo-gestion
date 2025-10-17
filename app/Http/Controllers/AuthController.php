@@ -37,7 +37,7 @@ class AuthController extends Controller
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
-
+        // cree un nouvelle user 
         $user = new User([
             'nom' => $request->nom,
             'prenom' => $request->prenom,
@@ -48,7 +48,7 @@ class AuthController extends Controller
         $user->save();
         
         Auth::login($user); 
-        
+        //connect l'utilisateur apres l'inscription
         if (Auth::check()) {
             return redirect()->route('user.dashboard');
         }
@@ -62,6 +62,7 @@ class AuthController extends Controller
     public function login(Request $request, $role = 'user')
     {
 
+        ///verifie les donner recu
         $validator = Validator::make($request->all(), 
         [
             'email' => 'required|exists:users,email', 
@@ -81,6 +82,7 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => $request->mdp,
         ];
+        //redirige l'utilisateur vert la bonne page 
         if (Auth::attempt($credentials)) {
             if ($role === 'admin') {
                 return redirect()->route('admin.dashboard');

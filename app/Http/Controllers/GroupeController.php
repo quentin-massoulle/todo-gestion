@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\Validator;
 
 class GroupeController extends Controller
 {
+    /**
+     * permet au utilisateur d'acceder au dahborn de ses groupe 
+     */
     public function index()
     {
         $user = Auth::user();
@@ -20,6 +23,9 @@ class GroupeController extends Controller
         return view('groupe.dashboardGroupe',['groupes' => $groupes , 'users'=> $users ,'groupeActif' => false , 'userGroupe' => null]);
     }
 
+    /**
+     * permet de redirigier l'utilisateur vert le groupe selectionner si il en fait partie 
+     */
     public function show(Request $request, $id)
     {
         $validator = Validator::make(['id' => $id], [
@@ -30,7 +36,7 @@ class GroupeController extends Controller
             return back()->withErrors($validator)->withInput();
         }
     
-        $date_depart = $request->input('date_depart');
+        $date_debut = $request->input('date_debut');
         $date_fin = $request->input('date_fin');
     
         $groupe = Groupe::find($id);
@@ -47,8 +53,8 @@ class GroupeController extends Controller
 
         $tachesQuery = $groupe->tache(); 
     
-        if ($date_depart) {
-            $tachesQuery->where('date_fin', '>=', $date_depart);
+        if ($date_debut) {
+            $tachesQuery->where('date_fin', '>=', $date_debut);
         }
 
         if ($date_fin) {
@@ -64,9 +70,9 @@ class GroupeController extends Controller
             'groupe' => $groupe,
             'tache' => $taches,
             'messages' => $messages,
-            'date_depart' => $date_depart,
+            'date_debut' => $date_debut,
             'date_fin' => $date_fin,
-            'periode' => $date_depart && $date_fin,
+            'periode' => $date_debut && $date_fin,
         ]);
     }
 
@@ -124,7 +130,9 @@ class GroupeController extends Controller
          return redirect()->route('user.groupes')->with('success', 'action reussie');
     }
 
-
+    /**
+     * supprime le groupe selectionner 
+     */
     public function delete($id)
     {
 

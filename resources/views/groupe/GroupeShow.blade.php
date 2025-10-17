@@ -22,7 +22,7 @@
 <div class="containeurHeader">
   <form action="/groupe/{{$groupe->id}}" method="GET">
     @if (isset($periode))
-      <H1 class ='text-3xl font-semibold mb-4 '>periode du <input type='date' value ="{{$date_depart}}" name = "date_depart"> au <input type="date" name = "date_fin" value="{{$date_fin}}"></H1>
+      <H1 class ='text-3xl font-semibold mb-4 '>periode du <input type='date' value ="{{$date_debut}}" name = "date_debut"> au <input type="date" name = "date_fin" value="{{$date_fin}}"></H1>
     @endif
     <button type="submit" class="Btn-form"> rechercher </button>
   </form>
