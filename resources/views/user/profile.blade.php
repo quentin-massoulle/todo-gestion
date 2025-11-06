@@ -10,13 +10,12 @@
 @section('content')
 <div class="carte">
   <div class="carteInner">
-    <div class="section">
-      <img src="https://via.placeholder.com/120" alt="Avatar">
-    </div>
-
     <h3>Informations</h3>
     <br>
     <div class="section">
+      <div class = "avatar-section">
+        <img src="{{ asset('storage/users/' . $user->id . '.jpg') }}" alt="Photo de profil" class="profile-picture">
+      </div>
       <div class="info">
         <h4>Nom :</h4>
         <p>{{ $user->nom }}</p>   
