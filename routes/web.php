@@ -54,6 +54,7 @@ Route::post('signUp',  [ AuthController::class, 'register']);
 
 Route::get('logOut' ,[ AuthController::class, 'logout'] )->name('logOut');
 
+Route::post('/profile/upload', [AuthController::class, 'uploadPP'])->name('profile.upload');
 
 Route::middleware('auth')->prefix('user')->name('user.')->group(function () {
     Route::get('/dashboard', fn() =>view('dashboard.dashboardUser'))

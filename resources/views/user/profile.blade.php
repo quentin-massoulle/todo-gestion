@@ -13,8 +13,10 @@
     <h3>Informations</h3>
     <br>
     <div class="section">
-      <div class = "avatar-section">
-        <img src="{{ asset('storage/users/' . $user->id . '.jpg') }}" alt="Photo de profil" class="profile-picture">
+     <div class="avatar-section" onclick="document.getElementById('uploadProfile').click();">
+        <img src="{{ asset('storage/users/' . $user->id . '.jpg') }}"
+            alt="Photo de profil" 
+            class="profile-picture">
       </div>
       <div class="info">
         <h4>Nom :</h4>
@@ -54,5 +56,10 @@
   </div>
 </div>
 
+
+<form id="uploadForm" action="{{ route('profile.upload') }}" method="POST" enctype="multipart/form-data">
+  @csrf
+  <input type="file" id="uploadProfile" name="photo" accept="image/*" style="display: none;" onchange="this.form.submit();">
+</form>
 
 @endsection
