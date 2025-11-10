@@ -25,7 +25,7 @@
 
 
 
-<div class="container overflow-y-auto">
+<div class="custom-container overflow-y-auto">
     @foreach($groupes as $groupe)
         <div class="etiquette">
             <h1 class="text-3xl font-semibold mb-4">{{ $groupe->nom }}</h1>

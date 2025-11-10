@@ -1,5 +1,5 @@
 .etiquette{
-    background-color: rgb(197, 195, 195);
+    background-color: rgb(238, 238, 238);
     margin: 2%;
     border-radius: 8px;
     padding: 40px 10px 60px 10px; 
@@ -7,9 +7,6 @@
     text-align: center
 
 }
-
-
-
 .btn{
     position: absolute;
     border-radius: 10px;
@@ -37,19 +34,19 @@ ul{
 }
 
 
-.container {
-    flex: 1; /* Prend tout l'espace vertical restant */
-    
-    display: grid;
-    grid-template-columns: 1fr 1fr ;
-    gap: 2rem;
-  
-    min-height: 100px;
-    max-height: 70vh; /* ou ajuste à ton besoin */
-    overflow-y: auto;
-  
+.custom-container {
+    width: 80vw;
     margin-left: auto;
     margin-right: auto;
+
+    flex: 1; /* utile si ton parent est en flex */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+
+    min-height: 100px;
+    max-height: 90vh;
+    overflow-y: auto;
 }
 
 

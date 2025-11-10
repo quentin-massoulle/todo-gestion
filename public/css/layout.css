@@ -4,6 +4,7 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    min-width: 100vw;
     background-color: #f4f4f4;
 }
 .hidden {
@@ -27,6 +28,7 @@ nav {
 .nav-links {
     flex: 1;
     display: flex;
+    gap: 10px;
     justify-content: center;
 }
 
