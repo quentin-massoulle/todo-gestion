@@ -10,7 +10,7 @@
 @section('content')
 <div class="carte">
   <div class="carteInner">
-    <h3>Informations</h3>
+    <h1>Informations</h1>
     <br>
     <div class="section">
      <div class="avatar-section" onclick="document.getElementById('uploadProfile').click();">
@@ -19,37 +19,67 @@
             class="profile-picture">
       </div>
       <div class="info">
-        <h4>Nom :</h4>
-        <p>{{ $user->nom }}</p>   
+        <div class="info-item">
+          <i class="fas fa-id-card fa-2x"></i>
+          <p><strong>Nom :</strong> {{ $user->nom }}</p>
+        </div> 
       </div>
       <div class="info">
-        <h4>Prénom :</h4>
-        <p>{{ $user->prenom }}</p>
+       <div class="info-item">
+          <i class="fas fa-user-tag fa-2x"></i>
+          <p><strong>Prénom :</strong> {{ $user->prenom }}</p>
+        </div>
       </div>
       <div class="info">
-        <h4>Email :</h4>
-        <p>{{ $user->email }}</p>
+        <div class="info-item">
+          <i class="fas fa-envelope fa-2x"></i>
+          <p><strong>Email :</strong> {{ $user->email }}</p>
+        </div>
       </div>
     </div>
   </div>
-  <h3>Statistiques</h3>
+  <h1>Statistiques</h1>
     <br>
-    <div class="section">
-      <div class="info">
-        <h4>Tâches finies :</h4>
-        <p>{{ count($user->tasks->where('etat', 'termine')) }}</p>
+    <div class="section-stats">
+      <div class="section-inner">
+        <div class="info">
+          <div class="info-item">
+            <i class="fas fa-tasks fa-2x"></i>
+            <p><strong>Nombre total de tâches :</strong> {{ count($user->tasks) }}</p>
+          </div>
+        </div>
+        <div class="info">
+          <div class="info-item">
+            <i class="fas fa-check-circle fa-2x"></i>
+            <p><strong>Nombre total de tâches terminées :</strong> {{ count($user->tasks->where('etat', 'termine')) }}</p>
+          </div>
+        </div>
+        <div class="info">
+          <div class="info-item">
+              <i class="fas fa-hourglass-half fa-2x"></i>
+            <p><strong>Nombre total de tâches en cours :</strong> {{ count($user->tasks->where('etat', 'en_cours')) }}</p>
+          </div>
+        </div>
       </div>
-      <div class="info">
-        <h4>Tâches en cours :</h4>
-        <p>{{ count($user->tasks->where('etat', 'en_cours')) }}</p>
-      </div>
-      <div class="info">
-        <h4>Tâches à faire :</h4>
-        <p>{{ count($user->tasks->where('etat', 'planifie')) }}</p>
-      </div>
-      <div class="info">
-        <h4>Nombre de groupes :</h4>
-        <p>{{ count($user->groupe) }}</p>
+      <div class="section-inner">
+        <div class="info">
+          <div class="info-item">
+            <i class="fas fa-calendar-alt fa-2x"></i>
+            <p><strong>Nombre total de tâches à faire :</strong> {{ count($user->tasks->where('etat', 'planifie')) }}</p>
+          </div>
+        </div>
+        <div class="info">
+          <div class="info-item">
+            <i class="fas fa-plus-circle fa-2x"></i>
+            <p><strong>Nombre total nouvelles tâches :</strong> {{ count($user->tasks->where('etat', 'nouveau')) }}</p>
+          </div>
+        </div>
+        <div class="info">
+          <div class="info-item">
+            <i class="fas fa-project-diagram fa-2x"></i>
+            <p><strong>Nombre de groupes :</strong> {{ count($user->groupe) }}</p>
+          </div>
+        </div>
       </div>
     </div>
     <br><br><br>

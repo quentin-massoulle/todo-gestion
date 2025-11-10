@@ -1,6 +1,7 @@
 .carte {
-  width: 100%;
-  max-width: 800px;
+  max-width: 70%;
+  min-width: 1000px;
+  height: auto;
   margin: 2rem auto;
   background: #fff;
   border-radius: 1rem;
@@ -21,15 +22,50 @@
   gap: 1rem;
 }
 
+.section-stats {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* centre les sections horizontalement */
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  gap: 2rem; /* espace entre les deux lignes */
+}
+
+.section-inner {
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap; 
+  align-items: stretch; 
+  justify-content: space-around; 
+  gap: 1rem;
+}
+
+.section-inner .info {
+  flex: 0 0 calc(33.333% - 1rem); 
+  display: flex;
+  justify-content: center;
+}
+
+.section-inner .info-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%; 
+}
+
 .section .info {
   flex: 1;
 }
 
 
-/* Un peu de style pour le texte */
-h3 {
-  margin: 1.5rem 0 1rem;
-  text-align: center;
+
+h1 {
+  font-size: 32px !important;
+  margin: 1.5rem 0 1rem !important;
+  text-align: center !important;
 }
 
 
@@ -56,4 +92,22 @@ h3 {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;      
+  gap: 10px;              
+  margin: 8px 0;           
+}
+
+.info-item i {
+  color: #444;             
+  min-width: 20px;      
+}
+
+.info-item p {
+  margin: 0;               
+  font-size: 20px;       
+  color: #333;
 }

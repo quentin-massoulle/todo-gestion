@@ -12,7 +12,7 @@
 
 @section('content')
 
-<div class="max-w-6xl mx-auto py-8 px-4">
+<div class="w-4/5 mx-auto py-8 px-4">
   <h2 class="text-xl font-bold mb-6 text-center text-gray-800">Liste des Tâches</h2>
 
   <div class="flex justify-end mb-4">
