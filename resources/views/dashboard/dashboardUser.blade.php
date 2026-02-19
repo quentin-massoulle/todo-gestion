@@ -35,24 +35,23 @@
     </div>
 </section>
 
-<section id="tasks" class="py-16 text-center bg-[#4F96FF] bg-opacity-40">
+<section id="tasks" class="task-container">
   <h2 class="text-3xl font-semibold mb-4">
-      {{__('dashBoard.acceder_taches')}}  </h2>    
-  <p>truc</p>
+      {{__('dashBoard.acceder_taches')}} </h2>    
   <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-    <div class="card bg-[#61D0A7]">
+    <div class="card">
       <h3 class="text-xl font-semibold mb-4">
           <i class="fas fa-list mr-2"></i>
       </h3>
       <p >{{__('dashBoard.creer_listes')}}</p>
     </div>
-    <div class="card bg-[#61D0A7]">
+    <div class="card">
       <h3 class="text-xl font-semibold mb-4">
           <i class="fas fa-chart-line mr-2"></i>
       </h3>        
       <p>{{__('dashBoard.suivre_avancement')}}</p>
     </div>
-    <div class="card bg-[#61D0A7]">
+    <div class="card">
       <h3 class="text-xl font-semibold mb-4">
           <i class="fas fa-bell mr-2"></i>
       </h3>        

@@ -7,14 +7,34 @@
 }
 
 .btn a {
-    background-color: #555;
-    color: white;
+    background-color: #d6d6d6;
+    color: black;
     text-decoration: none;
     padding: 0.5rem 1rem;
     border-radius: 5px;
-    transition: background 0.3s;
+    transition: 0.3s;
 }
 
 .btn a:hover {
-    background-color: #666;
+    background-color: #c5c3c3;
+}
+
+.task-container{
+    border-radius: 20px;
+    padding: 20px;
+    margin: 20px;
+}
+
+.card{
+    background-color: #F8FAFC;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    border-radius: 20px;
+    padding: 20px;
+    margin: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+
+}
+
+.card:hover{
+    transform: translateY(-5px);
 }
