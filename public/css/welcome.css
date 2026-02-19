@@ -1,8 +1,8 @@
 /* Section */
 .features {
-  max-width: 80%;
+  max-width: 90%;
   margin: 0 auto;
-  padding: 40px 20px;
+  padding: 20px 20px;
 }
 
 .features-title {
@@ -14,53 +14,62 @@
 
 /* Feature block */
 .feature {
+    padding-top: 10px;
     display: flex;
     flex-direction: column;
     background: #fff;
     border-radius: 12px;
-    padding: 25px;
     margin-bottom: 30px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     transition: transform 0.2s;
 }
-
+.feature-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;  
+    align-items: center;
+    gap: 10px;
+}
 .feature:hover {
     transform: translateY(-5px);
 }
 
 .feature-icon {
-    flex: 10%;
+    display: flex;            
+    align-items: center;        
+    justify-content: center;  
+    width: 20%;
     font-size: 2.5em;
     margin-bottom: 10px;
 }
 
 .feature-name {
-    flex: 10%;
+    display: flex;            
+    align-items: center;        
+    justify-content: start;  
     font-size: 1.5em;
     margin-bottom: 10px;
     color: #2980b9;
 }
 
 .feature-desc {
-    flex: 40%;
-    margin-bottom: 15px;
+    width: 80%;
+    margin: 0 auto 20px auto; 
+    text-align: justify;       
     color: #555;
-    text-align: justify;
-    padding-left: 0; 
-    margin: 0;
-    margin-bottom: 20px;
     font-weight: bold;
+    line-height: 1.6;          
 }
 
 .feature-list {
-    flex: 40%;
+    width: 80%;
+    margin: 0 auto;           
     list-style: none; 
+    text-align: justify;       
     color: #444;
-    text-align: justify;
     padding-left: 0; 
-    margin: 0;
-
 }
+
 .feature-list li {
     margin-bottom: 10px;
     text-decoration: none;

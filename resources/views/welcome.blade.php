@@ -11,8 +11,10 @@
 <h2 class="features-title">Découvrez les fonctionnalités clés de Todo Gestion</h2>
   <section class="features">
   <div class="feature">
-    <div class="feature-icon"><img src="{{ asset('img/kanban.png') }}" alt="Kanban" width="50" height="50"></div>
-    <h3 class="feature-name">Kanban intuitif</h3>
+    <div class="feature-header">
+      <div class="feature-icon"><img src="{{ asset('img/kanban.png') }}" alt="Kanban" width="50" height="50"></div>
+      <h3 class="feature-name">Kanban intuitif</h3>
+    </div>
     <p class="feature-desc">
       Organisez et déplacez vos tâches facilement grâce à une interface glisser-déposer moderne et fluide. 
       Visualisez vos priorités d’un simple coup d’œil et adaptez votre tableau en quelques clics. 
@@ -25,8 +27,10 @@
   </div>
 
   <div class="feature">
-    <div class="feature-icon"><img src="{{ asset('img/gantt-chart.png') }}" alt="Diagramme de Gantt" width="50" height="50"></div>
-    <h3 class="feature-name">Diagramme de Gantt</h3>
+    <div class="feature-header">
+      <div class="feature-icon"><img src="{{ asset('img/gantt-chart.png') }}" alt="Diagramme de Gantt" width="50" height="50"></div>
+      <h3 class="feature-name">Diagramme de Gantt</h3>
+    </div>
     <p class="feature-desc">Planifiez vos projets sur la durée et visualisez les dépendances entre les tâches.
       Cette vue d’ensemble vous aide à mieux répartir les ressources et à anticiper les obstacles potentiels.
     </p>
@@ -38,8 +42,10 @@
   </div>
 
   <div class="feature">
-    <div class="feature-icon"><img src="{{ asset('img/diagram.png') }}" alt="Planification visuelle" width="50" height="50"></div>
-    <h3 class="feature-name">Planification visuelle</h3>
+    <div class="feature-header">
+      <div class="feature-icon"><img src="{{ asset('img/diagram.png') }}" alt="Planification visuelle" width="50" height="50"></div>
+      <h3 class="feature-name">Planification visuelle</h3>
+    </div>
     <p class="feature-desc">Suivez toutes vos échéances et événements importants en un coup d'œil avec un diagramme 
        en definissant des dates de début et de fin pour chaque période souhaitée.</p>
     <ul class="feature-list">
