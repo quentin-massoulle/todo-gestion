@@ -20,8 +20,7 @@
     @yield('style')
 </head>
 <body>
-    @if (session('success') || $errors->any())
-        @include('partials.alerts') @endif
+    @if (session('success') || $errors->any())@endif
 
     <nav>
         <div class="logo">

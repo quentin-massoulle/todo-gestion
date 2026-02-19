@@ -59,7 +59,7 @@
     </div>
   </div>
     <div class="btn">
-      <a href="/">{{ __('layout.taches')}}</a>
+      <a href="/user/tasks">{{ __('layout.taches')}}</a>
     </div>
 </section>
 
