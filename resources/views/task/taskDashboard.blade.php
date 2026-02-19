@@ -1,9 +1,9 @@
-@extends('layout.layoutUser')
+@extends('layout')
 @section('head')
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 @section('title')
-  <title>Mes Tâches</title>
+  Mes Tâches
 @endsection
 
 @section('style')

@@ -1,7 +1,7 @@
-@extends('layout.layoutUser')
+@extends('layout')
 
 @section('title')
-  <title>Gantt Chart for Groupe</title>
+  Gantt Chart for Groupe
 @endsection
 
 @section('content')

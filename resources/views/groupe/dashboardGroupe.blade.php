@@ -1,7 +1,7 @@
-@extends('layout.layoutUser')
+@extends('layout')
 
 @section('title')
-  <title>Dashboard Groupe</title>
+  Dashboard Groupe
 @endsection
 
 @section('js')

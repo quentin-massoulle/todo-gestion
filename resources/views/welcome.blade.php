@@ -1,6 +1,6 @@
 @extends('layout')
 @section('title')
-    <title> todo gestion-acceuil</title>
+    todo gestion-acceuil
 @endsection
 @section('style')
     <link rel="stylesheet" href="{{ asset('css/welcome.css') }}">

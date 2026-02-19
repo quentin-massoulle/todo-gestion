@@ -1,7 +1,7 @@
-@extends('layout.layoutUser')
+@extends('layout')
 
 @section('title')
-  <title>Nouvelle Tâche</title>
+  Nouvelle Tâche
 @endsection
 
 @section('style')

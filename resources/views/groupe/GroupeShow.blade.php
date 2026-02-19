@@ -1,7 +1,7 @@
-@extends('layout.layoutUser')
+@extends('layout')
 @vite('resources/js/app.js')
 @section('title')
-  <title>Dashboard Groupe</title>
+  Dashboard Groupe
 @endsection
 
 @section('js')

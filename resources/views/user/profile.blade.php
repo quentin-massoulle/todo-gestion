@@ -1,7 +1,7 @@
-@extends('layout.layoutUser')
+@extends('layout')
 
 @section('title')
-  <title>Profil Utilisateur</title>
+  Profil Utilisateur
 @endsection
 @section('style')
   <link rel="stylesheet" href="{{ asset('css/profile.css') }}">
