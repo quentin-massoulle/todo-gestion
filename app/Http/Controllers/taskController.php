@@ -42,31 +42,27 @@ class taskController extends Controller
             ]
         );
 
-        //  Si la validation échoue → retour avec erreurs
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
 
-        //  Si une tâche existe déjà (mise à jour)
         if ($request->TaskId){
             $task = Task::where('id', $request->TaskId)->first();
+
         }
-        //  Sinon, création d'une nouvelle tâche
         else {
             $user = Auth::user();
             $task = new Task();
             $task->user_id = $user->id;
+            $task->etat = 'nouveau';   
         }
 
-        //  Remplissage des champs principaux
         $task->titre = $request->titre;
         $task->description = $request->description;
-        $task->date_debut = $request->date_debut ?? now();          // Date de début = maintenant si non précisée
-        $task->date_fin = $request->date_fin ?? now()->addMonth();  // Date de fin = dans 1 mois par défaut
-        $task->etat = 'nouveau';                                    // État initial de la tâche
+        $task->date_debut = $request->date_debut ?? now();          
+        $task->date_fin = $request->date_fin ?? now()->addMonth();  
         $task->save();
 
-        //  Gestion des dépendances (relations entre tâches)
         if ($request->dependance) {
             $dependanceIds = array_unique($request->dependance);
             $task->dependance()->sync($dependanceIds);
@@ -74,13 +70,10 @@ class taskController extends Controller
             $task->dependance()->sync([]);
         }
 
-        //  Redirections selon le contexte
         if ($request->TaskId){
-            // Cas d’une modification
             return redirect()->route('user.tasks')->with('success', 'Tâche modifiée avec succès.');
         }
 
-        // Cas d’une création dans un groupe
         if($request->groupe)
         {
             $task->groupe_id = $request->groupe ;
@@ -89,7 +82,6 @@ class taskController extends Controller
                 ->with('success', 'Tâche créée avec succès.');
         }
 
-        // Cas d’une création personnelle
         return redirect()->route('user.tasks')->with('success', 'Tâche créée avec succès.');
     }
 
@@ -102,17 +94,14 @@ class taskController extends Controller
     {
         $groupe = request('groupe');
 
-        //  Si un groupe est précisé, on affiche ses tâches
         if (isset($groupe)){
             $tasks = Task::where("groupe_id",$groupe)->get()->groupBy('etat');
         }
-        // Sinon, on affiche les tâches de l'utilisateur connecté
         else{
             $user = Auth::user();
             $tasks = Task::where('user_id', $user->id)->get()->groupBy('etat');
         }
 
-        // Vue du tableau de bord des tâches
         return view('task.taskDashboard', ['tasks' => $tasks , 'groupe'=> $groupe]);
     }
 
@@ -124,10 +113,8 @@ class taskController extends Controller
     {   
         $user = Auth::user();
 
-        // Si un ID de tâche est précisé
         if($id != 0)
         {
-            // Validation de l'existence de la tâche
             $validator = Validator::make(['id'=>$id],
             [
                 'id' => 'required|exists:taches,id',
@@ -142,10 +129,8 @@ class taskController extends Controller
 
             $task = Task::where('id', $id)->first();
 
-            // Si la tâche appartient à un groupe
             if ($task->groupe)
             {
-                // Vérifie que l’utilisateur fait partie du groupe
                 $validator = Validator::make(
                     ['userId' => $user->id , 'groupe_id' => $task->groupe->id],
                     [
@@ -160,10 +145,8 @@ class taskController extends Controller
                     return back()->withErrors($validator)->withInput();
                 }
 
-                // Liste des tâches du groupe
                 $listeTache = $task->groupe->tache;
             }
-            // Sinon, vérifie que l’utilisateur est bien le propriétaire
             else {
                 $validator = Validator::make(['user_id' => $task->user_id], [
                     'user_id' => 'in:' . $user->id
@@ -175,17 +158,13 @@ class taskController extends Controller
                 }
             }
         }
-        // Cas où aucune tâche spécifique n’est demandée
         else{
             $task = null;
             $listeTache = $user->tache;
         }
-
-        // Gestion du groupe lié
         $groupe = $task->groupe_id ?? null;
         if (isset($groupe))
         {
-            // Vérifie que l’utilisateur appartient bien au groupe
             if(!$user->groupe->contains('id',$groupe))
             {     
                 $groupe = null;
@@ -200,7 +179,6 @@ class taskController extends Controller
             $listeTache = $user->tasks;
         }
 
-        //  Récupération des messages liés à la tâche
         if ($task != null) {
             $messages = $task->message()->orderByDesc('created_at')->get();
             if (!isset($messages)){
@@ -211,7 +189,6 @@ class taskController extends Controller
             $messages = null;
         }
 
-        // Vue détaillée de la tâche
         return view('task.taskShow', [
             'task' => $task, 
             'groupe' => $groupe, 
@@ -228,12 +205,9 @@ class taskController extends Controller
     {
         $task = Task::findOrFail($id);
 
-        // Validation du champ 'etat'
         $validated = $request->validate([
             'etat' => 'required|in:nouveau,planifie,en_cours,termine',
         ]);
-
-        // Mise à jour et sauvegarde
         $task->etat = $validated['etat'];
         $task->save();
 
@@ -242,19 +216,16 @@ class taskController extends Controller
 
     /**
      * Met à jour les dates de début et de fin d'une tâche.
-     * Utilisée notamment pour le glisser-déposer dans un calendrier (ex: FullCalendar).
      */
     public function updateDates(Request $request, $id)
     {
         $task = Task::findOrFail($id);
 
-        // Validation des dates
         $validated = $request->validate([
             'start' => 'required|date',
             'end' => 'required|date|after_or_equal:start',
         ]);
 
-        // Conversion et ajustement des dates (+1 jour pour correction de fuseau)
         $start = new DateTime($validated['start']);
         $start->modify('+1 day');
         $task->date_debut = $start->format('Y-m-d'); 

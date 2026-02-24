@@ -6,7 +6,7 @@
 
 @section('style')
   <link rel="stylesheet" href="{{ asset('css/dashboardUser.css') }}">
-  <link rel="stylesheet" href="{{ asset('css/dashboardTask.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/Task.css') }}">
 @endsection
 
 @section('content')

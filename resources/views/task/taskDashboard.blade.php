@@ -7,7 +7,7 @@
     @endsection
 
     @section('style')
-    <link rel="stylesheet" href="{{ asset('css/dashboardTask.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/Task.css') }}">
     @endsection
 
     @section('content')
@@ -22,9 +22,9 @@
         </a>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-5">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-5 ">
        @foreach (['nouveau', 'planifie', 'en_cours', 'termine'] as $etat)
-            <div class="bg-gray-100 p-4 rounded shadow">
+            <div class="p-4 rounded shadow task-column">
                 <h3 class="text-lg font-bold mb-4 capitalize text-center text-gray-700">
                     {{ __("task.etat.$etat") }}
                 </h3>
@@ -34,7 +34,7 @@
                         <div class="bg-white p-5 rounded shadow hover:shadow-md task-card" data-id="{{ $task->id }}">
                             <div class="flex justify-between items-center">
                                 <h4 class="font-semibold text-gray-900 w-9/10">{{ $task->titre }}</h4>
-                                @if($task->groupe_id != null)
+                                @if($task->groupe_id != null && $groupe != null)
                                     <img src="{{ $task->user->profilePicture() }}" alt="Photo de profil" class="profile-picture w-1/10">
                                 @endif
                             </div>
