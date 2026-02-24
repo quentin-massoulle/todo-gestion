@@ -14,7 +14,7 @@
     <br>
     <div class="section">
      <div class="avatar-section" onclick="document.getElementById('uploadProfile').click();">
-        <img src="{{ asset('storage/users/' . $user->id . '.jpg') }}"
+        <img src="{{ $user->profilePicture() }}"
             alt="Photo de profil" 
             class="profile-picture">
       </div>

@@ -119,13 +119,8 @@ class AuthController extends Controller
         $request->validate([
             'photo' => 'required|image|max:2048',
         ]);
-
         $user = Auth::user();
-
-        // Stocker dans le disque public (accessible sur le web)
-       $request->file('photo')->storeAs('users', $user->id . '.jpg', 'public');
-
-
+        $request->file('photo')->storeAs('users', $user->id . '.jpg', 'public');
         return redirect()->route('user.profile')->with('success', 'Photo de profil mise à jour !');
     }
 

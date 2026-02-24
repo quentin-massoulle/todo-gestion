@@ -59,5 +59,15 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Groupe::class);
     }
+    
+    public function profilePicture()
+    {
+        $photo = "storage/users/" . $this->id . ".jpg";
+        if (file_exists(public_path($photo))) {
+            return asset($photo);
+        } else {
+            return asset('storage/default.jpg');
+        }
+    }
 
 }

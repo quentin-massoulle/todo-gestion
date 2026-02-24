@@ -26,15 +26,21 @@
 }
 
 .card{
-    background-color: #F8FAFC;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    background-color: #eaf2f9;
     border-radius: 20px;
     padding: 20px;
     margin: 20px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    box-shadow: 3px 10px 10px rgb(94, 94, 94);
 
 }
 
 .card:hover{
     transform: translateY(-5px);
+}
+
+.task-container{
+    border-radius: 20px;
+    padding: 20px;
+    margin: 20px;
+    background-color: #ffffff;
 }

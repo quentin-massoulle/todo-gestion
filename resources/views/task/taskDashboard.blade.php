@@ -4,15 +4,15 @@
 @endsection
 @section('title')
   Mes Tâches
-@endsection
+    @endsection
 
-@section('style')
-  <link rel="stylesheet" href="{{ asset('css/dashboardTask.css') }}">
-@endsection
+    @section('style')
+    <link rel="stylesheet" href="{{ asset('css/dashboardTask.css') }}">
+    @endsection
 
-@section('content')
+    @section('content')
 
-<div class="w-4/5 mx-auto py-8 px-4">
+    <div class="w-8/10 mx-auto py-8 px-4">
   <h2 class="text-xl font-bold mb-6 text-center text-gray-800">Liste des Tâches</h2>
 
   <div class="flex justify-end mb-4">
@@ -22,7 +22,7 @@
         </a>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-10">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-5">
        @foreach (['nouveau', 'planifie', 'en_cours', 'termine'] as $etat)
             <div class="bg-gray-100 p-4 rounded shadow">
                 <h3 class="text-lg font-bold mb-4 capitalize text-center text-gray-700">
@@ -31,8 +31,13 @@
 
                 <div id="column-{{ $etat }}" data-etat="{{ $etat }}" class="space-y-4 min-h-[250px] max-h-[450px] overflow-y-auto">
                     @foreach($tasks->get($etat, collect()) as $task)
-                        <div class="bg-white p-3 rounded shadow hover:shadow-md" data-id="{{ $task->id }}">
-                            <h4 class="font-semibold text-gray-900">{{ $task->titre }}</h4>
+                        <div class="bg-white p-5 rounded shadow hover:shadow-md task-card" data-id="{{ $task->id }}">
+                            <div class="flex justify-between items-center">
+                                <h4 class="font-semibold text-gray-900 w-9/10">{{ $task->titre }}</h4>
+                                @if($task->groupe_id != null)
+                                    <img src="{{ $task->user->profilePicture() }}" alt="Photo de profil" class="profile-picture w-1/10">
+                                @endif
+                            </div>
                             <div class="flex justify-between items-center">
                                 <div class="mt-2"> 
                                     <span class="{{ $task->couleur_temps }} text-[10px] font-bold px-3 py-1 rounded-full uppercase shadow-sm inline-block" style="box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);">

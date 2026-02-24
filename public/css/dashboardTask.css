@@ -1,3 +1,20 @@
+.task-card{
+    margin-top: 5px;
+}
+.task-card:hover{
+   transform: translateY(-5px);
+   transition: 0.3s;
+}
+
+.profile-picture {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
 .container {
     display: flex;
     flex: 1;
