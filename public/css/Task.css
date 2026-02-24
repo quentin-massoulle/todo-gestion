@@ -1,136 +1,146 @@
-.task-card{
+/* 1. CONFIGURATION & BASES */
+:root {
+    --primary: #3b82f6;
+    --primary-dark: #2563eb;
+    --text: #1e293b;
+    --border: #e2e8f0;
+}
+
+/* 2. LAYOUT COMPACT (Le secret pour le 70vh) */
+.modern-form {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    /* Espacement réduit entre les blocs */
+}
+
+.form-row {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin-bottom: 4px;
+}
+
+/* 3. ÉLÉMENTS RÉDUITS */
+label {
+    color: var(--text);
+    margin-bottom: 3px;
+}
+
+input[type="text"],
+input[type="date"],
+textarea,
+select,
+.modern-input {
+    width: 100% !important;
+    height: 36px !important;
+    /* Hauteur réduite de 45px à 36px */
+    padding: 6px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 0.85rem;
+    box-sizing: border-box;
+}
+
+textarea {
+    min-height: 60px !important;
+    /* Réduction de la zone de texte */
+    resize: none;
+}
+
+/* 4. COMPOSANTS SPÉCIFIQUES */
+.card-header {
+    padding: 12px 15px;
+    background: #fafafa;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.card-header h2 {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.header-icon {
+    font-size: 1.4rem;
+    color: var(--primary);
+}
+
+/* Notification Compacte */
+.notification-card {
+    background: #eff6ff;
+    padding: 8px 12px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px 0;
+}
+
+.notif-info strong {
+    font-size: 0.85rem;
+}
+
+.notif-info span {
+    font-size: 0.75rem;
+    display: block;
+}
+
+/* Switch Miniature */
+.switch {
+    position: relative;
+    width: 38px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+.slider:before {
+    height: 14px;
+    width: 14px;
+    left: 3px;
+    bottom: 3px;
+}
+
+input:checked+.slider:before {
+    transform: translateX(18px);
+}
+
+/* Rappels (Zone grise) */
+.rappel-section {
+    padding: 10px;
+    background: #f8fafc;
+    border-radius: 8px;
+    border: 1px dashed #cbd5e1;
     margin-top: 5px;
 }
-.task-card:hover{
-   transform: translateY(-5px);
-   transition: 0.3s;
-}
 
-.task-column{
-    border-radius: 10px;
-    background-color: ghostwhite 
-}
-
-.profile-picture {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-}
-
-.container {
-    display: flex;
-    flex: 1;
-    flex-direction: row;
-    height: 100%;
+/* 5. BOUTON */
+.submit-btn {
     width: 100%;
-    justify-content: space-between; 
-    align-items: center; 
-}
-
-
-.containeurDiscution {
-    width: 30vw;          
-    height: 100%;
-    max-height: 100%;
-    overflow: hidden;      
-}
-
-.chat {
-    background-color: #eceaea;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-}
-
-.message-box {
-    height: 10%;
-    display: flex;
-}
-
-.message-box form {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    height: 100%;
-}
-
-.message-box button {
-    width: 20%;
-    height: 100%;
-    background-color: #444;
-    color: antiquewhite;
-    border-radius: 10px;
+    background: var(--primary);
+    color: white;
+    padding: 10px;
     border: none;
-    cursor: pointer;
-    font-size: 20px;
-}
-
-.message-box textarea {
-    padding-left: 1%;
-    padding-top: 1%;
-    width: 80%;
-    height: 100%;
-    resize: none !important;
-    border: none;
-    box-sizing: border-box;
-    border-radius: 10px;
-    font-size: 12px;
-}
-
-
-
-.message-channel {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    padding: 1rem;
-    overflow-y: auto;
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    gap: 0.5rem;
-}
-.message {
-    max-width: 80%;
-    padding: 0.75rem;
-    margin-bottom: 1rem;
-    border-radius: 10px;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
-    word-wrap: break-word;
-    display: inline-block;
-    text-align: left;
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: 0.2s;
 }
 
-.own-message {
-    background-color: #d1e7dd;
-    margin-left: auto;
+.submit-btn:hover {
+    background: var(--primary-dark);
 }
 
-.other-message {
-    background-color: #f1f1f1;
-    margin-right: auto;
-}
-
-.message-meta {
-    display: flex;
-    gap: 5px;
-    font-size: 0.85rem;
-    color: #666;
-    margin-bottom: 0.4rem;
-}
-
-.user-name {
-    font-weight: bold;
-    color: #333;
-}
-
-.message-time {
-    font-style: italic;
-}
-
-.message-content {
-    font-size: 1rem;
-    color: #222;
+.hidden {
+    display: none !important;
 }

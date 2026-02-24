@@ -63,6 +63,7 @@ class taskController extends Controller
         $task->date_fin = $request->date_fin ?? now()->addMonth();  
         $task->save();
 
+        //sycronise les dependances avec le tableau recu
         if ($request->dependance) {
             $dependanceIds = array_unique($request->dependance);
             $task->dependance()->sync($dependanceIds);
@@ -109,92 +110,76 @@ class taskController extends Controller
      * Affiche les détails d'une tâche spécifique.
      * Permet aussi de gérer l’accès selon le groupe ou le propriétaire.
      */
-    public function showTask($id)
-    {   
-        $user = Auth::user();
+  public function showTask($id)
+{   
+    $user = Auth::user();
+    $task = null;
+    $groupe = null;
+    $listeTache = collect(); 
 
-        if($id != 0)
-        {
-            $validator = Validator::make(['id'=>$id],
-            [
-                'id' => 'required|exists:taches,id',
-            ], 
-            [
-                'id.required' => __('validator.task.id.required'),
-                'id.exists' => __('validator.task.id.exists'),
-            ]);
+    if ($id != 0) {
+        $validator = Validator::make(['id' => $id], [
+            'id' => 'required|exists:taches,id',
+        ], [
+            'id.required' => __('validator.task.id.required'),
+            'id.exists' => __('validator.task.id.exists'),
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
+        $task = Task::with('dependance')->find($id);
+
+        if ($task->groupe_id) {
+            $validator = Validator::make(
+                ['userId' => $user->id, 'groupe_id' => $task->groupe_id],
+                [
+                    'userId' => 'exists:groupe_user,user_id',
+                    'groupe_id' => 'exists:groupe,id'
+                ],
+                ['groupe_id.exists' => __('validator.groupe.id.exists')]
+            );
+
             if ($validator->fails()) {
                 return back()->withErrors($validator)->withInput();
             }
 
-            $task = Task::where('id', $id)->first();
+            $groupe = $task->groupe;
+            $listeTache = $groupe->tache; 
+        } else {
+            $validator = Validator::make(['user_id' => $task->user_id], [
+                'user_id' => 'in:' . $user->id
+            ], [
+                'user_id.in' => __('validator.task.id.UserExiste'),
+            ]);
 
-            if ($task->groupe)
-            {
-                $validator = Validator::make(
-                    ['userId' => $user->id , 'groupe_id' => $task->groupe->id],
-                    [
-                        'userId' => 'exists:groupe_user,user_id',
-                        'groupe_id' => 'exists:groupe,id'
-                    ],
-                    [
-                        'groupe_id.exists' => __('validator.groupe.id.exists'),
-                    ]
-                );
-                if ($validator->fails()) {
-                    return back()->withErrors($validator)->withInput();
-                }
-
-                $listeTache = $task->groupe->tache;
+            if ($validator->fails()) {
+                return back()->withErrors($validator)->withInput();
             }
-            else {
-                $validator = Validator::make(['user_id' => $task->user_id], [
-                    'user_id' => 'in:' . $user->id
-                ], [
-                    'user_id.in' => __('validator.task.id.UserExiste'),
-                ]);
-                if ($validator->fails()) {
-                    return back()->withErrors($validator)->withInput();
-                }
-            }
+            $listeTache = $user->tache; 
         }
-        else{
-            $task = null;
+    } else {
+        $task = null;
+        
+        $groupIdFromUrl = request()->query('groupe');
+        if ($groupIdFromUrl) {
+            $groupe = $user->groupe()->find($groupIdFromUrl);
+            $listeTache = $groupe ? $groupe->tache : $user->tache;
+        } else {
             $listeTache = $user->tache;
         }
-        $groupe = $task->groupe_id ?? null;
-        if (isset($groupe))
-        {
-            if(!$user->groupe->contains('id',$groupe))
-            {     
-                $groupe = null;
-            }   
-            else {
-                $groupe = $user->groupe->where('id', $groupe)->first();
-                $listeTache = $groupe->tache;
-            }
-        }
-        else{
-            $groupe = null;
-            $listeTache = $user->tasks;
-        }
+    }
 
-        if ($task != null) {
-            $messages = $task->message()->orderByDesc('created_at')->get();
-            if (!isset($messages)){
-                $messages = null;
-            }
-        }
-        else {
-            $messages = null;
-        }
+    $messages = ($task) ? $task->message()->orderByDesc('created_at')->get() : collect();
 
-        return view('task.taskShow', [
-            'task' => $task, 
-            'groupe' => $groupe, 
-            'messages' => $messages, 
-            'listeTache' => $listeTache
-        ]);
+    return view('task.taskShow', [
+        'task' => $task, 
+        'groupe' => $groupe, 
+        'messages' => $messages, 
+        'listeTache' => $listeTache
+    ]);
+   
     }
 
     /**
