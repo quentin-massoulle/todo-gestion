@@ -123,7 +123,7 @@
             </div>
         </form>
     </div>
-    @if(isset($groupe) || isset($task))
+    @if($task->groupe_id != null)
         @include('message.messageBox')
     @endif
 </div>
