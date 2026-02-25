@@ -45,19 +45,19 @@
         <div class="info">
           <div class="info-item">
             <i class="fas fa-tasks fa-2x"></i>
-            <p><strong>Nombre total de tâches :</strong> {{ count($user->tasks) }}</p>
+            <p><strong>Nombre total de tâches :</strong> {{ count($user->tache) }}</p>
           </div>
         </div>
         <div class="info">
           <div class="info-item">
             <i class="fas fa-check-circle fa-2x"></i>
-            <p><strong>Nombre total de tâches terminées :</strong> {{ count($user->tasks->where('etat', 'termine')) }}</p>
+            <p><strong>Nombre total de tâches terminées :</strong> {{ count($user->tache->where('etat', 'termine')) }}</p>
           </div>
         </div>
         <div class="info">
           <div class="info-item">
               <i class="fas fa-hourglass-half fa-2x"></i>
-            <p><strong>Nombre total de tâches en cours :</strong> {{ count($user->tasks->where('etat', 'en_cours')) }}</p>
+            <p><strong>Nombre total de tâches en cours :</strong> {{ count($user->tache->where('etat', 'en_cours')) }}</p>
           </div>
         </div>
       </div>
@@ -65,13 +65,13 @@
         <div class="info">
           <div class="info-item">
             <i class="fas fa-calendar-alt fa-2x"></i>
-            <p><strong>Nombre total de tâches à faire :</strong> {{ count($user->tasks->where('etat', 'planifie')) }}</p>
+            <p><strong>Nombre total de tâches à faire :</strong> {{ count($user->tache->where('etat', 'planifie')) }}</p>
           </div>
         </div>
         <div class="info">
           <div class="info-item">
             <i class="fas fa-plus-circle fa-2x"></i>
-            <p><strong>Nombre total nouvelles tâches :</strong> {{ count($user->tasks->where('etat', 'nouveau')) }}</p>
+            <p><strong>Nombre total nouvelles tâches :</strong> {{ count($user->tache->where('etat', 'nouveau')) }}</p>
           </div>
         </div>
         <div class="info">

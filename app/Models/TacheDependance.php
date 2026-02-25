@@ -16,11 +16,11 @@ class TacheDependance extends Model
 
     public function task()
     {
-        return $this->belongsTo(Task::class, 'task_id');
+        return $this->belongsTo(Tache::class, 'task_id');
     }
 
     public function dependance()
     {
-        return $this->belongsTo(Task::class, 'dependance_id');
+        return $this->belongsTo(Tache::class, 'dependance_id');
     }
 }

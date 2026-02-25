@@ -4,7 +4,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-class Task extends Model
+class Tache extends Model
 {
 
     protected $casts = [
@@ -45,7 +45,7 @@ class Task extends Model
 
     public function dependance()
     {
-        return $this->belongsToMany(Task::class, 'taches_dependencies', 'tache_id', 'dependency_id');
+        return $this->belongsToMany(Tache::class, 'taches_dependencies', 'tache_id', 'dependency_id');
     }
 
     /// calcule le pourcentage de temps écoulé entre la date de début et la date de fin

@@ -15,6 +15,6 @@ class TacheTableSeeder extends Seeder
     public function run(): void
     {
           
-        Task::factory()->count(30)->create();
+        Tache::factory()->count(30)->create();
     }
 }

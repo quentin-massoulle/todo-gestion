@@ -29,7 +29,7 @@ class Groupe extends Model
 
     public function tache()
     {
-        return $this->hasMany(Task::class);
+        return $this->hasMany(Tache::class);
     }
     
 }

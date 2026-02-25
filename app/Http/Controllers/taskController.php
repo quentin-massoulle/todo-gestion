@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Task;
+use App\Models\Tache;
 use App\Models\TacheDependance;
 use DateTime;
 
@@ -47,7 +47,7 @@ class taskController extends Controller
         }
 
         if ($request->TaskId){
-            $task = Task::where('id', $request->TaskId)->first();
+            $task = Tache::where('id', $request->TaskId)->first();
 
         }
         else {
@@ -96,11 +96,11 @@ class taskController extends Controller
         $groupe = request('groupe');
 
         if (isset($groupe)){
-            $tasks = Task::where("groupe_id",$groupe)->get()->groupBy('etat');
+            $tasks = Tache::where("groupe_id",$groupe)->get()->groupBy('etat');
         }
         else{
             $user = Auth::user();
-            $tasks = Task::where('user_id', $user->id)->get()->groupBy('etat');
+            $tasks = Tache::where('user_id', $user->id)->get()->groupBy('etat');
         }
 
         return view('task.taskDashboard', ['tasks' => $tasks , 'groupe'=> $groupe]);
@@ -129,7 +129,7 @@ class taskController extends Controller
             return back()->withErrors($validator)->withInput();
         }
 
-        $task = Task::with('dependance')->find($id);
+        $task = Tache::with('dependance')->find($id);
 
         if ($task->groupe_id) {
             $validator = Validator::make(
@@ -157,7 +157,7 @@ class taskController extends Controller
             if ($validator->fails()) {
                 return back()->withErrors($validator)->withInput();
             }
-            $listeTache = $user->tache; 
+            $listeTache = $user->tache->where('groupe_id', null); 
         }
     } else {
         $task = null;
@@ -188,7 +188,7 @@ class taskController extends Controller
      */
     public function updateEtat(Request $request, $id)
     {
-        $task = Task::findOrFail($id);
+        $task = Tache::findOrFail($id);
 
         $validated = $request->validate([
             'etat' => 'required|in:nouveau,planifie,en_cours,termine',
@@ -204,7 +204,7 @@ class taskController extends Controller
      */
     public function updateDates(Request $request, $id)
     {
-        $task = Task::findOrFail($id);
+        $task = Tache::findOrFail($id);
 
         $validated = $request->validate([
             'start' => 'required|date',

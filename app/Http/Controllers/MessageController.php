@@ -144,7 +144,7 @@ class MessageController extends Controller
 
             // Récupération des messages liés à la tâche
             $tacheId = $request->tache;
-            $tache   = Task::find($tacheId);
+            $tache   = Tache::find($tacheId);
             $messages = $tache->message()->orderBy('created_at', 'desc')->get();
         }
         // Sinon, récupération des messages d’un groupe

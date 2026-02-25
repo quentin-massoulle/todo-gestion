@@ -11,9 +11,9 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
  */
-class TaskFactory extends Factory
+class TacheFactory extends Factory
 {
-    protected $model = Task::class;
+    protected $model = Tache::class;
     /**
      * Define the model's default state.
      *
