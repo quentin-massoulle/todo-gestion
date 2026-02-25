@@ -18,7 +18,7 @@ class Message extends Model
         return $this->belongsTo(Groupe::class);
     }
 
-    public function task()
+    public function tache()
     {
         return $this->belongsTo(Tache::class);
     }

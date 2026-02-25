@@ -52,7 +52,7 @@ class taskController extends Controller
         }
         else {
             $user = Auth::user();
-            $task = new Task();
+            $task = new Tache();
             $task->user_id = $user->id;
             $task->etat = 'nouveau';   
         }
@@ -160,8 +160,14 @@ class taskController extends Controller
             $listeTache = $user->tache->where('groupe_id', null); 
         }
     } else {
-        $task = null;
-        
+        $task = new Tache();
+        $task->user_id = $user->id;
+        $task->titre = 'Nouvelle tâche';
+        $task->description = 'Nouvelle tâche';
+        $task->etat = 'nouveau';
+        $task->date_debut = now();
+        $task->date_fin = now()->addDays(1);
+         
         $groupIdFromUrl = request()->query('groupe');
         if ($groupIdFromUrl) {
             $groupe = $user->groupe()->find($groupIdFromUrl);

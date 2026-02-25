@@ -14,7 +14,7 @@ class TacheDependance extends Model
         'dependance_id'
     ];
 
-    public function task()
+    public function tache()
     {
         return $this->belongsTo(Tache::class, 'task_id');
     }
