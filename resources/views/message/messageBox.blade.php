@@ -12,8 +12,8 @@
 
                 <input type="hidden" name="{{ $inputName }}" value="{{ $inputValue }}">
 
-                <textarea name="message" placeholder="{{ __('groupe.enter_message') }}"></textarea>
-                <button type="submit">{{ __('groupe.send') }}</button>
+                <textarea class="message-input" name="message" placeholder="{{ __('groupe.enter_message') }}"></textarea>
+                <button class="message-button" type="submit">{{ __('groupe.send') }}</button>
             </form>
         </div>
         <div class="message-channel">

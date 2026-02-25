@@ -7,7 +7,7 @@
     @endsection
 
     @section('style')
-    <link rel="stylesheet" href="{{ asset('css/Task.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/Tache.css') }}">
     @endsection
 
     @section('content')

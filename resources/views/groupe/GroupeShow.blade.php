@@ -10,6 +10,7 @@
 
 @section('style')
   <link rel="stylesheet" href="{{ asset('css/showGroupe.css')}}">
+  <link rel="stylesheet" href="{{ asset('css/message.css')}}">
   <link rel="stylesheet" href="{{ asset('css/pop-up.css') }}">
 @endsection
 
