@@ -1,4 +1,4 @@
-function showAlert(type, messages) {
+export function showAlert(type, messages) {
     // Supprime alert existante (optionnel)
     const existing = document.querySelector('.alert');
     if (existing) existing.remove();

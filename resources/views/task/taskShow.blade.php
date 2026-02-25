@@ -4,6 +4,7 @@
   Nouvelle Tâche
 @endsection
 
+
 @section('style')
   <link rel="stylesheet" href="{{ asset('css/dashboardUser.css') }}">
   <link rel="stylesheet" href="{{ asset('css/Tache.css') }}">
@@ -155,6 +156,5 @@
         window.urlPost = '/message/addMessage';
         window.urlGet  = '/message/getMessage';
     </script>
-    <script src="{{ asset('js/newTask.js') }}" defer></script>
-    <script  src="{{ asset('js/message.js') }}" defer></script>
+    <script src="{{ asset('js/message.js') }}" type="module"></script>
 @endsection

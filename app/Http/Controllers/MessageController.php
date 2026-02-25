@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Message;
 use App\Models\Groupe;
-use App\Models\Task;
+use App\Models\Tache;
 use Illuminate\Support\Facades\Auth;
 
 class MessageController extends Controller
@@ -123,59 +123,33 @@ class MessageController extends Controller
      * Méthode pour récupérer les messages d’une tâche ou d’un groupe.
      */
     public function get(Request $request)
-    {
-        // Si on veut les messages d’une tâche
-        if($request->tache) {
-            // Validation du paramètre "tache"
-            $validator = Validator::make($request->all(), [
-                'tache'  => 'required|exists:taches,id',
-            ], [
-                'tache.required' => __('validator.task.id.required'),
-                'tache.exists'   => __('validator.task.id.exists'),
-            ]);
-
-            // Si la validation échoue
-            if ($validator->fails()) {
-                return response()->json([
-                    'success' => false,
-                    'errors'  => $validator->errors(),
-                ], 422);
-            }
-
-            // Récupération des messages liés à la tâche
-            $tacheId = $request->tache;
-            $tache   = Tache::find($tacheId);
-            $messages = $tache->message()->orderBy('created_at', 'desc')->get();
-        }
-        // Sinon, récupération des messages d’un groupe
-        else {
-            $validator = Validator::make($request->all(), [
-                'groupe'  => 'required|exists:groupe,id',
-            ], [
-                'groupe.required' => __('validator.groupe.id.required'),
-                'groupe.exists'   => __('validator.groupe.id.exists'),
-            ]);
-
-            // Validation échouée
-            if ($validator->fails()) {
-                return response()->json([
-                    'success' => false,
-                    'errors'  => $validator->errors(),
-                ], 422);
-            }
-
-            // Récupération des messages du groupe
-            $groupeId = $request->groupe;
-            $groupe   = Groupe::find($groupeId);
-            $messages = $groupe->message()->orderBy('created_at', 'desc')->get();
+{
+    try {
+        // 1. Déterminer si on cherche par tâche ou par groupe
+        if ($request->has('tache')) {
+            $model = Tache::find($request->tache);
+            if (!$model) return response()->json(['success' => false, 'message' => 'Tâche introuvable'], 404);
+        } elseif ($request->has('groupe')) {
+            $model = Groupe::find($request->groupe);
+            if (!$model) return response()->json(['success' => false, 'message' => 'Groupe introuvable'], 404);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Paramètre manquant'], 422);
         }
 
-        // Formatage des messages pour la réponse JSON
+        // 2. Récupérer les messages (Attention au nom de la relation : messages ou message ?)
+        // On utilise 'with' pour charger les utilisateurs et éviter de faire 100 requêtes SQL
+        $messages = $model->message() // Remplace par messages() si tu as une erreur sur cette ligne
+                          ->with('user') 
+                          ->orderBy('created_at', 'desc') // 'asc' pour que le nouveau soit en bas
+                          ->get();
+
+        // 3. Formatage sécurisé
         $data = $messages->map(function ($message) {
             return [
                 'id' => $message->id,
                 'contenu' => $message->contenu,
-                'created_at_human' => $message->created_at->diffForHumans(),
+                // On vérifie que created_at existe pour éviter le crash
+                'created_at_human' => $message->created_at ? $message->created_at->diffForHumans() : 'Date inconnue',
                 'user_id' => $message->user_id,
                 'user' => [
                     'prenom' => $message->user->prenom ?? 'Utilisateur',
@@ -183,11 +157,17 @@ class MessageController extends Controller
             ];
         });
 
-        // Réponse finale
         return response()->json([
             'success' => true,
-            'message' => 'Message envoyé',
             'data'    => $data,
         ]);
+
+    } catch (\Exception $e) {
+        // Cette ligne va t'afficher l'erreur exacte dans l'onglet Network de ton navigateur
+        return response()->json([
+            'success' => false,
+            'message' => $e->getMessage()
+        ], 500);
     }
+}
 }
