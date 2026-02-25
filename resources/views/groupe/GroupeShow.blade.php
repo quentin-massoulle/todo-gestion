@@ -72,7 +72,7 @@
     window.urlGet  = '/message/getMessage';
   </script>
   <script  src="{{ asset('js/pop-up.js') }}" defer></script>
-  <script  src="{{ asset('js/message.js') }}" defer></script>
+  <script src="{{ asset('js/message.js') }}" type="module"></script>
 @endsection
 
 
