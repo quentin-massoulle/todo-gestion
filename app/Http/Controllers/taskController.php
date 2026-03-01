@@ -18,6 +18,13 @@ class taskController extends Controller
      */
     public function store(Request $request)
     {
+        $request->merge([
+            'rappel_active' => $request->boolean('rappel_active'),
+        ]);
+        $dateRappel = $request->date_rappel_solo ?? $request->date_rappel_multiple;
+        $request->merge([
+            'date_rappel' => $dateRappel,
+        ]);
         //  Validation des données reçues depuis le formulaire
         $validator = Validator::make($request->all(),
             [
@@ -29,6 +36,10 @@ class taskController extends Controller
                 'groupe' => 'nullable|exists:groupe,id',
                 'dependance' => 'nullable|array',
                 'dependance.*' => 'exists:taches,id',
+                'etat' => 'nullable|in:nouveau,en cours,terminé',
+                'frequence' => 'nullable|in:une_fois,quotidien,hebdomadaire,null',
+                'rappel_active' => 'boolean',
+                'date_rappel' => 'nullable|date',
             ], 
             [
                 'TaskId.exists' => __('validator.task.id.exists'),
@@ -39,13 +50,15 @@ class taskController extends Controller
                 'groupe.exists' => __('validator.groupe.id.exists'),
                 'dependance.array' => __('validator.dependance.array'),
                 'dependance.*.exists' => __('validator.dependance.id.exists'),
+                'etat.in' => __('validator.task.etat.in'),
+                'frequence.in' => __('validator.task.frequence.in'),
+                'rappel_active.boolean' => __('validator.task.rappel_active.boolean'),
+                'date_rappel.date' => __('validator.date.date'),
             ]
         );
-
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
-
         if ($request->TaskId){
             $task = Tache::where('id', $request->TaskId)->first();
 
@@ -55,6 +68,20 @@ class taskController extends Controller
             $task = new Tache();
             $task->user_id = $user->id;
             $task->etat = 'nouveau';   
+        }  
+        if ($request->rappel_active){
+            if ($task->Rappels){
+                $task->Rappels()->delete();
+            }
+            $task->Rappels()->create([
+                'date_rappel' => \Carbon\Carbon::parse($request->date_rappel)->format('Y-m-d'),
+                'frequence' => $request->frequence,
+            ]);
+            $task->rappel_active = true;
+        }
+        else{
+            $task->rappel_active = false;
+            $task->Rappels()->delete();
         }
 
         $task->titre = $request->titre;

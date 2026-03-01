@@ -80,22 +80,29 @@
                 <div class="form-group" id="frequence-container">
                     <label for="frequence">{{ __('task.frequence_du_rappel') }}</label>
                     <select name="frequence" id="frequence" class="modern-input">
-                        <option value="une_fois" {{ old('frequence', $task->frequence ?? '') == 'une_fois' ? 'selected' : '' }}>{{ __('task.une_seule_fois') }}</option>
-                        <option value="quotidien" {{ old('frequence', $task->frequence ?? '') == 'quotidien' ? 'selected' : '' }}>{{ __('task.tous_les_jours') }}</option>
-                        <option value="hebdomadaire" {{ old('frequence', $task->frequence ?? '') == 'hebdomadaire' ? 'selected' : '' }}>{{ __('task.chaque_semaine') }}</option>
+                        @php 
+                            $currentFreq = old('frequence', $task->rappels->first()?->frequence ?? 'une_fois'); 
+                        @endphp
+                        <option value="une_fois" {{ $currentFreq == 'une_fois' ? 'selected' : '' }}>{{ __('task.une_seule_fois') }}</option>
+                        <option value="quotidien" {{ $currentFreq == 'quotidien' ? 'selected' : '' }}>{{ __('task.tous_les_jours') }}</option>
+                        <option value="hebdomadaire" {{ $currentFreq == 'hebdomadaire' ? 'selected' : '' }}>{{ __('task.chaque_semaine') }}</option>
                     </select>
                 </div>
 
-                <div class="form-group" id="date-container-solo">
+                @php
+                    $firstRappelDate = $task->rappels->first()?->date_rappel?->format('Y-m-d');
+                @endphp
+                
+                 <div class="form-group" id="date-container-solo">
                     <label for="date_rappel_solo">{{ __('task.date_du_rappel') }}</label>
                     <input type="date" name="date_rappel_solo" id="date_rappel_solo" class="modern-input" 
-                           value="{{ old('date_rappel_solo', isset($task->date_rappel) ? $task->date_rappel->format('Y-m-d') : '') }}">
+                           value="{{ $firstRappelDate }}">
                 </div>
             
                 <div class="form-group hidden" id="date-container-multiple">
                     <label for="date_rappel_multiple">{{ __('task.date_du_premier_rappel') }}</label>
                     <input type="date" name="date_rappel_multiple" id="date_rappel_multiple" class="modern-input"
-                        value="{{ old('date_rappel_multiple') }}">
+                        value="{{ $firstRappelDate }}">
                 </div>
             </div>
         </div>

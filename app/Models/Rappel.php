@@ -9,8 +9,12 @@ class Rappel extends Model
    
     protected $table = 'rappels';
 
+    protected $casts = [
+        'date_rappel' => 'date',
+    ];
+
     protected $fillable = [
-        'tache_id', 'frequence', 'frequence',
+        'tache_id', 'frequence', 'date_rappel',
     ];
 
 
