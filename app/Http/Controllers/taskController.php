@@ -82,6 +82,7 @@ class taskController extends Controller
         else{
             $task->rappel_active = false;
             $task->Rappels()->delete();
+            $task->date_rappel = false;
         }
 
         $task->titre = $request->titre;

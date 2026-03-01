@@ -90,19 +90,24 @@
                 </div>
 
                 @php
-                    $firstRappelDate = $task->rappels->first()?->date_rappel?->format('Y-m-d');
+                    $rappel = $task->rappels->first();
+                    $dbDate = '';
+
+                    if ($rappel && $rappel->date_rappel) {
+                        $dbDate = \Carbon\Carbon::parse($rappel->date_rappel)->format('Y-m-d');
+                    }
                 @endphp
                 
                  <div class="form-group" id="date-container-solo">
                     <label for="date_rappel_solo">{{ __('task.date_du_rappel') }}</label>
                     <input type="date" name="date_rappel_solo" id="date_rappel_solo" class="modern-input" 
-                           value="{{ $firstRappelDate }}">
+                           value="{{ filled(old('date_rappel_solo')) ? old('date_rappel_solo') : $dbDate }}">
                 </div>
             
                 <div class="form-group hidden" id="date-container-multiple">
                     <label for="date_rappel_multiple">{{ __('task.date_du_premier_rappel') }}</label>
                     <input type="date" name="date_rappel_multiple" id="date_rappel_multiple" class="modern-input"
-                        value="{{ $firstRappelDate }}">
+                        value="{{ filled(old('date_rappel_multiple')) ? old('date_rappel_multiple') : $dbDate }}">
                 </div>
             </div>
         </div>

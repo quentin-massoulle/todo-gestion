@@ -17,5 +17,8 @@ class Rappel extends Model
         'tache_id', 'frequence', 'date_rappel',
     ];
 
-
+    public function tache()
+    {
+        return $this->belongsTo(Tache::class);
+    }
 }
