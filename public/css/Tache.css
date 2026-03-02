@@ -17,11 +17,10 @@
 
 /* 2. LAYOUT COMPACT (Le secret pour le 70vh) */
 .modern-form {
-    padding: 10px;
+    padding: 5px;
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    /* Espacement réduit entre les blocs */
+    gap: 4px;
 }
 
 .form-row {
@@ -31,6 +30,7 @@
 }
 
 .form-group {
+    max-height: 5% !important;
     display: flex;
     flex-direction: column;
     flex: 1;
@@ -45,22 +45,32 @@ label {
 
 input[type="text"],
 input[type="date"],
-textarea,
+.form-group textarea,
 select,
 .modern-input {
+    align-items: center;
+    justify-content: center;
     width: 100% !important;
-    height: 36px !important;
-    /* Hauteur réduite de 45px à 36px */
+    height: 30px !important;
     padding: 6px 12px;
     border: 1px solid var(--border);
     border-radius: 8px;
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     box-sizing: border-box;
+    resize: none;
+}
+
+.select2-container--default .select2-selection--multiple {
+    max-height: 40px !important; /* Ajustez selon votre besoin */
+}
+
+/* Optionnel : Garder une hauteur fixe même vide */
+.select2-container .select2-selection--multiple {
+    min-height: 35px !important;
 }
 
 textarea {
-    min-height: 60px !important;
-    /* Réduction de la zone de texte */
+    min-height: 30px !important;
     resize: none;
 }
 
@@ -93,6 +103,12 @@ textarea {
     justify-content: space-between;
     align-items: center;
     margin: 5px 0;
+}
+
+.notif-info {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
 }
 
 .notif-info strong {
