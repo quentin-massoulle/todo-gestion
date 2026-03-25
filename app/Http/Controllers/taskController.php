@@ -21,7 +21,7 @@ class taskController extends Controller
         $request->merge([
             'rappel_active' => $request->boolean('rappel_active'),
         ]);
-        $dateRappel = $request->date_rappel_solo ?? $request->date_rappel_multiple;
+        $dateRappel = $request->input('date_rappel_solo') ?: $request->input('date_rappel_multiple');
         $request->merge([
             'date_rappel' => $dateRappel,
         ]);
@@ -69,10 +69,21 @@ class taskController extends Controller
             $task->user_id = $user->id;
             $task->etat = 'nouveau';   
         }  
+        $task->titre = $request->titre;
+        $task->description = $request->description;
+        $task->date_debut = $request->date_debut ?? now();          
+        $task->date_fin = $request->date_fin ?? now()->addMonth();  
+        
+        if($request->groupe && !$request->TaskId)
+        {
+            $task->groupe_id = $request->groupe ;
+        }
+        
+        $task->save();
+
+        // Gestion des rappels après la sauvegarde de la tâche pour avoir l'ID
         if ($request->rappel_active){
-            if ($task->Rappels){
-                $task->Rappels()->delete();
-            }
+            $task->Rappels()->delete();
             $task->Rappels()->create([
                 'date_rappel' => \Carbon\Carbon::parse($request->date_rappel)->format('Y-m-d'),
                 'frequence' => $request->frequence,
@@ -82,13 +93,7 @@ class taskController extends Controller
         else{
             $task->rappel_active = false;
             $task->Rappels()->delete();
-            $task->date_rappel = false;
         }
-
-        $task->titre = $request->titre;
-        $task->description = $request->description;
-        $task->date_debut = $request->date_debut ?? now();          
-        $task->date_fin = $request->date_fin ?? now()->addMonth();  
         $task->save();
 
         //sycronise les dependances avec le tableau recu
@@ -105,8 +110,6 @@ class taskController extends Controller
 
         if($request->groupe)
         {
-            $task->groupe_id = $request->groupe ;
-            $task->save();
             return redirect()->route('groupe.show',['id' => $request->groupe])
                 ->with('success', 'Tâche créée avec succès.');
         }
