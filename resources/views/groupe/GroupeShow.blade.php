@@ -37,9 +37,9 @@
           Tache du groupe
         </h1>
         <div class="containeurIner">
-          <a href="{{ route('user.task.show', ['id' => 0]) }}?groupe={{ $groupe->id }}"><button class="Btn-form" style="width: 250px">
+          <button class="Btn-form" style="width: 250px" id="openTaskModal">
             cree une nouvelle tache
-          </button></a>
+          </button>
           <a href="{{ route('user.tasks')}}?groupe={{ $groupe->id }}"><button class="Btn-form" style="width: 250px">
             acceder au kanban
           </button></a>
@@ -57,6 +57,8 @@
       </div>
       @include('message.messageBox', ['groupe' => $groupe, 'messages' => $messages])
   </div>
+
+  @include('task.partials.taskFormModal')
 
 
 @section('script')    

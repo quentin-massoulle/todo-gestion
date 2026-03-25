@@ -8,6 +8,7 @@
 
     @section('style')
     <link rel="stylesheet" href="{{ asset('css/Tache.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/pop-up.css') }}">
     @endsection
 
     @section('content')
@@ -16,11 +17,13 @@
   <h2 class="text-xl font-bold mb-6 text-center text-gray-800">Liste des Tâches</h2>
 
   <div class="flex justify-end mb-4">
-        <a href="{{ route('user.task.show', ['id' => 0])}}?groupe={{$groupe}}"
+        <button id="openTaskModal" 
             class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-2 px-4 rounded shadow transition duration-200">
             {{__('task.new')}}
-        </a>
+        </button>
     </div>
+
+    @include('task.partials.taskFormModal')
 
     <div class="grid grid-cols-1 md:grid-cols-4 gap-5 ">
        @foreach (['nouveau', 'planifie', 'en_cours', 'termine'] as $etat)
@@ -44,7 +47,16 @@
                                         Fin: {{ \Carbon\Carbon::parse($task->date_fin)->format('d/m/Y') }}
                                     </span>
                                 </div>
-                                <a href="{{ route('user.task.show', ['id' => $task->id]) }}" class="text-blue-600 hover:text-blue-800 text-sm">
+                                <a href="javascript:void(0)" 
+                                   class="text-blue-600 hover:text-blue-800 text-sm editTaskBtn"
+                                   data-id="{{ $task->id }}"
+                                   data-titre="{{ $task->titre }}"
+                                   data-description="{{ $task->description }}"
+                                   data-debut="{{ $task->date_debut ? $task->date_debut->format('Y-m-d') : '' }}"
+                                   data-fin="{{ $task->date_fin ? $task->date_fin->format('Y-m-d') : '' }}"
+                                   data-rappel-active="{{ $task->rappel_active ? '1' : '0' }}"
+                                   data-rappel-date="{{ $task->Rappels->first()?->date_rappel ? \Carbon\Carbon::parse($task->Rappels->first()->date_rappel)->format('Y-m-d') : '' }}"
+                                   data-rappel-frequence="{{ $task->Rappels->first()?->frequence ?? 'une_fois' }}">
                                     <i class="fas fa-pen"></i> {{ __('task.modifier') }}
                                 </a>
                             </div>
@@ -60,6 +72,7 @@
 @endsection
 
 @section('script')
+<script src="{{ asset('js/pop-up.js') }}" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', () => {

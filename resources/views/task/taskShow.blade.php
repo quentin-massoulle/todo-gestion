@@ -120,10 +120,6 @@
                 </form>
             </div>
         </div>
-        @if($task->groupe_id != null)
-                @include('message.messageBox')
-            @endif
-
     </div>
     @endsection
     @section('script')
@@ -167,9 +163,5 @@
             toggleRappelOptions();
         });
     </script>
-    <script>
-        window.urlPost = '/message/addMessage';
-        window.urlGet  = '/message/getMessage';
     </script>
-    <script src="{{ asset('js/message.js') }}" type="module"></script>
 @endsection

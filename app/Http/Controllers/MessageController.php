@@ -17,21 +17,20 @@ class MessageController extends Controller
      */
     public function store(Request $request)
     {   
-        // Si la requête contient un identifiant de tâche
-        if ($request->tache) {
+        if ($request->groupe) {
 
-            // Validation des données d’entrée
+            // Validation des données pour le groupe
             $validator = Validator::make($request->all(), [
-                'tache'  => 'required|exists:taches,id',
+                'groupe'  => 'required|exists:groupe,id',
                 'message' => 'required|string',
             ], [
-                'tache.required' => __('validator.task.id.required'),
-                'tache.exists'   => __('validator.task.id.exists'),
+                'groupe.required' => __('validator.groupe.id.required'),
+                'groupe.exists'   => __('validator.groupe.id.exists'),
                 'message.required'=> __('validator.message.required'),
                 'message.string'  => __('validator.message.string'),
             ]);
 
-            // Retourne une erreur si la validation échoue
+            // En cas d’erreur de validation
             if ($validator->fails()) {
                 return response()->json([
                     'success' => false,
@@ -39,7 +38,7 @@ class MessageController extends Controller
                 ], 422);
             }
 
-            // Vérifie que l’utilisateur est bien authentifié
+            // Vérifie que l’utilisateur est bien connecté
             $user = Auth::user();
             if (!$user) {
                 return response()->json([
@@ -48,14 +47,14 @@ class MessageController extends Controller
                 ], 401);
             }
 
-            // Création du message lié à une tâche
+            // Création du message lié à un groupe
             $message = new Message();
             $message->user_id    = $user->id;
-            $message->tache_id   = $request->tache;
+            $message->groupe_id  = $request->groupe;
             $message->contenu    = $request->message;
             $message->save();
-
-            // Retourne une réponse JSON avec le message créé
+            
+            // Réponse JSON
             return response()->json([
                 'success' => true,
                 'message' => 'Message envoyé',
@@ -65,57 +64,6 @@ class MessageController extends Controller
                     'created'  => $message->created_at->diffForHumans(),
                 ]
             ]);
-        } 
-        // Sinon, on vérifie si un groupe est précisé
-        else {
-            if ($request->groupe) {
-
-                // Validation des données pour le groupe
-                $validator = Validator::make($request->all(), [
-                    'groupe'  => 'required|exists:groupe,id',
-                    'message' => 'required|string',
-                ], [
-                    'groupe.required' => __('validator.groupe.id.required'),
-                    'groupe.exists'   => __('validator.groupe.id.exists'),
-                    'message.required'=> __('validator.message.required'),
-                    'message.string'  => __('validator.message.string'),
-                ]);
-
-                // En cas d’erreur de validation
-                if ($validator->fails()) {
-                    return response()->json([
-                        'success' => false,
-                        'errors'  => $validator->errors(),
-                    ], 422);
-                }
-
-                // Vérifie que l’utilisateur est bien connecté
-                $user = Auth::user();
-                if (!$user) {
-                    return response()->json([
-                        'success' => false,
-                        'message' => __('validator.access_denied'),
-                    ], 401);
-                }
-
-                // Création du message lié à un groupe
-                $message = new Message();
-                $message->user_id    = $user->id;
-                $message->groupe_id  = $request->groupe;
-                $message->contenu    = $request->message;
-                $message->save();
-                
-                // Réponse JSON
-                return response()->json([
-                    'success' => true,
-                    'message' => 'Message envoyé',
-                    'data'    => [
-                        'contenu'  => $message->contenu,
-                        'user'     => $user->name,
-                        'created'  => $message->created_at->diffForHumans(),
-                    ]
-                ]);
-            }
         }
     }
 
@@ -125,11 +73,7 @@ class MessageController extends Controller
     public function get(Request $request)
 {
     try {
-        // 1. Déterminer si on cherche par tâche ou par groupe
-        if ($request->has('tache')) {
-            $model = Tache::find($request->tache);
-            if (!$model) return response()->json(['success' => false, 'message' => 'Tâche introuvable'], 404);
-        } elseif ($request->has('groupe')) {
+        if ($request->has('groupe')) {
             $model = Groupe::find($request->groupe);
             if (!$model) return response()->json(['success' => false, 'message' => 'Groupe introuvable'], 404);
         } else {

@@ -60,20 +60,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const container = document.querySelector('.message-channel');
     if (!container) return;
 
-   
-    const tacheId = data.get('tache');
     const groupeId = data.get('groupe');
 
-    if (!tacheId && !groupeId) {
+    if (!groupeId) {
         if (container.children.length === 0 || container.querySelector('.no-messages')) {
-            container.innerHTML = `<div class="no-messages">Enregistrez pour activer la discussion.</div>`;
+            container.innerHTML = `<div class="no-messages">Discussion indisponible.</div>`;
         }
         return;
     }
 
     const filteredParams = new URLSearchParams();
-    if (tacheId) filteredParams.append('tache', tacheId);
-    if (groupeId) filteredParams.append('groupe', groupeId);
+    filteredParams.append('groupe', groupeId);
 
     try {
         const response = await fetch(`${urlGet}?${filteredParams.toString()}`, {

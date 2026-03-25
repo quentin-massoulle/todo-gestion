@@ -13,16 +13,8 @@ class Message extends Model
         return $this->belongsTo(User::class);
     }
 
-     public function groupe()
+    public function groupe()
     {
         return $this->belongsTo(Groupe::class);
     }
-
-    public function tache()
-    {
-        return $this->belongsTo(Tache::class);
-    }
-
-
-    
 }

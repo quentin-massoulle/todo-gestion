@@ -33,11 +33,6 @@ class Tache extends Model
         return $this->hasMany(Rappel::class);
     }
 
-    public function message()
-{
-    return $this->hasMany(Message::class, 'tache_id', 'id');
-}
-
     public function groupe()
     {
         return $this->belongsTo(Groupe::class);

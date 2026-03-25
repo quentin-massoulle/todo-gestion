@@ -4,13 +4,7 @@
         <div class="message-box">
             <form id="message-form" method="POST">
                 @csrf
-                @php
-                    $inputName = isset($task) ? 'tache' : (isset($groupe) ? 'groupe' : 'user');
-                    $inputValue = isset($task) ? ($task->id ?? '') : (isset($groupe) ? ($groupe->id ?? '') : ($user->id ?? ''));
-
-                @endphp
-
-                <input type="hidden" name="{{ $inputName }}" value="{{ $inputValue }}">
+                <input type="hidden" name="groupe" value="{{ $groupe->id ?? '' }}">
 
                 <textarea class="message-input" name="message" placeholder="{{ __('groupe.enter_message') }}"></textarea>
                 <button class="message-button" type="submit">{{ __('groupe.send') }}</button>
