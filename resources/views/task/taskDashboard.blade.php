@@ -3,20 +3,20 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 @section('title')
-  Mes Tâches
-    @endsection
+Mes Tâches
+@endsection
 
-    @section('style')
-    <link rel="stylesheet" href="{{ asset('css/Tache.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/pop-up.css') }}">
-    @endsection
+@section('style')
+<link rel="stylesheet" href="{{ asset('css/Tache.css') }}">
+<link rel="stylesheet" href="{{ asset('css/pop-up.css') }}">
+@endsection
 
-    @section('content')
+@section('content')
 
-    <div class="w-8/10 mx-auto py-8 px-4">
-  <h2 class="text-xl font-bold mb-6 text-center text-gray-800">Liste des Tâches</h2>
-
-  <div class="flex justify-end mb-4">
+<div class="max-w-7xl mx-auto py-4 px-4 w-full">
+    <h2 class="text-xl font-bold mb-1 text-center text-gray-800">Liste des Tâches</h2>
+        
+    <div class="flex justify-end mb-1">
         <button id="openTaskModal" 
             class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-2 px-4 rounded shadow transition duration-200">
             {{__('task.new')}}
@@ -25,14 +25,14 @@
 
     @include('task.partials.taskFormModal')
 
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-5 ">
-       @foreach (['nouveau', 'planifie', 'en_cours', 'termine'] as $etat)
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-2">
+    @foreach (['nouveau', 'planifie', 'en_cours', 'termine'] as $etat)
             <div class="p-4 rounded shadow task-column">
                 <h3 class="text-lg font-bold mb-4 capitalize text-center text-gray-700">
                     {{ __("task.etat.$etat") }}
                 </h3>
 
-                <div id="column-{{ $etat }}" data-etat="{{ $etat }}" class="space-y-4 min-h-[250px] max-h-[450px] overflow-y-auto">
+                <div id="column-{{ $etat }}" data-etat="{{ $etat }}" class="space-y-4 min-h-[100px] max-h-[380px] overflow-y-auto">
                     @foreach($tasks->get($etat, collect()) as $task)
                         <div class="bg-white p-5 rounded shadow hover:shadow-md task-card" data-id="{{ $task->id }}">
                             <div class="flex justify-between items-center">
@@ -48,15 +48,15 @@
                                     </span>
                                 </div>
                                 <a href="javascript:void(0)" 
-                                   class="text-blue-600 hover:text-blue-800 text-sm editTaskBtn"
-                                   data-id="{{ $task->id }}"
-                                   data-titre="{{ $task->titre }}"
-                                   data-description="{{ $task->description }}"
-                                   data-debut="{{ $task->date_debut ? $task->date_debut->format('Y-m-d') : '' }}"
-                                   data-fin="{{ $task->date_fin ? $task->date_fin->format('Y-m-d') : '' }}"
-                                   data-rappel-active="{{ $task->rappel_active ? '1' : '0' }}"
-                                   data-rappel-date="{{ $task->Rappels->first()?->date_rappel ? \Carbon\Carbon::parse($task->Rappels->first()->date_rappel)->format('Y-m-d') : '' }}"
-                                   data-rappel-frequence="{{ $task->Rappels->first()?->frequence ?? 'une_fois' }}">
+                                class="text-blue-600 hover:text-blue-800 text-sm editTaskBtn"
+                                data-id="{{ $task->id }}"
+                                data-titre="{{ $task->titre }}"
+                                data-description="{{ $task->description }}"
+                                data-debut="{{ $task->date_debut ? $task->date_debut->format('Y-m-d') : '' }}"
+                                data-fin="{{ $task->date_fin ? $task->date_fin->format('Y-m-d') : '' }}"
+                                data-rappel-active="{{ $task->rappel_active ? '1' : '0' }}"
+                                data-rappel-date="{{ $task->Rappels->first()?->date_rappel ? \Carbon\Carbon::parse($task->Rappels->first()->date_rappel)->format('Y-m-d') : '' }}"
+                                data-rappel-frequence="{{ $task->Rappels->first()?->frequence ?? 'une_fois' }}">
                                     <i class="fas fa-pen"></i> {{ __('task.modifier') }}
                                 </a>
                             </div>
@@ -67,8 +67,6 @@
         @endforeach
     </div>
 </div>
-
-
 @endsection
 
 @section('script')
