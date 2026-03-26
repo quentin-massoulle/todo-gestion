@@ -98,6 +98,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const rappel = this.getAttribute('data-rappel-active');
             const rDate = this.getAttribute('data-rappel-date');
             const rFreq = this.getAttribute('data-rappel-frequence');
+            const userId = this.getAttribute('data-user-id');
 
             document.getElementById('taskModalTitle').innerText = 'Modifier la tâche';
             document.getElementById('modalTaskId').value = id;
@@ -105,6 +106,10 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('modalDescription').value = desc;
             document.getElementById('modalDateDebut').value = debut;
             document.getElementById('modalDateFin').value = fin;
+
+            if (document.getElementById('modalUserId') && userId) {
+                document.getElementById('modalUserId').value = userId;
+            }
 
             const checkbox = document.getElementById('modal_rappel_active');
             const options = document.getElementById('modal-rappel-options');

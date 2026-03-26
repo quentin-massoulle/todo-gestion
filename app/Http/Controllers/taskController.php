@@ -40,6 +40,7 @@ class taskController extends Controller
                 'frequence' => 'nullable|in:une_fois,quotidien,hebdomadaire,null',
                 'rappel_active' => 'boolean',
                 'date_rappel' => 'nullable|date',
+                'user_id' => 'nullable|exists:users,id',
             ], 
             [
                 'TaskId.exists' => __('validator.task.id.exists'),
@@ -54,6 +55,7 @@ class taskController extends Controller
                 'frequence.in' => __('validator.task.frequence.in'),
                 'rappel_active.boolean' => __('validator.task.rappel_active.boolean'),
                 'date_rappel.date' => __('validator.date.date'),
+                'user_id.exists' => 'L\'utilisateur sélectionné n\'existe pas.',
             ]
         );
         if ($validator->fails()) {
@@ -66,11 +68,15 @@ class taskController extends Controller
         else {
             $user = Auth::user();
             $task = new Tache();
-            $task->user_id = $user->id;
+            $task->user_id = $request->user_id ?? $user->id;
             $task->etat = 'nouveau';   
         }  
         $task->titre = $request->titre;
         $task->description = $request->description;
+        if($request->has('user_id'))
+        {
+            $task->user_id = $request->user_id;
+        }
         $task->date_debut = $request->date_debut ?? now();          
         $task->date_fin = $request->date_fin ?? now()->addMonth();  
         
@@ -103,15 +109,12 @@ class taskController extends Controller
         } else {
             $task->dependance()->sync([]);
         }
-
-        if ($request->TaskId){
-            return redirect()->route('user.tasks')->with('success', 'Tâche modifiée avec succès.');
-        }
-
         if($request->groupe)
         {
-            return redirect()->route('groupe.show',['id' => $request->groupe])
-                ->with('success', 'Tâche créée avec succès.');
+            return redirect()->route('user.tasks', ['groupe' => $task->groupe_id])->with('success', 'Tâche modifiée avec succès.');
+        }
+        if ($request->TaskId){
+            return redirect()->route('user.tasks')->with('success', 'Tâche modifiée avec succès.');
         }
 
         return redirect()->route('user.tasks')->with('success', 'Tâche créée avec succès.');
@@ -127,7 +130,8 @@ class taskController extends Controller
         $groupe = request('groupe');
 
         if (isset($groupe)){
-            $tasks = Tache::where("groupe_id",$groupe)->get()->groupBy('etat');
+            $groupe = \App\Models\Groupe::with('users')->find($groupe);
+            $tasks = Tache::where("groupe_id",$groupe->id)->get()->groupBy('etat');
         }
         else{
             $user = Auth::user();

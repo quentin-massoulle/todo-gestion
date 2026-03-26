@@ -16,6 +16,19 @@
                 <input type="text" name="titre" id="modalTitre" required placeholder="Titre de la mission">
             </div>
 
+            @if(isset($groupe) && is_object($groupe))
+            <div class="form-group">
+                <label><i class="fa-solid fa-user"></i> {{ __('task.responsable') }}</label>
+                <select name="user_id" id="modalUserId" class="modern-input">
+                    @foreach($groupe->users as $user)
+                        <option value="{{ $user->id }}">
+                            {{ $user->nom }} {{ $user->prenom }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+            @endif
+
             <div class="form-group">
                 <label>{{ __('task.description') }}</label>
                 <textarea name="description" id="modalDescription" placeholder="Description détaillée..."></textarea>

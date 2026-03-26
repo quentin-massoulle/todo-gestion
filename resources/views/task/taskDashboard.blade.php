@@ -52,6 +52,7 @@ Mes Tâches
                                 data-id="{{ $task->id }}"
                                 data-titre="{{ $task->titre }}"
                                 data-description="{{ $task->description }}"
+                                data-user-id="{{ $task->user_id }}"
                                 data-debut="{{ $task->date_debut ? $task->date_debut->format('Y-m-d') : '' }}"
                                 data-fin="{{ $task->date_fin ? $task->date_fin->format('Y-m-d') : '' }}"
                                 data-rappel-active="{{ $task->rappel_active ? '1' : '0' }}"

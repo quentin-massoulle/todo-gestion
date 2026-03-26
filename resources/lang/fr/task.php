@@ -3,6 +3,8 @@ return [
     'titre' => 'Tritre',
     'description' => 'Description',
     'date_fin' => 'Date de fin',
+    'date_debut' => 'Date de début',
+    'responsable' => 'Responsable',
     'action' => 'action',
 
     'activer_le_rappel' => 'Activer le rappel',
