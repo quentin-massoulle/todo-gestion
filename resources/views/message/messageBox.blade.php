@@ -1,6 +1,4 @@
-
-<div class=" containeurDiscution">
-    <div class="chat">
+<div class="chat flex flex-col h-full bg-white">
         <div class="message-box">
             <form id="message-form" method="POST">
                 @csrf

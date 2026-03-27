@@ -23,7 +23,7 @@ Mes Tâches
         </button>
     </div>
 
-    @include('task.partials.taskFormModal')
+    @include('task.taskFormModal')
 
     <div class="grid grid-cols-1 md:grid-cols-4 gap-2">
     @foreach (['nouveau', 'planifie', 'en_cours', 'termine'] as $etat)

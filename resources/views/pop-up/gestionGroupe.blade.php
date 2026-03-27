@@ -23,16 +23,9 @@
       
       <div class="input">
         <h1 class="text-xl">Membre du groupe</h1>
-        <select class="select2" name="SelectGroupe[]" multiple=true style="width: 100%;" 
-                @if ($groupeActif)
-                    @foreach ($groupe->users as $user)
-                        <option value="{{$user->id}}" selected>
-                            {{$user->email}}
-                        </option>
-                    @endforeach
-                @endif>
+        <select class="select2" name="SelectGroupe[]" multiple=true style="width: 100%;">
           @foreach ($users as $user)
-              <option value="{{$user->id}}">
+              <option value="{{$user->id}}" {{ $groupeActif && $groupe->users->contains($user->id) ? 'selected' : '' }}>
                   {{$user->email}}
               </option>
           @endforeach

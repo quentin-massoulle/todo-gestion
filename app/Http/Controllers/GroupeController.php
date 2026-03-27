@@ -106,26 +106,23 @@ class GroupeController extends Controller
             }
             $groupe->nom = $inputValue;
             $groupe->save();
-            GroupeUser::where('groupe_id', $groupe->id)->delete();
         } else {
             $groupe = new Groupe;
-            $groupe->nom =  $inputValue;
+            $groupe->nom = $inputValue;
             $groupe->proprietaire_id = $user->id;
             $groupe->save();
         }
-       
-        $groupeUser = new GroupeUser;
-        $groupeUser->groupe_id =  $groupe->id;
-        $groupeUser->user_id = $user->id;
-        $groupeUser->save();
+
+        // Ensure the owner is always in the group and members are unique
+        $memberIds = is_array($selectValues) ? array_unique($selectValues) : [];
         
-        foreach($selectValues as $value)
-        {
-            $groupeUser = new GroupeUser;
-            $groupeUser->groupe_id =  $groupe->id;
-            $groupeUser->user_id = $value;
-            $groupeUser->save();
-        }
+        // Remove owner from selected members if they were somehow included
+        $filteredMemberIds = array_diff($memberIds, [$user->id]);
+        
+        // Final list: owner + filtered selected members
+        $syncData = array_merge([$user->id], array_values($filteredMemberIds));
+
+        $groupe->users()->sync($syncData);
 
          return redirect()->route('user.groupes')->with('success', 'action reussie');
     }
