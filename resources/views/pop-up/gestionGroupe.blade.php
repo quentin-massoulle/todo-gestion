@@ -34,9 +34,9 @@
         
 
       <div class="btnForm">
-        <button type="submit" class="Btn-form" style="width: 250px">@if ($groupeActif) Modifier le groupe @else Créer le groupe @endif</button>
+        <button type="submit" class="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg transition-all cursor-pointer" style="width: 250px">@if ($groupeActif) Modifier le groupe @else Créer le groupe @endif</button>
         @if ($groupeActif)
-          <button type="button" class="Btn-form" style="width: 250px" id="supprimerGroupe">Supprimer le groupe</button>
+          <button type="button" class="px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg transition-all cursor-pointer" style="width: 250px" id="supprimerGroupe">Supprimer le groupe</button>
         @endif
       </div>
     </form>

@@ -1,4 +1,3 @@
-
 .overlay {
   position: fixed;
   top: 0;
@@ -23,7 +22,7 @@
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   text-align: center;
 }
 
@@ -47,10 +46,10 @@ button.close:hover {
 
 
 .popup-content {
-    height: 80%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 
@@ -61,21 +60,55 @@ button.close:hover {
   gap: 20px;
 }
 
-.pop-up input,
-.pop-up select {
+.pop-up input {
   width: 100%;
   height: 40px;
+  max-height: 80px;
   background-color: #ccc;
   color: #000;
   padding: 5px 10px;
   border: none;
 }
+
+/* Select2 : allow the tag container to grow vertically */
+.pop-up .select2-container {
+  width: 100% !important;
+}
+
+.pop-up .select2-container--default .select2-selection--multiple {
+  min-height: 50px !important;
+  height: auto !important;
+  max-height: 80px !important;
+  overflow-y: auto !important;
+  background-color: #ccc !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 5px 10px !important;
+}
+
+.pop-up .select2-container--default .select2-selection--multiple .select2-selection__rendered {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 4px !important;
+  padding: 0 !important;
+  height: auto !important;
+  overflow: visible !important;
+  list-style: none !important;
+}
+
+.pop-up .select2-container--default .select2-selection--multiple .select2-selection__choice {
+  float: none !important;
+  margin: 2px 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
 .hidden {
   display: none;
 }
 
 
-.input{
+.input {
   display: flex;
   flex-direction: column;
   text-align: left;
