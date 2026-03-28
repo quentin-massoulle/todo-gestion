@@ -84,7 +84,7 @@ class MessageController extends Controller
         // On utilise 'with' pour charger les utilisateurs et éviter de faire 100 requêtes SQL
         $messages = $model->message() // Remplace par messages() si tu as une erreur sur cette ligne
                           ->with('user') 
-                          ->orderBy('created_at', 'desc') // 'asc' pour que le nouveau soit en bas
+                          ->orderBy('created_at', 'asc') // 'asc' pour que le nouveau soit en bas
                           ->get();
 
         // 3. Formatage sécurisé

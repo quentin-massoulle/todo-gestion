@@ -48,7 +48,7 @@ class GroupeController extends Controller
         }
     
     
-        $messages = $groupe->message()->orderByDesc('created_at')->get();
+        $messages = $groupe->message()->orderBy('created_at', 'asc')->get();
     
 
         $tachesQuery = $groupe->tache(); 
