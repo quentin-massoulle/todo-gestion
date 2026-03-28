@@ -36,6 +36,9 @@
 
         <div class="nav-links" id="nav-links">
             @auth
+                @if(Auth::user()->isAdmin())
+                    <a href="{{ route('admin.dashboard') }}">{{ __('layout.dashboard') }}</a>
+                @endif
                 <a href="{{ route('user.tasks') }}">{{ __('layout.taches') }}</a>
                 <a href="{{ route('user.groupes') }}">{{ __('layout.groupe') }}</a>
                 <a href="{{ route('user.profile') }}">{{ __('layout.profil') }}</a>

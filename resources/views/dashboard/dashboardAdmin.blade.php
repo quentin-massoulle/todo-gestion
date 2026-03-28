@@ -16,7 +16,7 @@
 <div class="p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto">
 
   {{-- ===== HEADER ===== --}}
-  <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
+  <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-8 gap-6 bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
     <div class="flex items-center gap-4">
       <div class="w-12 h-12 admin-badge rounded-2xl flex items-center justify-center shadow-lg shadow-indigo-100">
         <i class="fas fa-shield-halved text-white text-lg"></i>
@@ -26,10 +26,24 @@
         <p class="text-sm text-gray-400 font-medium">Tableau de bord · {{ now()->translatedFormat('l d F Y') }}</p>
       </div>
     </div>
-    <span class="inline-flex items-center gap-2 px-4 py-2 bg-indigo-50 text-indigo-700 rounded-xl text-sm font-bold border border-indigo-100">
-      <i class="fas fa-circle text-[6px] text-indigo-400 animate-pulse"></i>
-      Connecté en tant qu'Admin
-    </span>
+
+    <div class="flex flex-wrap items-center gap-4 w-full lg:w-auto">
+      <form action="{{ route('admin.dashboard') }}" method="GET" class="flex flex-wrap items-center gap-2 bg-gray-50 p-1.5 rounded-xl border border-gray-200 w-full lg:w-auto">
+        <div class="flex items-center gap-2 px-2">
+          <input type="date" value="{{ $date_debut }}" name="date_debut" class="bg-transparent border-none text-sm font-semibold text-gray-700 focus:ring-0 cursor-pointer">
+          <span class="text-gray-400 text-xs font-bold font-mono">→</span>
+          <input type="date" name="date_fin" value="{{ $date_fin }}" class="bg-transparent border-none text-sm font-semibold text-gray-700 focus:ring-0 cursor-pointer">
+        </div>
+        <button type="submit" class="inline-flex items-center px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold rounded-lg transition-all shadow-md shadow-indigo-100 active:scale-95">
+          <i class="fas fa-filter mr-2"></i> Filtrer
+        </button>
+      </form>
+
+      <span class="inline-flex items-center gap-2 px-4 py-2 bg-indigo-50 text-indigo-700 rounded-xl text-sm font-bold border border-indigo-100">
+        <i class="fas fa-circle text-[6px] text-indigo-400 animate-pulse"></i>
+        Admin
+      </span>
+    </div>
   </div>
 
   {{-- ===== KPI CARDS ===== --}}

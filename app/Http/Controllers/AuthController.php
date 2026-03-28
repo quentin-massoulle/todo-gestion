@@ -48,7 +48,6 @@ class AuthController extends Controller
         $user->save();
         
         Auth::login($user); 
-        //connect l'utilisateur apres l'inscription
         if (Auth::check()) {
             return redirect()->route('user.dashboard');
         }
@@ -82,9 +81,9 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => $request->mdp,
         ];
-        //redirige l'utilisateur vert la bonne page 
         if (Auth::attempt($credentials)) {
-            if ($role === 'admin') {
+            $user = Auth::user();
+            if ($user->isAdmin()) {
                 return redirect()->route('admin.dashboard');
             }
 

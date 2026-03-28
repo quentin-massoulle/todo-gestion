@@ -13,7 +13,7 @@ use App\Http\Controllers\AdminController;
 
 Route::get('/', function () {
     if (Auth::check()) {
-        if (Auth::user()->is_admin === 'true') {
+        if (Auth::user()->is_admin) {
             return redirect()->route('admin.dashboard');
         }
         return redirect()->route('user.dashboard');
@@ -23,7 +23,7 @@ Route::get('/', function () {
 
 Route::get('login', function (){
     if (Auth::check()) {
-        if (Auth::user()->is_admin === 'true') {
+        if (Auth::user()->is_admin) {
             return redirect()->route('admin.dashboard');
         }
         return redirect()->route('user.dashboard');
@@ -35,7 +35,7 @@ Route::post('login',  [ AuthController::class, 'login']);
 
 Route::get('axe', function (){
     if (Auth::check()) {
-        if (Auth::user()->is_admin === 'true') {
+        if (Auth::user()->is_admin) {
             return redirect()->route('admin.dashboard');
         }
         return redirect()->route('user.dashboard');
