@@ -7,6 +7,7 @@ use App\Http\Middleware\IsAdmin;
 use App\Http\Middleware\CheckRoute;
 use App\Http\Controllers\GroupeController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\AdminController;
 
 
 
@@ -32,7 +33,7 @@ Route::get('login', function (){
 
 Route::post('login',  [ AuthController::class, 'login']);
 
-Route::get('loginAdmin', function (){
+Route::get('axe', function (){
     if (Auth::check()) {
         if (Auth::user()->is_admin === 'true') {
             return redirect()->route('admin.dashboard');
@@ -43,7 +44,7 @@ Route::get('loginAdmin', function (){
 })->name('loginAdmin');
 
 
-Route::post('loginAdmin', [AuthController::class, 'login'])->defaults('role', 'admin');
+Route::post('axe', [AuthController::class, 'login'])->defaults('role', 'admin');
 
 
 Route::get('signUp', function (){
@@ -93,7 +94,7 @@ Route::middleware('auth')->prefix('tache')->name('tache.')->group(function () {
 
 });
 Route::middleware(['auth', IsAdmin::class])->prefix('admin')->name('admin.')->group(function () {              
-        Route::get('/dashboard', fn() => view('dashboard.dashboardAdmin'))
+        Route::get('/dashboard', [AdminController::class, 'dashboard'])
             ->name('dashboard');
 });
 
