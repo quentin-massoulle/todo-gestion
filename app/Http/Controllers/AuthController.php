@@ -82,12 +82,39 @@ class AuthController extends Controller
             'password' => $request->mdp,
         ];
         if (Auth::attempt($credentials)) {
-            $user = Auth::user();
-            if ($user->isAdmin()) {
-                return redirect()->route('admin.dashboard');
-            }
 
             return redirect()->route('user.dashboard');
+        }
+        return back()->withErrors(['connexion' => __('validator.login.failed')])->withInput();
+    }
+
+    public function loginAxe(Request $request, $role = 'user')
+    {
+
+        ///verifie les donner recu
+        $validator = Validator::make($request->all(), 
+        [
+            'email' => 'required|exists:users,email', 
+            'mdp' => 'required', 
+        ], 
+        [
+            'email.required' => __('validator.email.required'),
+            'email.exists' => __('validator.email.exists'), 
+            'mdp.required' => __('validator.mdp.required'),  
+        ]);
+        
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
+        $credentials = [
+            'email' => $request->email,
+            'password' => $request->mdp,
+        ];
+        if (Auth::attempt($credentials)) {
+            if (Auth::user()->isAdmin()) {
+                return redirect()->route('admin.dashboard');
+            }
         }
         return back()->withErrors(['connexion' => __('validator.login.failed')])->withInput();
     }

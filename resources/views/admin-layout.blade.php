@@ -35,20 +35,10 @@
         </div>
 
         <div class="nav-links" id="nav-links">
-            @auth
-                <a href="{{ route('user.tasks') }}">{{ __('layout.taches') }}</a>
-                <a href="{{ route('user.groupes') }}">{{ __('layout.groupe') }}</a>
-                <a href="{{ route('user.profile') }}">{{ __('layout.profil') }}</a>
-                <div class='bnt-log'>
-                    <a href="/logOut">{{ __('layout.deconnexion') }}</a>
-                </div>
-            @else
-                <a href="/">{{ __('layout.Accueil') }}</a>
-                <a href="#">{{ __('layout.ÀPropos') }}</a>
-                <div class="bnt-log">
-                    <a href="./login">{{ __('layout.connexion') }}</a>
-                </div>
-            @endauth
+            <a href="{{ route('user.profile') }}">{{ __('layout.profil') }}</a>
+            <div class='bnt-log'>
+                <a href="/logOut">{{ __('layout.deconnexion') }}</a>
+            </div>
         </div>
     </nav>
 

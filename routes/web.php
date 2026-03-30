@@ -44,7 +44,7 @@ Route::get('axe', function (){
 })->name('loginAdmin');
 
 
-Route::post('axe', [AuthController::class, 'login'])->defaults('role', 'admin');
+Route::post('axe', [AuthController::class, 'loginAxe']);
 
 
 Route::get('signUp', function (){
