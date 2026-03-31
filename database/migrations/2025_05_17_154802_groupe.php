@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('nom');
             $table->foreignId('proprietaire_id')->nullable();
+            $table->timestamps();
+            $table->softDeletes(); // Ajoute la colonne 'deleted_at'
         });
     }
 

@@ -6,7 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 
-use App\Models\Task;
+use App\Models\Tache;
 class TacheTableSeeder extends Seeder
 {
     /**

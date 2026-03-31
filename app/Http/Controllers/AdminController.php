@@ -15,19 +15,23 @@ class AdminController extends Controller
         $date_fin = $request->input('date_fin');
 
         $tachesQuery = Tache::query();
+        $groupesQuery = Groupe::query();
+        $usersQuery = User::query();
 
         if ($date_debut) {
             $tachesQuery->where('date_fin', '>=', $date_debut);
+            $groupesQuery->whereDate('created_at', '>=', $date_debut);
+            $usersQuery->whereDate('created_at', '>=', $date_debut);
         }
 
         if ($date_fin) {
             $tachesQuery->where('date_fin', '<=', $date_fin);
+            $groupesQuery->whereDate('created_at', '<=', $date_fin);
+            $usersQuery->whereDate('created_at', '<=', $date_fin);
         }
 
-        $totalUsers   = User::count();
-        $totalGroupes = Groupe::count();
-
-        // Stats calculées sur les tâches filtrées
+        $totalUsers   = $usersQuery->count();
+        $totalGroupes = $groupesQuery->count();
         $filteredTaches = $tachesQuery->get();
         $totalTaches  = $filteredTaches->count();
         $terminees    = $filteredTaches->where('etat', 'termine')->count();
@@ -36,9 +40,8 @@ class AdminController extends Controller
 
         $completion = $totalTaches > 0 ? round(($terminees / $totalTaches) * 100) : 0;
 
-        $recentUsers = User::latest()->take(5)->get();
+        $recentUsers = $usersQuery->latest()->take(5)->get();
         
-        // Re-execute query for recent tasks to include limits and relations
         $recentTaches = (clone $tachesQuery)->with('user')->latest()->take(5)->get();
 
         return view('dashboard.dashboardAdmin', compact(

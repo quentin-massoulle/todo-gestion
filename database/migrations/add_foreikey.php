@@ -20,12 +20,9 @@ return new class extends Migration {
         });
         Schema::table('message', function (Blueprint $table) {
             if (!Schema::hasColumn('message', 'user_id')) return;
-
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             if (!Schema::hasColumn('message', 'groupe_id')) return;
             $table->foreign('groupe_id')->references('id')->on('groupe')->onDelete('cascade');
-            if (!Schema::hasColumn('message', 'tache_id')) return;
-            $table->foreign('tache_id')->references('id')->on('taches')->onDelete('cascade');
         });
         // Ajout de la FK taches.user_id vers users.id
         Schema::table('taches', function (Blueprint $table) {
@@ -39,6 +36,7 @@ return new class extends Migration {
         Schema::table('groupe',function (Blueprint $table){
             if (!Schema::hasColumn('groupe','proprietaire_id')) return ;
             $table->foreign('proprietaire_id')->references('id')->on('users')->onDelete('cascade');
+            
         });
         // Ajout de la FK rappels.tache_id vers taches.id
         Schema::table('rappels', function (Blueprint $table) {
@@ -58,37 +56,51 @@ return new class extends Migration {
         });
     }
 
-    /**
-     * Remove foreign key constraints.
-     */
-    public function down(): void
+public function down(): void
     {
-        
-        Schema::table('groupe_user', function (Blueprint $table) {
-            $table->dropForeign(['user_id']);
-            $table->dropForeign(['groupe_id']);
-        });
-        Schema::table('taches', function (Blueprint $table) {
-            $table->dropForeign(['user_id']);
-            $table->dropForeign(['groupe_id']);
-        });
+        // On désactive les contraintes pour éviter les blocages SQL pendant le rollback
+        Schema::disableForeignKeyConstraints();
 
-        Schema::table('rappels', function (Blueprint $table) {
-            $table->dropForeign(['tache_id']);
-        });
+        if (Schema::hasTable('groupe_user')) {
+            Schema::table('groupe_user', function (Blueprint $table) {
+                $table->dropForeign(['user_id']);
+                $table->dropForeign(['groupe_id']);
+            });
+        }
 
-        Schema::table('message', function (Blueprint $table) {
-            $table->dropForeign(['user_id']);
-            $table->dropForeign(['groupe_id']);
-            $table->dropForeign(['tache_id']);
-        }); 
-        Schema::table('groupe', function (Blueprint $table) {
-            $table->dropForeign(['proprietaire_id']);
-        });
-        Schema::table('taches_dependencies', function (Blueprint $table) {
-            $table->dropForeign(['tache_id']);
-            $table->dropForeign(['dependency_id']);
-        });
-        
+        if (Schema::hasTable('taches')) {
+            Schema::table('taches', function (Blueprint $table) {
+                $table->dropForeign(['user_id']);
+                $table->dropForeign(['groupe_id']);
+            });
+        }
+
+        if (Schema::hasTable('rappels')) {
+            Schema::table('rappels', function (Blueprint $table) {
+                $table->dropForeign(['tache_id']);
+            });
+        }
+
+        if (Schema::hasTable('message')) {
+            Schema::table('message', function (Blueprint $table) {
+                $table->dropForeign(['user_id']);
+                $table->dropForeign(['groupe_id']);
+            });
+        }
+
+        if (Schema::hasTable('groupe')) {
+            Schema::table('groupe', function (Blueprint $table) {
+                $table->dropForeign(['proprietaire_id']);
+            });
+        }
+
+        if (Schema::hasTable('taches_dependencies')) {
+            Schema::table('taches_dependencies', function (Blueprint $table) {
+                $table->dropForeign(['tache_id']);
+                $table->dropForeign(['dependency_id']);
+            });
+        }
+
+        Schema::enableForeignKeyConstraints();
     }
 };

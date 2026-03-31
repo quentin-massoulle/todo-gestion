@@ -1,7 +1,7 @@
 <?php
 
 namespace Database\Factories;
-use App\Models\Task;
+use App\Models\Tache;
 use App\Models\User;
 use App\Models\Groupe;
 

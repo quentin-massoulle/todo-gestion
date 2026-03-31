@@ -12,7 +12,6 @@ return new class extends Migration
             $table->id();
             $table->text('contenu');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('groupe_id')->nullable();
             $table->foreignId('tache_id')->nullable();
             $table->timestamps();
         });

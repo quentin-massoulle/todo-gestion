@@ -4,6 +4,8 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 class Tache extends Model
 {
 
@@ -11,6 +13,8 @@ class Tache extends Model
     'date_debut' => 'datetime', 
     'date_fin' => 'datetime',
     ];
+    public $timestamps = true;
+    use SoftDeletes;
 
     use HasFactory;
     protected $table = 'taches';

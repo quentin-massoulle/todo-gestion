@@ -23,6 +23,7 @@ return new class extends Migration
              $table->date('date_debut')->nullable();
              $table->foreignId('groupe_id')->nullable();
              $table->timestamps();
+             $table->softDeletes(); 
          });
      }
  

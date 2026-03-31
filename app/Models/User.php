@@ -7,9 +7,13 @@ use App\Models\Groupe;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
+    public $timestamps = true;
+    use SoftDeletes;
+    
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
@@ -60,9 +64,12 @@ class User extends Authenticatable
         return $this->hasMany(Tache::class);
     }
 
-    public function groupe()
+    public function groupes()
     {
-        return $this->belongsToMany(Groupe::class);
+        return $this->belongsToMany(Groupe::class, 'groupe_user')
+                    ->using(GroupeUser::class) 
+                    ->withTimestamps()         
+                    ->withPivot('deleted_at'); 
     }
     
     public function profilePicture()

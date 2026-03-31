@@ -3,10 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Message extends Model
 {
-   protected $table = 'messages';
+    protected $table = 'messages';
+    public $timestamps = true;
+    use SoftDeletes;
 
      public function user()
     {
