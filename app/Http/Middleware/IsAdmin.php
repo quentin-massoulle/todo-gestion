@@ -16,11 +16,9 @@ class IsAdmin
      */
     public function handle($request, Closure $next)
     {
-        // Vérifie si l'utilisateur est connecté
         if (!auth()->check()) {
-            return redirect()->route('login');  // Redirige vers la page de connexion si l'utilisateur n'est pas connecté
+            return redirect()->route('login');  
         }
-        // Vérifie si l'utilisateur est un admin (is_admin doit exister et être égal à 1 pour un admin)
         if (auth()->user()->is_admin == 0) {
             Auth::logout();
 

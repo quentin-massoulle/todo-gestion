@@ -34,12 +34,6 @@ Route::get('login', function (){
 Route::post('login',  [ AuthController::class, 'login']);
 
 Route::get('axe', function (){
-    if (Auth::check()) {
-        if (Auth::user()->is_admin) {
-            return redirect()->route('admin.dashboard');
-        }
-        return redirect()->route('user.dashboard');
-    }
     return view('loginAdmin');
 })->name('loginAdmin');
 
