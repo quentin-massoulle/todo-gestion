@@ -14,6 +14,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('groupe_id')->onDelete('cascade')->nullable();
             $table->timestamps();
+            $table->softDeletes(); 
         });
     }
     public function down(): void
