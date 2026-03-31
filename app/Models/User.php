@@ -64,7 +64,7 @@ class User extends Authenticatable
         return $this->hasMany(Tache::class);
     }
 
-    public function groupes()
+    public function groupe()
     {
         return $this->belongsToMany(Groupe::class, 'groupe_user')
                     ->using(GroupeUser::class) 

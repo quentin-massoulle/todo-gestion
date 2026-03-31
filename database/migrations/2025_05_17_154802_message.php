@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id();
             $table->text('contenu');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('tache_id')->nullable();
+            $table->foreignId('groupe_id')->onDelete('cascade')->nullable();
             $table->timestamps();
         });
     }
