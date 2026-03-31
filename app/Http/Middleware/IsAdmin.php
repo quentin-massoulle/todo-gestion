@@ -19,17 +19,24 @@ class IsAdmin
         if (!auth()->check()) {
             return redirect()->route('login');  
         }
-        if (auth()->user()->is_admin == 0) {
-            Auth::logout();
 
-            $request->session()->invalidate();
+        $provenance = url()->previous();
 
-            $request->session()->regenerateToken();
-
-            return redirect()->route('/')->with('error', __("validator.access_denied"));
+        if (str_contains($provenance, '/axe'))
+        {
+            if (auth()->user()->is_admin == 0) {
+                Auth::logout();
+                $request->session()->invalidate();
+                $request->session()->regenerateToken();
+                return redirect('/')->with('error', __("validator.access_denied"));
+            }
+            return $next($request);
         }
-
-        // Si l'utilisateur est un admin, on continue la requête
-        return $next($request);
+        else {
+            Auth::logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+            return redirect('/')->with('error', __("validator.access_denied"));
+        }
     }
 }

@@ -16,7 +16,7 @@
       </div>
 
       <div class="flex flex-wrap items-center gap-4 w-full lg:w-auto">
-        <form action="{{ route('admin.dashboard') }}" method="GET" class="flex flex-wrap items-center gap-2 bg-gray-50 p-1.5 rounded-xl border border-gray-200 w-full lg:w-auto">
+        <form action="{{ route('axe.dashboard') }}" method="GET" class="flex flex-wrap items-center gap-2 bg-gray-50 p-1.5 rounded-xl border border-gray-200 w-full lg:w-auto">
           <div class="flex items-center gap-2 px-2">
             <input type="date" value="{{ $date_debut }}" name="date_debut" class="bg-transparent border-none text-sm font-semibold text-gray-700 focus:ring-0 cursor-pointer">
             <span class="text-gray-400 text-xs font-bold font-mono">→</span>
@@ -164,7 +164,7 @@
         <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
           <h2 class="text-sm font-black text-gray-500 uppercase tracking-widest mb-4">Actions rapides</h2>
           <div class="flex flex-col gap-2">
-            <a href="{{ route('user.groupes') }}" class="flex items-center gap-3 p-3 rounded-xl hover:bg-indigo-50 transition-colors group">
+            <a href="{{ route('axe.groupes') }}" class="flex items-center gap-3 p-3 rounded-xl hover:bg-indigo-50 transition-colors group">
               <div class="w-8 h-8 bg-indigo-50 text-indigo-500 group-hover:bg-indigo-100 rounded-lg flex items-center justify-center transition-colors">
                 <i class="fas fa-layer-group text-xs"></i>
               </div>

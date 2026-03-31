@@ -35,7 +35,7 @@
         </div>
 
         <div class="nav-links" id="nav-links">
-            <a href="{{ route('admin.dashboard') }}">{{ __('layout.profil') }}</a>
+            <a href="{{ route('axe.dashboard') }}">{{ __('layout.dashboard') }}</a>
             <div class='bnt-log'>
                 <a href="/logOut">{{ __('layout.deconnexion') }}</a>
             </div>

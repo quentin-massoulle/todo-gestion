@@ -11,6 +11,16 @@ use Illuminate\Support\Facades\Validator;
 
 class GroupeController extends Controller
 {
+
+    /**
+     * permet au utilisateur d'acceder au dahborn de ses groupe 
+     */
+    public function indexAdmin()
+    {
+        $groupes = Groupe::all();
+        return view('axe.groupe-show', ['groupes' => $groupes]);
+    }
+
     /**
      * permet au utilisateur d'acceder au dahborn de ses groupe 
      */

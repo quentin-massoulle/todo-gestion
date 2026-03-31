@@ -113,7 +113,7 @@ class AuthController extends Controller
         ];
         if (Auth::attempt($credentials)) {
             if (Auth::user()->isAdmin()) {
-                return redirect()->route('admin.dashboard');
+                return redirect()->route('axe.dashboard');
             }
         }
         return back()->withErrors(['connexion' => __('validator.login.failed')])->withInput();

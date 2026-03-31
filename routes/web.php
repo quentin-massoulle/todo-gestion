@@ -23,9 +23,6 @@ Route::get('/', function () {
 
 Route::get('login', function (){
     if (Auth::check()) {
-        if (Auth::user()->is_admin) {
-            return redirect()->route('admin.dashboard');
-        }
         return redirect()->route('user.dashboard');
     }
     return view('login');
@@ -87,9 +84,9 @@ Route::middleware('auth')->prefix('tache')->name('tache.')->group(function () {
         ->name('updateDates');
 
 });
-Route::middleware(['auth', IsAdmin::class])->prefix('admin')->name('admin.')->group(function () {              
+Route::middleware(IsAdmin::class)->prefix('axe')->name('axe.')->group(function () {              
         Route::get('/dashboard', [AdminController::class, 'dashboard'])
             ->name('dashboard');
+        Route::get('/groupes', [GroupeController::class, 'indexAdmin'])
+            ->name('groupes');
 });
-
-
