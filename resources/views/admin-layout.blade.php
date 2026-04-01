@@ -24,7 +24,7 @@
 
     <nav>
         <div class="logo">
-            <a href="/" class="flex items-center gap-3">
+            <a href="{{ route('axe.dashboard') }}" class="flex items-center gap-3">
                 <i class="fas fa-wallet fa-3x"></i>
                 <h1 class="text-2xl font-bold">TodoGestion</h1>
             </a>

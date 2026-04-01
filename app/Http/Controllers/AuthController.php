@@ -69,8 +69,8 @@ class AuthController extends Controller
         ], 
         [
             'email.required' => __('validator.email.required'),
-            'email.exists' => __('validator.email.exists'), 
-            'mdp.required' => __('validator.mdp.required'),  
+            'email.exists' => __('validator.login.failed'), 
+            'mdp.required' => __('validator.login.failed'),  
         ]);
         
         if ($validator->fails()) {

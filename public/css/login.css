@@ -61,3 +61,7 @@ div.inputDiv
 .login-container .register-link:hover {
     text-decoration: underline;
 }
+
+.alert-danger{
+    color: red;
+}
