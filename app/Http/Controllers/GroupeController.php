@@ -15,10 +15,15 @@ class GroupeController extends Controller
     /**
      * permet au utilisateur d'acceder au dahborn de ses groupe 
      */
-    public function indexAdmin()
+    public function indexAdmin(Request $request)
     {
+        $date_debut = $request->input('date_debut');
+        $date_fin = $request->input('date_fin');
         $groupes = Groupe::all();
-        return view('axe.groupe-show', ['groupes' => $groupes]);
+        if ($date_debut && $date_fin) {
+            $groupes = $groupes->whereBetween('created_at', [$date_debut, $date_fin]);
+        }
+        return view('axe.groupe-show', ['groupes' => $groupes , 'date_debut' => $date_debut , 'date_fin' => $date_fin]);
     }
 
     /**

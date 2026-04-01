@@ -87,7 +87,7 @@
 @section('content')
 <div class="p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto" x-data="{ chatOpen: false }">
   <!-- Header Section -->
-  <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-8 gap-6 bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+<div class="flex flex-row justify-between items-center mb-8 gap-6 bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
     <div class="flex flex-col gap-1">
       <div class="flex items-center gap-3">
         <div class="w-10 h-10 bg-indigo-100 text-indigo-600 rounded-lg flex items-center justify-center font-bold text-xl">
@@ -98,8 +98,8 @@
       <p class="text-gray-500 font-medium ml-13">Tableau de bord de votre équipe</p>
     </div>
     
-    <div class="flex flex-wrap items-center gap-4 w-full lg:w-auto">
-      <form action="/groupe/{{$groupe->id}}" method="GET" class="flex flex-wrap items-center gap-2 bg-gray-50 p-1.5 rounded-xl border border-gray-200 w-full lg:w-auto">
+    <div class="flex items-center gap-4">
+      <form action="/groupe/{{$groupe->id}}" method="GET" class="flex items-center gap-2 bg-gray-50 p-1.5 rounded-xl border border-gray-200">
         @if (isset($periode) || true) {{-- Always show if we want modern look --}}
           <div class="flex items-center gap-2 px-2">
             <input type="date" value="{{$date_debut}}" name="date_debut" class="bg-transparent border-none text-sm font-semibold text-gray-700 focus:ring-0 cursor-pointer">
