@@ -1,4 +1,5 @@
-@extends('layout')
+@extends(str_contains(url()->previous(), '/axe') ? 'admin-layout' : 'layout')
+@section('content')
 @vite('resources/js/app.js')
 @section('title', 'Dashboard ' . $groupe->nom)
 

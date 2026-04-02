@@ -57,11 +57,13 @@ class GroupeController extends Controller
         $groupe = Groupe::find($id);
         $user = Auth::user();
     
-       
-        if (!$user->groupe->pluck('id')->contains($groupe->id)) {
-            return back()->withErrors('pas ton groupe')->withInput();
+        $provenance = url()->previous();
+
+        if (!str_contains($provenance, '/axe')) {
+            if (!$user->groupe->pluck('id')->contains($groupe->id)) {
+                return back()->withErrors('pas ton groupe')->withInput();
+            }
         }
-    
     
         $messages = $groupe->message()->orderBy('created_at', 'asc')->get();
     

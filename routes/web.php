@@ -86,4 +86,6 @@ Route::middleware(IsAdmin::class)->prefix('axe')->name('axe.')->group(function (
             ->name('dashboard');
         Route::get('/groupes', [GroupeController::class, 'indexAdmin'])
             ->name('groupes');
+        Route::get('/groupe/{id}', [GroupeController::class, 'show'])->where('id','[1-9][0-9]*')
+            ->name('groupe.show');
 });

@@ -76,7 +76,7 @@
                     </span>
                 </div>
 
-                <a href="{{ route('groupe.show', $groupe->id) }}" class="btn-access">
+                <a href="{{ route('axe.groupe.show', $groupe->id) }}" class="btn-access">
                     <span>{{ __('groupe.access_group') }}</span>
                     <i class="fa-solid fa-arrow-right-long text-base"></i>
                 </a>
