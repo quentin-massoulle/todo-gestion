@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\taskController;
 use App\Http\Middleware\IsAdmin;
 use App\Http\Middleware\CheckRoute;
+use App\Http\Middleware\AdminDateFilter;
 use App\Http\Controllers\GroupeController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\AdminController;
@@ -48,7 +49,8 @@ Route::post('/profile/upload', [AuthController::class, 'uploadPP'])->name('profi
 Route::middleware('auth')->prefix('user')->name('user.')->group(function () {
     Route::get('/dashboard', fn() =>view('dashboard.dashboardUser'))
         ->name('dashboard');
-    Route::get('/tasks',[taskController::class,'viewsTasks'])->name('tasks');
+    Route::get('/tasks',[taskController::class,'viewsTasks'])
+        ->name('tasks');
     Route::post('/tasks/{id}/update-etat', [TaskController::class, 'updateEtat'])
     ->where('id','[1-9][0-9]*') 
     ->name('tasks.updateEtat');
@@ -56,8 +58,10 @@ Route::middleware('auth')->prefix('user')->name('user.')->group(function () {
         ->where('id','[0-9]*')
         ->name('task.show');
     Route::post('/task/{id}',[taskController::class , 'store']);
-    Route::get('/groupes',[GroupeController::class,'index'])->name('groupes');
-    Route::get('/profile',[AuthController::class,'showProfile'])->name('profile');
+    Route::get('/groupes',[GroupeController::class,'index'])
+        ->name('groupes');
+    Route::get('/profile',[AuthController::class,'showProfile'])
+        ->name('profile');
 });
 
 Route::middleware('auth')->prefix('groupe')->name('groupe.')->group(function () {
@@ -81,11 +85,13 @@ Route::middleware('auth')->prefix('tache')->name('tache.')->group(function () {
         ->name('updateDates');
 
 });
-Route::middleware(IsAdmin::class)->prefix('axe')->name('axe.')->group(function () {              
+Route::middleware([IsAdmin::class, AdminDateFilter::class])->prefix('axe')->name('axe.')->group(function () {
         Route::get('/dashboard', [AdminController::class, 'dashboard'])
             ->name('dashboard');
         Route::get('/groupes', [GroupeController::class, 'indexAdmin'])
             ->name('groupes');
         Route::get('/groupe/{id}', [GroupeController::class, 'show'])->where('id','[1-9][0-9]*')
             ->name('groupe.show');
+        Route::get('/tasks',[taskController::class,'AxeTasks'])->where('id','[1-9][0-9]*')
+            ->name('tasks');
 });

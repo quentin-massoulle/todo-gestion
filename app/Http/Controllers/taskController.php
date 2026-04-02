@@ -11,6 +11,30 @@ use DateTime;
 
 class taskController extends Controller
 {
+    public function AxeTasks(Request $request)
+    {
+        $date_debut = $request->input('date_debut');
+        $date_fin   = $request->input('date_fin');
+
+        $query = Tache::with('user');
+
+        if ($date_debut) {
+            $query->where('date_fin', '>=', $date_debut);
+        }
+        if ($date_fin) {
+            $query->where('date_fin', '<=', $date_fin);
+        }
+
+        $tasks = $query->get()->groupBy('etat');
+
+        return view('task.taskDashboard', [
+            'tasks'      => $tasks,
+            'groupe'     => null,
+            'isAdmin'    => true,
+            'date_debut' => $date_debut,
+            'date_fin'   => $date_fin,
+        ]);
+    }
     /**
      * Crée ou met à jour une tâche.
      * Si 'TaskId' est présent → mise à jour d'une tâche existante.
@@ -145,8 +169,8 @@ class taskController extends Controller
      * Affiche les détails d'une tâche spécifique.
      * Permet aussi de gérer l’accès selon le groupe ou le propriétaire.
      */
-  public function showTask($id)
-{   
+    public function showTask($id)
+    {   
     $user = Auth::user();
     $task = null;
     $groupe = null;

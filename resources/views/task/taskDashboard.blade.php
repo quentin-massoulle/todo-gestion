@@ -1,4 +1,4 @@
-@extends('layout')
+@extends(request()->is('axe/*') ? 'admin-layout' : 'layout')
 @section('head')
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
@@ -15,15 +15,42 @@ Mes Tâches
 
 <div class="max-w-7xl mx-auto py-4 px-4 w-full">
     <h2 class="text-xl font-bold mb-1 text-center text-gray-800">Liste des Tâches</h2>
-        
-    <div class="flex justify-end mb-1">
-        <button id="openTaskModal" 
-            class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-2 px-4 rounded shadow transition duration-200">
-            {{__('task.new')}}
+
+    @if($isAdmin ?? false)
+    <div class="flex items-center justify-end gap-2 mb-3 w-full bg-gray-50 p-1.5 rounded-xl border border-gray-200">
+        <form action="{{ route('axe.tasks') }}" method="GET"
+              class="flex items-center gap-2 bg-white p-1.5 rounded-xl border border-gray-200">
+            <div class="flex items-center gap-2 px-2">
+                <input type="date" name="date_debut" value="{{ $date_debut ?? '' }}"
+                       class="bg-transparent border-none text-sm font-semibold text-gray-700 focus:ring-0 cursor-pointer">
+                <span class="text-gray-400 text-xs font-bold font-mono">→</span>
+                <input type="date" name="date_fin" value="{{ $date_fin ?? '' }}"
+                       class="bg-transparent border-none text-sm font-semibold text-gray-700 focus:ring-0 cursor-pointer">
+            </div>
+            <button type="submit"
+                    class="inline-flex items-center px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold rounded-lg transition-all shadow-md active:scale-95">
+                <i class="fas fa-filter mr-2"></i> Filtrer
+            </button>   
+        </form>
+
+        <button id="openTaskModal"
+                class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-2 px-4 rounded shadow transition duration-200 whitespace-nowrap">
+            {{ __('task.new') }}
         </button>
     </div>
 
+    @else
+    <div class="flex justify-end mb-1">
+        <button id="openTaskModal"
+                class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-2 px-4 rounded shadow transition duration-200">
+            {{ __('task.new') }}
+        </button>
+    </div>
+    @endif
+
+
     @include('task.taskFormModal')
+
 
     <div class="grid grid-cols-1 md:grid-cols-4 gap-2">
     @foreach (['nouveau', 'planifie', 'en_cours', 'termine'] as $etat)
@@ -37,10 +64,13 @@ Mes Tâches
                         <div class="bg-white p-5 rounded shadow hover:shadow-md task-card" data-id="{{ $task->id }}">
                             <div class="flex justify-between items-center">
                                 <h4 class="font-semibold text-gray-900 w-9/10">{{ $task->titre }}</h4>
-                                @if($task->groupe_id != null && $groupe != null)
+                                @if(($task->groupe_id != null && $groupe != null) || ($isAdmin ?? false))
                                     <img src="{{ $task->user->profilePicture() }}" alt="Photo de profil" class="profile-picture w-1/10">
                                 @endif
                             </div>
+                            @if($isAdmin ?? false)
+                                <p class="text-xs text-gray-400 mb-1">{{ $task->user->name }}</p>
+                            @endif
                             <div class="flex justify-between items-center">
                                 <div class="mt-2"> 
                                     <span class="{{ $task->couleur_temps }} text-[10px] font-bold px-3 py-1 rounded-full uppercase shadow-sm inline-block" style="box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);">

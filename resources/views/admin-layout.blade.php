@@ -36,6 +36,7 @@
 
         <div class="nav-links" id="nav-links">
             <a href="{{ route('axe.dashboard') }}">{{ __('layout.dashboard') }}</a>
+            <a href="{{ route('axe.tasks') }}">Toutes les tâches</a>
             <div class='bnt-log'>
                 <a href="/logOut">{{ __('layout.deconnexion') }}</a>
             </div>
@@ -45,11 +46,6 @@
     <div class="content">
         @yield('content')
     </div>
-
-    <footer>
-        <p>&copy; {{ date('Y') }} TodoGestion. Tous droits réservés.</p>
-    </footer>
-
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script>
         // Script pour le menu mobile

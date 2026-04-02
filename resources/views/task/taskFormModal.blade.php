@@ -8,7 +8,8 @@
 
         <form method="POST" action="{{ route('tache.store') }}" class="modern-form" id="taskForm">
             @csrf
-            <input type="hidden" name="groupe" id="modalGroupeId" value="{{ is_object($groupe) ? $groupe->id : $groupe }}">
+            @if(isset($groupe) && is_object($groupe))<input type="hidden" name="groupe" id="modalGroupeId" value="{{ is_object($groupe) ? $groupe->id : $groupe }}">
+            @endif
             <input type="hidden" name="TaskId" id="modalTaskId" value="">
 
             <div class="form-group">

@@ -171,7 +171,7 @@
               <span class="text-sm font-bold text-gray-700 group-hover:text-indigo-700 transition-colors">Voir les groupes</span>
               <i class="fas fa-chevron-right text-[10px] text-gray-300 ml-auto group-hover:text-indigo-400 transition-colors"></i>
             </a>
-            <a href="{{ route('user.tasks') }}" class="flex items-center gap-3 p-3 rounded-xl hover:bg-violet-50 transition-colors group">
+            <a href="{{ route('axe.tasks') }}" class="flex items-center gap-3 p-3 rounded-xl hover:bg-violet-50 transition-colors group">
               <div class="w-8 h-8 bg-violet-50 text-violet-500 group-hover:bg-violet-100 rounded-lg flex items-center justify-center transition-colors">
                 <i class="fas fa-list-check text-xs"></i>
               </div>
