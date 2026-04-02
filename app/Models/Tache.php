@@ -50,6 +50,9 @@ class Tache extends Model
     /// calcule le pourcentage de temps écoulé entre la date de début et la date de fin
     public function getCouleurTempsAttribute()
     {
+        if ($this->etat == 'termine') {
+            return "bg-green-100 text-green-900";
+        }
         $debut = $this->date_debut; 
         $fin = $this->date_fin;
         $maintenant = Carbon::now();
