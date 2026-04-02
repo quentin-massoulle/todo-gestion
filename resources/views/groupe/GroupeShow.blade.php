@@ -113,7 +113,7 @@
         </button>
       </form>
 
-      @if ($groupe->proprietaire_id === auth()->id())
+      @if ($groupe->proprietaire_id === auth()->id() || str_contains(url()->previous(), '/axe') )
         <button id="gestionGroupe" class="inline-flex items-center px-5 py-2.5 bg-white border-2 border-gray-100 hover:border-gray-200 hover:bg-gray-50 text-gray-700 text-sm font-bold rounded-lg transition-all active:scale-95">
           <i class="fas fa-user-gear mr-2"></i> Paramètres
         </button>
