@@ -36,7 +36,9 @@
 
         <div class="nav-links" id="nav-links">
             <a href="{{ route('axe.dashboard') }}">{{ __('layout.dashboard') }}</a>
-            <a href="{{ route('axe.tasks') }}">Toutes les tâches</a>
+            <a href="{{ route('axe.tasks') }}">{{ __('admin.dashboard.tasks') }}</a>
+            <a href="{{ route('axe.groupes') }}">{{ __('admin.dashboard.groups') }}</a>
+            <a href="{{ route('axe.users') }}">{{ __('admin.users.title') }}</a>
             <div class='bnt-log'>
                 <a href="/logOut">{{ __('layout.deconnexion') }}</a>
             </div>

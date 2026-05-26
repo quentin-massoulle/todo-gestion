@@ -58,4 +58,32 @@ class AdminController extends Controller
             'date_fin'
         ));
     }
+    public function users(Request $request)
+    {
+        $users = User::where('is_admin', false)->latest()->get();
+        return view('axe.users', compact('users'));
+    }
+
+    public function destroyUser(User $user)
+    {
+        if ($user->isAdmin()) {
+            return back()->with('error', 'Impossible de supprimer un administrateur.');
+        }
+
+        foreach ($user->groupe as $groupe) {
+            $groupe->users()->detach($user->id);
+        }
+
+        foreach ($user->tache as $tache) {
+            if ($tache->groupe_id != null) {
+                $tache->update(['user_id' => null]);
+            }else{
+                $tache->delete();
+            }
+        }
+
+        $user->delete();
+
+        return back()->with('success', 'Utilisateur supprimé avec succès.');
+    }
 }

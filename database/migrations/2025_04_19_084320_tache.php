@@ -14,7 +14,7 @@ return new class extends Migration
      {
          Schema::create('taches', function (Blueprint $table) {
              $table->id();
-             $table->foreignId('user_id');
+             $table->foreignId('user_id')->nullable();
              $table->string('titre');
              $table->text('description')->nullable();
              $table->enum('etat', ['nouveau', 'planifie', 'en_cours', 'termine'])->default('nouveau');

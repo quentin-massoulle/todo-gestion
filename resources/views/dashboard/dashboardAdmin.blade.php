@@ -10,8 +10,8 @@
           <i class="fas fa-shield-halved text-white text-lg"></i>
         </div>
         <div>
-          <h1 class="text-2xl font-extrabold text-gray-900 tracking-tight leading-tight">Administration</h1>
-          <p class="text-sm text-gray-400 font-medium">Tableau de bord · {{ now()->translatedFormat('l d F Y') }}</p>
+          <h1 class="text-2xl font-extrabold text-gray-900 tracking-tight leading-tight">{{ __('admin.groups.title') }}</h1>
+          <p class="text-sm text-gray-400 font-medium">{{ __('admin.groups.dashboard') }} · {{ now()->translatedFormat('l d F Y') }}</p>
         </div>
       </div>
 
@@ -23,7 +23,7 @@
             <input type="date" name="date_fin" value="{{ $date_fin }}" class="bg-transparent border border-gray-200 rounded-lg px-2 py-1 text-sm font-semibold text-gray-700 focus:ring-0 cursor-pointer">
           </div>
           <button type="submit" class="inline-flex items-center px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold rounded-lg transition-all shadow-md shadow-indigo-100 active:scale-95">
-            <i class="fas fa-filter mr-2"></i> Filtrer
+            <i class="fas fa-filter mr-2"></i> {{ __('admin.groups.filter') }}
           </button>
         </form>
 
@@ -45,7 +45,7 @@
           <span class="text-[10px] bg-blue-50 text-blue-500 font-bold px-2 py-0.5 rounded-full">TOTAL</span>
         </div>
         <p class="text-3xl font-black text-gray-900 leading-none mb-1">{{ $totalUsers }}</p>
-        <p class="text-xs font-bold text-gray-400 uppercase tracking-widest">Utilisateurs</p>
+        <p class="text-xs font-bold text-gray-400 uppercase tracking-widest">{{ __('admin.users.title') }}</p>
       </div>
 
       {{-- Tâches --}}
@@ -57,7 +57,7 @@
           <span class="text-[10px] bg-violet-50 text-violet-500 font-bold px-2 py-0.5 rounded-full">TOTAL</span>
         </div>
         <p class="text-3xl font-black text-gray-900 leading-none mb-1">{{ $totalTaches }}</p>
-        <p class="text-xs font-bold text-gray-400 uppercase tracking-widest">Tâches</p>
+        <p class="text-xs font-bold text-gray-400 uppercase tracking-widest">{{ __('admin.dashboard.tasks') }}</p>
       </div>
 
       {{-- Groupes --}}
@@ -69,7 +69,7 @@
           <span class="text-[10px] bg-emerald-50 text-emerald-500 font-bold px-2 py-0.5 rounded-full">TOTAL</span>
         </div>
         <p class="text-3xl font-black text-gray-900 leading-none mb-1">{{ $totalGroupes }}</p>
-        <p class="text-xs font-bold text-gray-400 uppercase tracking-widest">Groupes</p>
+        <p class="text-xs font-bold text-gray-400 uppercase tracking-widest">{{ __('admin.dashboard.groups') }}</p>
       </div>
 
       {{-- En retard --}}
@@ -83,7 +83,7 @@
           @endif
         </div>
         <p class="text-3xl font-black {{ $enRetard > 0 ? 'text-red-600' : 'text-gray-900' }} leading-none mb-1">{{ $enRetard }}</p>
-        <p class="text-xs font-bold {{ $enRetard > 0 ? 'text-red-400' : 'text-gray-400' }} uppercase tracking-widest">En retard</p>
+        <p class="text-xs font-bold {{ $enRetard > 0 ? 'text-red-400' : 'text-gray-400' }} uppercase tracking-widest">{{ __('admin.dashboard.late') }}</p>
       </div>
     </div>
 
@@ -95,19 +95,19 @@
 
         {{-- Global Progress --}}
         <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
-          <h2 class="text-sm font-black text-gray-500 uppercase tracking-widest mb-5">Progression globale de l'équipe</h2>
+          <h2 class="text-sm font-black text-gray-500 uppercase tracking-widest mb-5">{{ __('admin.dashboard.global_progress') }}</h2>
           <div class="flex flex-wrap gap-6 mb-6">
             <div class="flex flex-col">
               <span class="text-2xl font-black text-emerald-600">{{ $terminees }}</span>
-              <span class="text-[10px] font-bold text-emerald-400 uppercase tracking-tight">Terminées</span>
+              <span class="text-xs font-bold text-gray-400 uppercase tracking-widest mt-1">{{ __('admin.dashboard.completed') }}</span>
             </div>
             <div class="flex flex-col">
               <span class="text-2xl font-black text-blue-600">{{ $enCours }}</span>
-              <span class="text-[10px] font-bold text-blue-400 uppercase tracking-tight">En cours</span>
+              <span class="text-xs font-bold text-gray-400 uppercase tracking-widest mt-1">{{ __('admin.dashboard.in_progress') }}</span>
             </div>
             <div class="flex flex-col">
               <span class="text-2xl font-black text-gray-900">{{ $totalTaches - $terminees - $enCours }}</span>
-              <span class="text-[10px] font-bold text-gray-400 uppercase tracking-tight">À faire</span>
+              <span class="text-xs font-bold text-gray-400 uppercase tracking-widest mt-1">{{ __('admin.dashboard.late') }}</span>
             </div>
           </div>
           <div class="w-full bg-gray-100 rounded-full h-3 overflow-hidden">
@@ -123,7 +123,7 @@
         {{-- Recent tasks --}}
         <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
           <div class="p-6 border-b border-gray-50 flex items-center justify-between">
-            <h2 class="text-sm font-black text-gray-500 uppercase tracking-widest">Dernières tâches créées</h2>
+            <h2 class="text-sm font-black text-gray-500 uppercase tracking-widest">{{ __('admin.dashboard.recent_tasks') }}</h2>
             <span class="text-[10px] bg-gray-50 text-gray-400 px-2 py-0.5 rounded-md font-black border border-gray-100">5 récentes</span>
           </div>
           <div class="divide-y divide-gray-50">
@@ -152,7 +152,7 @@
               </span>
             </div>
             @empty
-            <div class="px-6 py-8 text-center text-gray-400 text-sm">Aucune tâche pour l'instant.</div>
+            <div class="px-6 py-8 text-center text-gray-400 text-sm">{{ __('admin.dashboard.no_tasks') }}</div>
             @endforelse
           </div>
         </div>
@@ -162,21 +162,28 @@
       <div class="space-y-6">
         {{-- Quick Actions --}}
         <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
-          <h2 class="text-sm font-black text-gray-500 uppercase tracking-widest mb-4">Actions rapides</h2>
+          <h2 class="text-sm font-black text-gray-500 uppercase tracking-widest mb-4">{{ __('admin.dashboard.quick_actions') }}</h2>
           <div class="flex flex-col gap-2">
             <a href="{{ route('axe.groupes') }}" class="flex items-center gap-3 p-3 rounded-xl hover:bg-indigo-50 transition-colors group">
               <div class="w-8 h-8 bg-indigo-50 text-indigo-500 group-hover:bg-indigo-100 rounded-lg flex items-center justify-center transition-colors">
                 <i class="fas fa-layer-group text-xs"></i>
               </div>
-              <span class="text-sm font-bold text-gray-700 group-hover:text-indigo-700 transition-colors">Voir les groupes</span>
+              <span class="text-sm font-bold text-gray-700 group-hover:text-indigo-700 transition-colors">{{ __('admin.dashboard.view_groups') }}</span>
               <i class="fas fa-chevron-right text-[10px] text-gray-300 ml-auto group-hover:text-indigo-400 transition-colors"></i>
             </a>
             <a href="{{ route('axe.tasks') }}" class="flex items-center gap-3 p-3 rounded-xl hover:bg-violet-50 transition-colors group">
               <div class="w-8 h-8 bg-violet-50 text-violet-500 group-hover:bg-violet-100 rounded-lg flex items-center justify-center transition-colors">
                 <i class="fas fa-list-check text-xs"></i>
               </div>
-              <span class="text-sm font-bold text-gray-700 group-hover:text-violet-700 transition-colors">Voir les tâches</span>
+              <span class="text-sm font-bold text-gray-700 group-hover:text-violet-700 transition-colors">{{ __('admin.dashboard.view_tasks') }}</span>
               <i class="fas fa-chevron-right text-[10px] text-gray-300 ml-auto group-hover:text-violet-400 transition-colors"></i>
+            </a>
+            <a href="{{ route('axe.users') }}" class="flex items-center gap-3 p-3 rounded-xl hover:bg-blue-50 transition-colors group">
+              <div class="w-8 h-8 bg-blue-50 text-blue-500 group-hover:bg-blue-100 rounded-lg flex items-center justify-center transition-colors">
+                <i class="fas fa-users text-xs"></i>
+              </div>
+              <span class="text-sm font-bold text-gray-700 group-hover:text-blue-700 transition-colors">{{ __('admin.dashboard.view_users') }}</span>
+              <i class="fas fa-chevron-right text-[10px] text-gray-300 ml-auto group-hover:text-blue-400 transition-colors"></i>
             </a>
           </div>
         </div>
@@ -184,7 +191,7 @@
         {{-- Recent users --}}
         <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
           <div class="p-6 border-b border-gray-50">
-            <h2 class="text-sm font-black text-gray-500 uppercase tracking-widest">Nouveaux membres</h2>
+            <h2 class="text-sm font-black text-gray-500 uppercase tracking-widest">{{ __('admin.dashboard.recent_users') }}</h2>
           </div>
           <div class="divide-y divide-gray-50">
             @forelse($recentUsers as $u)
@@ -201,22 +208,22 @@
               @endif
             </div>
             @empty
-            <div class="px-5 py-8 text-center text-gray-400 text-sm">Aucun utilisateur.</div>
+            <div class="px-5 py-8 text-center text-gray-400 text-sm">{{ __('admin.users.no_user_found') }}</div>
             @endforelse
           </div>
           <div class="p-4 text-center border-t border-gray-50">
-            <span class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Total · {{ $totalUsers }} utilisateurs</span>
+            <span class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Total · {{ $totalUsers }} {{ trans_choice('admin.users.total_members', $totalUsers) }}</span>
           </div>
         </div>
 
         {{-- Task state breakdown --}}
         <div class="bg-gradient-to-br from-indigo-600 to-violet-600 rounded-2xl p-6 text-white shadow-lg shadow-indigo-100">
-          <h2 class="text-[10px] font-black uppercase tracking-widest opacity-60 mb-4">Répartition des tâches</h2>
+          <h2 class="text-[10px] font-black uppercase tracking-widest opacity-60 mb-4">{{ __('admin.dashboard.task_breakdown') }}</h2>
           @php
             $states = [
-              ['label' => 'Terminées', 'val' => $terminees, 'color' => 'bg-emerald-400'],
-              ['label' => 'En cours', 'val' => $enCours, 'color' => 'bg-amber-400'],
-              ['label' => 'En retard', 'val' => $enRetard, 'color' => 'bg-red-400'],
+              ['label' => __('admin.dashboard.completed'), 'val' => $terminees, 'color' => 'bg-emerald-400'],
+              ['label' => __('admin.dashboard.in_progress'), 'val' => $enCours, 'color' => 'bg-amber-400'],
+              ['label' => __('admin.dashboard.late'), 'val' => $enRetard, 'color' => 'bg-red-400'],
             ];
           @endphp
           <div class="space-y-3">

@@ -30,8 +30,8 @@
                     <i class="fas fa-shield-halved text-white text-lg"></i>
                 </div>
                 <div>
-                    <h1 class="text-2xl font-extrabold text-gray-900 tracking-tight leading-tight">Administration</h1>
-                    <p class="text-sm text-gray-400 font-medium">Tableau de bord · {{ now()->translatedFormat('l d F Y') }}</p>
+                    <h1 class="text-2xl font-extrabold text-gray-900 tracking-tight leading-tight">{{ __('admin.groups.title') }}</h1>
+                    <p class="text-sm text-gray-400 font-medium">{{ __('admin.groups.dashboard') }} · {{ now()->translatedFormat('l d F Y') }}</p>
                 </div>
             </div>
             <div class="flex flex-wrap items-center gap-4 w-full lg:w-auto">
@@ -42,7 +42,7 @@
                         <input type="date"   value="{{ $date_fin }}" name="date_fin" class="bg-transparent border-none text-sm font-semibold text-gray-700 focus:ring-0 cursor-pointer">
                     </div>
                     <button type="submit" class="inline-flex items-center px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold rounded-lg transition-all shadow-md shadow-indigo-100 active:scale-95">
-                        <i class="fas fa-filter mr-2"></i> Filtrer
+                        <i class="fas fa-filter mr-2"></i> {{ __('admin.groups.filter') }}
                     </button>
                 </form>
             </div>
@@ -53,7 +53,7 @@
                 <input 
                     type="text" 
                     x-model="search" 
-                    placeholder="Rechercher un groupe parmi la liste ci-dessous..." 
+                    placeholder="{{ __('admin.groups.search_placeholder') }}" 
                     class="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-base focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all outline-none shadow-sm"
                 >
             </div>
@@ -92,7 +92,7 @@
         <i class="fas fa-search text-gray-300 text-3xl mb-3 block"></i>
         
         <span class="text-gray-500 font-medium">
-            Aucun groupe ne correspond à "<span x-text="search"></span>"
+            {{ __('admin.groups.no_match') }} "<span x-text="search"></span>"
         </span>
     </div>
 

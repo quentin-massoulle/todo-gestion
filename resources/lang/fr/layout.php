@@ -7,4 +7,5 @@ return [
     'taches' => 'Gérer mes taches',
     'profil' => 'Mon profil',
     'groupe' => 'Mes groupe',
+    'dashboard' => 'Tableau de bord',
 ];

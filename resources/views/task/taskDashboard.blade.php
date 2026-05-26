@@ -31,7 +31,7 @@ Mes Tâches
             </div>
             <button type="submit"
                     class="inline-flex items-center px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold rounded-lg transition-all shadow-md active:scale-95">
-                <i class="fas fa-filter mr-2"></i> Filtrer
+                <i class="fas fa-filter mr-2"></i> {{ __('admin.groups.filter') }}
             </button>   
         </form>
 
@@ -67,11 +67,13 @@ Mes Tâches
                             <div class="flex justify-between items-center">
                                 <h4 class="font-semibold text-gray-900 w-9/10">{{ $task->titre }}</h4>
                                 @if(($task->groupe_id != null && $groupe != null) || ($isAdmin ?? false))
-                                    <img src="{{ $task->user->profilePicture() }}" alt="Photo de profil" class="profile-picture w-1/10">
+                                    @if($task->user)
+                                        <img src="{{ $task->user->profilePicture() }}" alt="Photo de profil" class="profile-picture w-1/10">
+                                    @endif
                                 @endif
                             </div>
                             @if($isAdmin ?? false)
-                                <p class="text-xs text-gray-400 mb-1">{{ $task->user->name }}</p>
+                                <p class="text-xs text-gray-400 mb-1">{{ $task->user?->prenom ?? 'Utilisateur inconnu' }} {{ $task->user?->nom ?? '' }}</p>
                             @endif
                             <div class="flex justify-between items-center">
                                 <div class="mt-2"> 

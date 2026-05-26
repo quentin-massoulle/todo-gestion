@@ -94,4 +94,8 @@ Route::middleware([IsAdmin::class, AdminDateFilter::class])->prefix('axe')->name
             ->name('groupe.show');
         Route::get('/tasks',[taskController::class,'AxeTasks'])->where('id','[1-9][0-9]*')
             ->name('tasks');
+        Route::get('/users', [AdminController::class, 'users'])
+            ->name('users');
+        Route::delete('/users/{user}', [AdminController::class, 'destroyUser'])
+            ->name('users.destroy');
 });
