@@ -13,8 +13,14 @@ export default defineConfig({
         }),
     ],
     server: {
-        host: '0.0.0.0',  // écoute toutes les interfaces réseau
-        port: 5173,       // port par défaut de Vite
-        strictPort: true, // ne change pas de port automatiquement
+        https: true,
+        host: '0.0.0.0',
+        port: 5173,
+        strictPort: true,
+        hmr: {
+            host: 'todo-gestion.ddev.site',
+            protocol: 'wss',
+            clientPort: 5173,
+        },
     },
 });
