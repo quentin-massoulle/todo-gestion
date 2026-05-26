@@ -18,9 +18,9 @@
       <div class="flex flex-wrap items-center gap-4 w-full lg:w-auto">
         <form action="{{ route('axe.dashboard') }}" method="GET" class="flex flex-wrap items-center gap-2 bg-gray-50 p-1.5 rounded-xl border border-gray-200 w-full lg:w-auto">
           <div class="flex items-center gap-2 px-2">
-            <input type="date" value="{{ $date_debut }}" name="date_debut" class="bg-transparent border-none text-sm font-semibold text-gray-700 focus:ring-0 cursor-pointer">
+            <input type="date" value="{{ $date_debut }}" name="date_debut" class="bg-transparent border border-gray-200 rounded-lg px-2 py-1 text-sm font-semibold text-gray-700 focus:ring-0 cursor-pointer">
             <span class="text-gray-400 text-xs font-bold font-mono">→</span>
-            <input type="date" name="date_fin" value="{{ $date_fin }}" class="bg-transparent border-none text-sm font-semibold text-gray-700 focus:ring-0 cursor-pointer">
+            <input type="date" name="date_fin" value="{{ $date_fin }}" class="bg-transparent border border-gray-200 rounded-lg px-2 py-1 text-sm font-semibold text-gray-700 focus:ring-0 cursor-pointer">
           </div>
           <button type="submit" class="inline-flex items-center px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold rounded-lg transition-all shadow-md shadow-indigo-100 active:scale-95">
             <i class="fas fa-filter mr-2"></i> Filtrer

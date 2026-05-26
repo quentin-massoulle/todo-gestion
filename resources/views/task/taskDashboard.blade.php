@@ -17,15 +17,17 @@ Mes Tâches
     <h2 class="text-xl font-bold mb-1 text-center text-gray-800">Liste des Tâches</h2>
 
     @if($isAdmin ?? false)
-    <div class="flex items-center justify-end gap-2 mb-3 w-full bg-gray-50 p-1.5 rounded-xl border border-gray-200">
+    <div class="flex items-center justify-end gap-2 mb-3 w-full bg-white p-1.5 rounded-xl border border-gray-200">
         <form action="{{ route('axe.tasks') }}" method="GET"
-              class="flex items-center gap-2 bg-white p-1.5 rounded-xl border border-gray-200">
+              class="flex items-center gap-2 bg-gray-50 p-1.5 rounded-xl border border-gray-200">
             <div class="flex items-center gap-2 px-2">
                 <input type="date" name="date_debut" value="{{ $date_debut ?? '' }}"
-                       class="bg-transparent border-none text-sm font-semibold text-gray-700 focus:ring-0 cursor-pointer">
-                <span class="text-gray-400 text-xs font-bold font-mono">→</span>
+                       class="filter-date bg-transparent border-0 outline-none font-semibold text-gray-700 focus:ring-0 focus:outline-none cursor-pointer"
+                       style="font-size: 1rem;">
+                <span class="text-gray-400 text-xl font-bold font-mono">→</span>
                 <input type="date" name="date_fin" value="{{ $date_fin ?? '' }}"
-                       class="bg-transparent border-none text-sm font-semibold text-gray-700 focus:ring-0 cursor-pointer">
+                       class="filter-date bg-transparent border-0 outline-none font-semibold text-gray-700 focus:ring-0 focus:outline-none cursor-pointer"
+                       style="font-size: 1rem;">
             </div>
             <button type="submit"
                     class="inline-flex items-center px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold rounded-lg transition-all shadow-md active:scale-95">
