@@ -35,14 +35,14 @@ Le tout dans un environnement conteneurisé avec **Docker**, propulsé par **Ngi
 ## 🛠️ Installation
 
 ### Prérequis
-
 - Docker d'installer 
+- Ddev d'installer 
 
 ### Commande a éxécuter 
 
-- cd todo-gestion
-- docker compose -up --d
-- docker exec -it app bash
+- cd todo-gestion (ou le chemin ou vous avez cloner le projet dans le terminal)
+- ddev start
+- ddev ssh
 - composer install 
 - cp .env.example .env 
 - php artisan key:generate
@@ -56,10 +56,10 @@ Le tout dans un environnement conteneurisé avec **Docker**, propulsé par **Ngi
 
 ##  🌐 Accès à l'application
 
-🔗 Interface web : http://localhost:8989/
+🔗 Interface web : https://todo-gestion.ddev.site
 
-🗃️ Interface phpMyAdmin : http://localhost:8080/
+🗃️ Interface phpMyAdmin : https://todo-gestion.ddev.site:8443/
+
 👉 Identifiants de connexion :
-    Utilisateur  : root
-    Mot de passe : root
-
+Utilisateur  : root
+Mot de passe : root
